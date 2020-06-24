@@ -1,5 +1,5 @@
 <template>
-  <div id="travel">
+  <div class="travel">
     <home/>
     <about/>
     <div class="count-group">
@@ -41,7 +41,6 @@ export default class App extends Vue {
 <style lang="less">
 .travel {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
