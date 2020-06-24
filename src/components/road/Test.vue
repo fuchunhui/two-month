@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator'
+import { Component, Prop, Emit, Vue } from 'vue-property-decorator';
 
 @Component
 export default class Test extends Vue {
@@ -29,7 +29,7 @@ export default class Test extends Vue {
 
     @Emit('on-click')
     onClick (): void {
-      console.log(123)
+      console.log(123);
     }
 }
 </script>
