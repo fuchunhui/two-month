@@ -22,7 +22,7 @@ import About from '@/components/road/About.vue';
     About
   }
 })
-export default class App extends Vue {
+export default class Travel extends Vue {
   get count () {
     return CounterModule.count;
   }
