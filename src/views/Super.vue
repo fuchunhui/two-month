@@ -6,14 +6,15 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import basic from '@/store/super/basic';
-// import Home from '@/components/road/Home.vue';
+// import basic from '@/store/super/basic';
+import interfaces from '@/store/super/interfaces';
 
 @Component
 export default class Super extends Vue {
   created () {
     console.log('created');
-    basic();
+    // basic();
+    interfaces();
   }
 }
 </script>
