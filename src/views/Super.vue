@@ -9,7 +9,8 @@ import { Vue, Component } from 'vue-property-decorator';
 // import basic from '@/store/super/basic';
 // import interfaces from '@/store/super/interfaces';
 // import functions from '@/store/super/functions';
-import literal from '@/store/super/literal';
+// import literal from '@/store/super/literal';
+import intersections from '@/store/super/intersections';
 
 @Component
 export default class Super extends Vue {
@@ -17,7 +18,8 @@ export default class Super extends Vue {
     // basic();
     // interfaces();
     // functions();
-    literal();
+    // literal();
+    intersections();
   }
 }
 </script>
