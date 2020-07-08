@@ -11,17 +11,21 @@ import { Vue, Component } from 'vue-property-decorator';
 // import functions from '@/store/super/functions';
 // import literal from '@/store/super/literal';
 // import intersections from '@/store/super/intersections';
-import classes from '@/store/super/classes';
+// import classes from '@/store/super/classes';
+// import enums from '@/store/super/enums';
+import generics from '@/store/super/generics';
 
 @Component
 export default class Super extends Vue {
-  created () {
+  created() {
     // basic();
     // interfaces();
     // functions();
     // literal();
     // intersections();
-    classes();
+    // classes();
+    // enums();
+    generics();
   }
 }
 </script>

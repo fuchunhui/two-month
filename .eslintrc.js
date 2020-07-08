@@ -20,6 +20,11 @@ module.exports = {
       'ignore-params',
       'ignore-properties'
     ],
-    'object-curly-spacing': 'off'
+    'object-curly-spacing': 'off',
+    'space-before-function-paren': ['error', {
+        'anonymous': 'always',
+        'named': 'never',
+        'asyncArrow': 'always'
+    }]
   }
 }
