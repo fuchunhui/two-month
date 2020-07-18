@@ -9,17 +9,17 @@ import store from './index';
 }) class CounterModule extends VuexModule {
   count = 1
 
-  get doubleCount () {
+  get doubleCount() {
     return this.count * 2;
   }
 
   @Mutation
-  add () {
+  add() {
     this.count++;
   }
 
   @Action
-  asyncAdd () {
+  asyncAdd() {
     setTimeout(() => {
       this.add();
     }, 100);

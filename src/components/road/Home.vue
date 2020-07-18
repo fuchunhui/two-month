@@ -26,7 +26,7 @@ export default {
     // Official,
     // ReturnValue
   },
-  mounted () {
+  mounted() {
     console.log('test: ', this.$refs.test);
     console.log('test: ', this.$refs.test.$mesg);
   }

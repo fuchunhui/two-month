@@ -23,16 +23,16 @@ import About from '@/components/road/About.vue';
   }
 })
 export default class Travel extends Vue {
-  get count () {
+  get count() {
     return CounterModule.count;
   }
 
-  add () {
+  add() {
     console.log('123');
     CounterModule.add();
   }
 
-  asyncAdd () {
+  asyncAdd() {
     CounterModule.asyncAdd();
   }
 }

@@ -13,12 +13,12 @@ export default class Test extends Vue {
     @Prop() private message!: string
 
     @Emit('on-click')
-    onClick (): void {
+    onClick(): void {
       console.log(123);
       this.checkConsole();
     }
 
-    checkConsole () {
+    checkConsole() {
       console.log('checkConsole');
     }
 }

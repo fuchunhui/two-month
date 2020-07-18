@@ -14,11 +14,11 @@ import Component from 'vue-class-component';
 export default class Counter extends Vue {
   count = 0;
 
-  increment () {
+  increment() {
     this.count++;
   }
 
-  decrement () {
+  decrement() {
     this.count--;
   }
 }
