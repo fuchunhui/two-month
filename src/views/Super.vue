@@ -13,7 +13,8 @@ import { Vue, Component } from 'vue-property-decorator';
 // import intersections from '@/store/super/intersections';
 // import classes from '@/store/super/classes';
 // import enums from '@/store/super/enums';
-import generics from '@/store/super/generics';
+// import generics from '@/store/super/generics';
+import advance from '@/store/super/advance';
 
 @Component
 export default class Super extends Vue {
@@ -25,7 +26,8 @@ export default class Super extends Vue {
     // intersections();
     // classes();
     // enums();
-    generics();
+    // generics();
+    advance();
   }
 }
 </script>

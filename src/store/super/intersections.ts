@@ -21,10 +21,6 @@ export default function () {
     swim(): void;
     layEggs(): void;
   }
-  // declare function getSmallPet(): Fish | Bird;
-  // const pet = getSmallPet();
-  // pet.layEggs();
-  // pet.fly();
 
   type NetworkLoadingState = {
     state: 'loading';
