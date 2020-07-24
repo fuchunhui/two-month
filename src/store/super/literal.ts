@@ -7,7 +7,7 @@ export default function () {
 
   type Easing = 'ease-in' | 'ease-out' | 'ease-in-out';
   class UIElement {
-    animate (dx: number, dy: number, easing: Easing) {
+    animate(dx: number, dy: number, easing: Easing) {
       console.log(dx, dy, easing);
     }
   }
@@ -17,11 +17,11 @@ export default function () {
 
   function createElement (tagName: 'img'): HTMLImageElement;
   function createElement (tagName: 'input'): HTMLInputElement;
-  function createElement (tagName: string): Element {
+  function createElement(tagName: string): Element {
     return new Element();
   }
 
-  function rollDice (): 1 | 2 | 3 | 4 | 5 | 6 {
+  function rollDice(): 1 | 2 | 3 | 4 | 5 | 6 {
     return (Math.floor(Math.random() * 6) + 1) as 1 | 2 | 3 | 4 | 5 | 6;
   }
   const result = rollDice();

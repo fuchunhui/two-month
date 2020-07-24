@@ -1,6 +1,6 @@
 declare function create (o: object | null): void;
 
-export default function basic () {
+export default function basic() {
   const basicTypes = () => {
     let isDone: boolean = false;
     isDone = true;
@@ -50,7 +50,7 @@ export default function basic () {
     listAny[1] = 123;
     console.log('any: ', notSure, listAny);
 
-    (function warnUser (): void {
+    (function warnUser(): void {
       console.log('void: ', 'this is a message!');
     })();
 
@@ -69,7 +69,7 @@ export default function basic () {
     // }
     // fail();
 
-    function create (o: object | null): void {
+    function create(o: object | null): void {
       console.log('object: ', o);
     }
     create({

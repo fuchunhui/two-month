@@ -1,7 +1,7 @@
-export default function functions () {
+export default function functions() {
   console.log('functions');
 
-  function add (x: number, y: number): number {
+  function add(x: number, y: number): number {
     return x + y;
   }
   const addAgain = (x: number, y: number): number => {
@@ -20,7 +20,7 @@ export default function functions () {
   };
   console.log(anotherAdd(11, 22), anotherAddAgain(42, 5), anotherAddAgain(2, 3));
 
-  function buildName (fn: string, ln: string = 'Smith', md?: string) {
+  function buildName(fn: string, ln: string = 'Smith', md?: string) {
     if (md) {
       return fn + md + ln;
     } else {
@@ -33,7 +33,7 @@ export default function functions () {
   const result4 = buildName('Bob', undefined);
   console.log('optional and default parameters: ', result1, result2, result3, result4);
 
-  function buildNa (fn: string, ...rn: string[]): string {
+  function buildNa(fn: string, ...rn: string[]): string {
     return fn + '' + rn.join('');
   }
   const bn: (fn: string, ...rest: string[]) => string = buildNa;

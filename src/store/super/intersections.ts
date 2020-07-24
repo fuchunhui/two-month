@@ -1,7 +1,7 @@
 export default function () {
   console.log('unions and intersections');
 
-  function padLeft (value: string, padding: string | number) {
+  function padLeft(value: string, padding: string | number) {
     if (typeof padding === 'number') {
       return Array(padding + 1).join('') + value;
     }
@@ -42,7 +42,7 @@ export default function () {
     | NetworkFailedState
     | NetworkSuccessState;
 
-  function newworkStatus (state: NetworkState): string {
+  function newworkStatus(state: NetworkState): string {
     switch (state.state) {
       case 'loading':
         return 'downloading...';
@@ -94,7 +94,7 @@ export default function () {
   console.log(handleArtistsResponse(res), {...art});
 
   class Person {
-    constructor (public name: string) {
+    constructor(public name: string) {
       console.log('constructor: ', name);
     }
   }
@@ -104,12 +104,12 @@ export default function () {
     log (name: string): void;
   }
   class ConsoleLogger implements Loggable {
-    log (name: string) {
+    log(name: string) {
       console.log(`Hello, is ${name}`);
     }
   }
 
-  function extend<First extends {}, Second extends {}> (
+  function extend<First extends {}, Second extends {}>(
     first: First,
     second: Second
   ): First & Second {

@@ -3,11 +3,11 @@ export default function () {
 
   class Greeter {
     greeting: string;
-    constructor (message: string) {
+    constructor(message: string) {
       this.greeting = message;
     }
 
-    greet () {
+    greet() {
       return `hellow, ${this.greeting}`;
     }
   }
@@ -16,12 +16,12 @@ export default function () {
   console.log('classes: ', greeter);
 
   class Animal {
-    move (distance: number = 0) {
+    move(distance: number = 0) {
       console.log(`animal moved ${distance}m.`);
     }
   }
   class Dog extends Animal {
-    break () {
+    break() {
       console.log('woof!');
     }
   }
@@ -32,28 +32,28 @@ export default function () {
 
   class AnimalHigh {
     public name: string;
-    public constructor (name: string) {
+    public constructor(name: string) {
       this.name = name;
     }
 
-    public move (distance: number = 0): void {
+    public move(distance: number = 0): void {
       console.log(`${this.name} moved ${distance}m.`, this);
     }
   }
   class Snake extends AnimalHigh {
-    move (distance = 5) {
+    move(distance = 5) {
       console.log('slithering...');
       super.move(distance);
     }
   }
 
   class Horse extends AnimalHigh {
-    constructor (name: string) {
+    constructor(name: string) {
       super(name);
       this.name = name + ' 123';
     }
 
-    move (distance = 45) {
+    move(distance = 45) {
       console.log('galloping...');
       super.move(distance);
     }
@@ -66,7 +66,7 @@ export default function () {
 
   class AnimalPP {
     private name: string;
-    constructor (name: string) {
+    constructor(name: string) {
       this.name = name;
     }
   }
@@ -74,7 +74,7 @@ export default function () {
   console.log('ECMAScript Private Fields: ', pp);
 
   class Rhino extends AnimalPP {
-    constructor () {
+    constructor() {
       super('Rhino');
     }
   }
@@ -86,19 +86,19 @@ export default function () {
 
   class Person {
     protected name: string;
-    protected constructor (name: string) {
+    protected constructor(name: string) {
       this.name = name;
     }
   }
 
   class Employee extends Person {
     public department: string;
-    constructor (name: string, department: string) {
+    constructor(name: string, department: string) {
       super(name);
       this.department = department;
     }
 
-    public getElevatorPitch () {
+    public getElevatorPitch() {
       return `Hello, my name is ${this.name} and I work in ${this.department}`;
     }
   }
@@ -109,7 +109,7 @@ export default function () {
 
   class Octopus {
     readonly numberOfLegs: number = 8;
-    constructor (readonly name: string) {
+    constructor(readonly name: string) {
       console.log(name);
     }
   }
@@ -124,11 +124,11 @@ export default function () {
   const fullNameMaxLength = 10;
   class Employee3 {
     private _fullName: string = '';
-    get fullName (): string {
+    get fullName(): string {
       return this._fullName;
     }
 
-    set fullName (newName: string) {
+    set fullName(newName: string) {
       if (newName && newName.length > fullNameMaxLength) {
         throw new Error('fullName has a max length of ' + fullNameMaxLength);
       }
@@ -147,11 +147,11 @@ export default function () {
       y: 0
     };
 
-    constructor (public scale: number = 1) {
+    constructor(public scale: number = 1) {
       console.log('Static Properties', scale);
     }
 
-    calculateDistanceFromOrigin (point: {
+    calculateDistanceFromOrigin(point: {
       x: number;
       y: number;
     }) {
@@ -179,26 +179,26 @@ export default function () {
   // }
 
   abstract class Department3 {
-    constructor (public name: string) {
+    constructor(public name: string) {
       console.log('abstract classes ', name);
     }
 
-    printName (): void {
+    printName(): void {
       console.log('Department name: ' + this.name);
     }
 
     abstract printMeeting (): void;
   }
   class AccountingDepartment extends Department3 {
-    constructor () {
+    constructor() {
       super('Accounting');
     }
 
-    printMeeting (): void {
+    printMeeting(): void {
       console.log('abstract printmeeting.');
     }
 
-    generateReports (): void {
+    generateReports(): void {
       console.log('Generating...');
     }
   }
@@ -210,11 +210,11 @@ export default function () {
 
   class Greeter3 {
     greeting: string;
-    constructor (mes: string) {
+    constructor(mes: string) {
       this.greeting = mes;
     }
 
-    greet () {
+    greet() {
       return 'hellow' + this.greeting;
     }
   }
@@ -224,7 +224,7 @@ export default function () {
   class Greeter4 {
     static standardGreeting = 'Hello, there';
     greeting: string = '';
-    greet () {
+    greet() {
       if (this.greeting) {
         return 'Hello, ' + this.greeting;
       } else {

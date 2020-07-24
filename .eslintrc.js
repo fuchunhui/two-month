@@ -4,7 +4,7 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/essential',
+    'plugin:vue/vue3-essential',
     '@vue/standard',
     '@vue/typescript/recommended'
   ],
@@ -14,7 +14,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'semi': ['error', 'always'],
+    semi: ['error', 'always'],
     '@typescript-eslint/no-inferrable-types': [
       'off',
       'ignore-params',
@@ -22,9 +22,9 @@ module.exports = {
     ],
     'object-curly-spacing': 'off',
     'space-before-function-paren': ['error', {
-        'anonymous': 'always',
-        'named': 'never',
-        'asyncArrow': 'always'
+      anonymous: 'always',
+      named: 'never',
+      asyncArrow: 'always'
     }]
   }
-}
+};

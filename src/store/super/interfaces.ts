@@ -1,5 +1,5 @@
-export default function interfaces () {
-  function printLabel (labeledObj: { label: string }) {
+export default function interfaces() {
+  function printLabel(labeledObj: { label: string }) {
     console.log(labeledObj.label);
   }
   const myObj = {
@@ -9,7 +9,7 @@ export default function interfaces () {
   printLabel(myObj);
 
   interface LabeledValue {label: string}
-  function printLabel2 (labeledObj: LabeledValue) {
+  function printLabel2(labeledObj: LabeledValue) {
     console.log('printLabel2: ', labeledObj.label);
   }
   printLabel2(myObj);
@@ -21,7 +21,7 @@ export default function interfaces () {
     width?: number;
     [propName: string]: any; // eslint-disable-line
   }
-  function createSquare (config: SquareConfig): SquareConfig {
+  function createSquare(config: SquareConfig): SquareConfig {
     const newSquare = {
       color: 'white',
       area: 100
@@ -115,7 +115,7 @@ export default function interfaces () {
   }
   class Clock implements ClockInterface {
     currentTime: Date = new Date();
-    constructor (h: number, m: number) {
+    constructor(h: number, m: number) {
       console.log(h, m);
       this.currentTime = new Date(2000, 1, 1, h, m, 11);
     }
@@ -129,11 +129,11 @@ export default function interfaces () {
   }
   class TimeClock implements TimeClockInterface {
     currentTime: Date = new Date();
-    setTime (d: Date) {
+    setTime(d: Date) {
       this.currentTime = d;
     }
 
-    constructor (h: number, m: number) {
+    constructor(h: number, m: number) {
       console.log(h, m);
     }
   }
@@ -147,7 +147,7 @@ export default function interfaces () {
   interface ClockConstructor {
     new (hour: number, minute: number): ClockTick;
   }
-  function createClock (
+  function createClock(
     ctor: ClockConstructor,
     hour: number,
     minute: number
@@ -155,20 +155,20 @@ export default function interfaces () {
     return new ctor(hour, minute); // eslint-disable-line
   }
   class DigitalClock implements ClockTick {
-    constructor (h: number, m: number) {
+    constructor(h: number, m: number) {
       console.log('DigitalClock: ', h, m);
     }
 
-    tick () {
+    tick() {
       console.log('beep beep');
     }
   }
   class AnalogClock implements ClockTick {
-    constructor (h: number, m: number) {
+    constructor(h: number, m: number) {
       console.log('AnalogClock: ', h, m);
     }
 
-    tick () {
+    tick() {
       console.log('tick tick');
     }
   }
@@ -185,11 +185,11 @@ export default function interfaces () {
     tick(): void;
   }
   const ClockT: Clock2 = class ClockT implements ClockTick2 {
-    constructor (h: number, m: number) {
+    constructor(h: number, m: number) {
       console.log('ClockT: ', h, m);
     }
 
-    tick () {
+    tick() {
       console.log('lll 111');
     }
   };
@@ -216,7 +216,7 @@ export default function interfaces () {
     interval: number;
     reset(): void;
   }
-  function getCounter (): Counter {
+  function getCounter(): Counter {
     const counter = function (start: number) {
       console.log('counter start: ', start);
     } as Counter;
@@ -240,13 +240,13 @@ export default function interfaces () {
   }
   class Button extends Control implements SelectableControl {
     state: string = 'name1';
-    select (): number {
+    select(): number {
       return 123456;
     }
   }
   class TextBox extends Control {
     state: string = '111';
-    select (): number {
+    select(): number {
       return 1;
     }
   }
