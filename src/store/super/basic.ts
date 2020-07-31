@@ -81,7 +81,8 @@ export default function basic() {
     // eslint-disable-next-line
     const someValue: any = 'this a number';
     const strLength: number = (someValue as string).length;
-    console.log('assertions: ', strLength);
+    const strLength2: number = (<string>someValue).length;
+    console.log('assertions: ', strLength, strLength2);
   };
   (function () {
     basicTypes();

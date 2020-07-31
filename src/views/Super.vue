@@ -7,27 +7,27 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 // import basic from '@/store/super/basic';
-// import interfaces from '@/store/super/interfaces';
+import interfaces from '@/store/super/interfaces';
 // import functions from '@/store/super/functions';
 // import literal from '@/store/super/literal';
 // import intersections from '@/store/super/intersections';
 // import classes from '@/store/super/classes';
 // import enums from '@/store/super/enums';
 // import generics from '@/store/super/generics';
-import advance from '@/store/super/advance';
+// import advance from '@/store/super/advance';
 
 @Component
 export default class Super extends Vue {
   created() {
     // basic();
-    // interfaces();
+    interfaces();
     // functions();
     // literal();
     // intersections();
     // classes();
     // enums();
     // generics();
-    advance();
+    // advance();
   }
 }
 </script>

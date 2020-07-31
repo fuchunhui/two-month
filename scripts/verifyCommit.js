@@ -2,7 +2,6 @@
 const chalk = require('chalk');
 const msgPath = process.env.HUSKY_GIT_PARAMS;
 const msg = require('fs').readFileSync(msgPath, 'utf-8').trim();
-
 const rule = /^(revert: )?(feat|fix|docs|style|refactor|test|build|ci|chore|types|wip|release|perf)(\(.+\))?: .{1,50}/
 
 if (!rule.test(msg)) {
@@ -10,6 +9,6 @@ if (!rule.test(msg)) {
     `  ${chalk.bgRed.white(' ERROR ')} ${chalk.red(`invalid commit message format.`)}\n\n`
     + chalk.red(`  Proper commit message format is required for automated changelog generation. \n  Examples:\n\n`)
     + `${chalk.green(`    feat(compiler): add 'comments' option`)}\n`
-  )
-  process.exit(1)
+  );
+  process.exit(1);
 }
