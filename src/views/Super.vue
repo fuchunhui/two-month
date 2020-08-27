@@ -14,7 +14,8 @@ import { Vue, Component } from 'vue-property-decorator';
 // import classes from '@/store/super/classes';
 // import enums from '@/store/super/enums';
 // import generics from '@/store/super/generics';
-import advance from '@/store/super/advance';
+// import advance from '@/store/super/advance';
+import utility from '@/store/super/utility';
 
 @Component
 export default class Super extends Vue {
@@ -27,7 +28,8 @@ export default class Super extends Vue {
     // classes();
     // enums();
     // generics();
-    advance();
+    // advance();
+    utility();
   }
 }
 </script>
