@@ -23,3 +23,7 @@ interface Fish {
   layEggs(): void;
 }
 declare function getSmallPet(): Fish | Bird;
+declare function f1(arg: {
+  a: number;
+  b: number;
+}): void;

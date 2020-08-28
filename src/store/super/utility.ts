@@ -95,8 +95,91 @@ export default function () {
   console.log('NonNullable: ', n0, n1);
 
   // Parameters
-  // declare function f1(arg: {
-  //   a: number;
-  //   b: number;
-  // }): void;
+  type P0 = Parameters<() => string>;
+  type P1 = Parameters<(s: string) => void>;
+  type P2 = Parameters<<T>(arg: T) => T>;
+  type P3 = Parameters<typeof f1>;
+  type P4 = Parameters<any>; // eslint-disable-line
+  type P5 = Parameters<never>;
+  // type P6 = Parameters<string>;
+  // type P7 = Parameters<Function>;
+  const p0: P0 = [];
+  const p1: P1 = ['a'];
+  const p2: P2 = ['1'];
+  const p3: P3 = [{a: 1, b: 2}];
+  const p4: P4 = ['a', '2'];
+  function p5(message: string): P5 {
+    throw new Error(message);
+  }
+  console.log('Parameters: ', p0, p1, p2, p3, p4, p5);
+
+  // ConstructorParameters
+  type CP0 = ConstructorParameters<ErrorConstructor>;
+  type CP1 = ConstructorParameters<FunctionConstructor>;
+  type CP2 = ConstructorParameters<RegExpConstructor>;
+  type CP3 = ConstructorParameters<any>;  // eslint-disable-line
+  const cp0: CP0 = ['error'];
+  const cp1: CP1 = ['a'];
+  const cp2: CP2 = ['1'];
+  const cp3: CP3 = [{a: 1, b: 2}];
+  console.log('Parameters: ', cp0, cp1, cp2, cp3);
+
+  // ReturnType
+  type R0 = ReturnType<() => string>
+  type R1 = ReturnType<(s: string) => void>;
+  type R2 = ReturnType<<T>() => T>;
+  type R3 = ReturnType<<T extends U, U extends number[]>() => T>;
+  type R4 = ReturnType<typeof f1>
+  type R5 = ReturnType<any>; // eslint-disable-line
+  type R6 = ReturnType<never>;
+  const r0: R0 = 'abc';
+  const r1 = function rt1(): R1 {
+    console.log(r1);
+  };
+  const r2: R2 = false;
+  const r3: R3 = [1, 2, 3];
+  const r4 = function rt4(): R4 {
+    console.log(r4);
+  };
+  function r5(message: string): R5 {
+    throw new Error(message);
+  }
+  console.log('ReturnType: ', r0, r1, r2, r3, r4, r5);
+
+  // InstanceType
+  class ITC {
+    x = 0;
+    y = 0;
+  }
+  type IT0 = InstanceType<typeof ITC>;
+  type IT1 = InstanceType<any>; // eslint-disable-line
+  type IT2 = InstanceType<never>;
+
+  // Required
+  interface Props {
+    a?: number; // eslint-disable-line
+    b?: number; // eslint-disable-line
+  }
+  const d1: Props = {
+    a: 5
+  };
+  const d2: Required<Props> = {
+    a: 5,
+    b: 123
+  };
+  console.log('Required: ', d1, d2);
+
+  // ThisParameterType
+  function toHex(this: number) {
+    return this.toString(16);
+  }
+  function numberToString(n: ThisParameterType<typeof toHex>) {
+    return toHex.apply(n);
+  }
+
+  // OmitThisParameter
+  const fiveToHex: OmitThisParameter<typeof toHex> = toHex.bind(5);
+  console.log('OmitThisParameter: ', fiveToHex());
+
+  // ThisType TODO
 };
