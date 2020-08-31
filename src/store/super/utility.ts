@@ -173,7 +173,7 @@ export default function () {
   function toHex(this: number) {
     return this.toString(16);
   }
-  function numberToString(n: ThisParameterType<typeof toHex>) {
+  function numberToString(n: ThisParameterType<typeof toHex>) {   // eslint-disable-line
     return toHex.apply(n);
   }
 
@@ -181,5 +181,29 @@ export default function () {
   const fiveToHex: OmitThisParameter<typeof toHex> = toHex.bind(5);
   console.log('OmitThisParameter: ', fiveToHex());
 
-  // ThisType TODO
+  // ThisType
+  type ObjectDescription<D, M> = {
+    data?: D;
+    methods?: M & ThisType<D & M>;
+  }
+  function makeObject<D, M>(desc: ObjectDescription<D, M>): D & M {
+    const data: object = desc.data || {};
+    const methods: object = desc.methods || {};
+    return {...data, ...methods} as D & M;
+  }
+  const obj = makeObject({
+    data: {
+      x: 0,
+      y: 0
+    },
+    methods: {
+      moveBy(dx: number, dy: number) {
+        this.x += dx;
+        this.y += dy;
+      }
+    }
+  });
+  obj.x = 10;
+  obj.y = 20;
+  obj.moveBy(5, 5);
 };
