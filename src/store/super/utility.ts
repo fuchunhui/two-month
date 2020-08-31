@@ -173,7 +173,7 @@ export default function () {
   function toHex(this: number) {
     return this.toString(16);
   }
-  function numberToString(n: ThisParameterType<typeof toHex>) {   // eslint-disable-line
+  function numberToString(n: ThisParameterType<typeof toHex>) { // eslint-disable-line
     return toHex.apply(n);
   }
 
@@ -206,4 +206,24 @@ export default function () {
   obj.x = 10;
   obj.y = 20;
   obj.moveBy(5, 5);
+
+  // Iterators and Generators
+  const sa = [1, 'abc', false];
+  for (const entry of sa) {
+    console.log(entry);
+  }
+  for (const item in sa) {
+    console.log(item, sa[item]);
+  }
+
+  const pets = new Set(['Cat', 'Dog', 'Hamster']);
+  pets.add('Duck');
+  console.log({...pets});
+  for (const pet in pets) {
+    console.log(pet); // 'species'
+  }
+
+  for (const pet of pets) {
+    console.log(pet); // 'Cat', 'Dog', 'Hamster'
+  }
 };
