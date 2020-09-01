@@ -226,4 +226,76 @@ export default function () {
   for (const pet of pets) {
     console.log(pet); // 'Cat', 'Dog', 'Hamster'
   }
+
+  // Mixin
+  class Sprite {
+    name = '';
+    x = 0;
+    y = 0;
+
+    constructor(name: string) {
+      this.name = name;
+    }
+  }
+
+  type Constructor = new (...args: any[]) => {}; // eslint-disable-line
+
+  function Scale<TBase extends Constructor>(Base: TBase) {
+    return class Scaling extends Base {
+      // Mixins may not declare private/protected properties
+      // however, you can use ES2020 private fields
+      _scale = 1;
+
+      setScale(scale: number) {
+        this._scale = scale;
+      }
+
+      get scale(): number {
+        return this._scale;
+      }
+    };
+  }
+
+  const EightBitSprite = Scale(Sprite);
+  const flappySprite = new EightBitSprite('Bird');
+  flappySprite.setScale(2.1);
+  console.log('flappySprite: ', flappySprite, flappySprite.scale);
+
+  console.log('-------------------- Alternative Pattern');
+  function applyMixins(derivedCtor: any, constructors: any[]) {
+    constructors.forEach(baseCtor => {
+      console.log('constructors: ', {...baseCtor});
+      Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
+        console.log('name: ', name);
+        const baseName = Object.getOwnPropertyDescriptor(baseCtor.prototype, name);
+        if (!baseName) {
+          return;
+        }
+        Object.defineProperty(
+          derivedCtor.prototype,
+          name,
+          baseName
+        );
+      });
+    });
+  }
+  class Jumpable {
+    jump() {
+      console.log('something jump!');
+    }
+  }
+  class Duckable {
+    duck() {
+      console.log('something duck kakka');
+    }
+  }
+  class Sprition {
+    x = 0;
+    y = 0;
+  }
+  interface Sprition extends Jumpable, Duckable {}
+  applyMixins(Sprition, [Jumpable, Duckable]);
+  const player = new Sprition();
+  player.jump();
+  console.log('player: ', {...player}, player.x, player.y);
 };
