@@ -1,6 +1,6 @@
 <template>
   <div class="super-demo">
-      a123
+    just a demo
   </div>
 </template>
 
@@ -16,7 +16,8 @@ import { Vue, Component } from 'vue-property-decorator';
 // import generics from '@/store/super/generics';
 // import decorator from '@/store/super/decorator';
 // import utility from '@/store/super/utility';
-import modules from '@/store/super/modules';
+// import modules from '@/store/super/modules';
+import advance from '@/store/super/advance';
 
 @Component
 export default class Super extends Vue {
@@ -31,7 +32,8 @@ export default class Super extends Vue {
     // generics();
     // decorator();
     // utility();
-    modules();
+    // modules();
+    advance();
   }
 }
 </script>

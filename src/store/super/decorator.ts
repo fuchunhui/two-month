@@ -6,20 +6,6 @@ console.log('formatMetadataKey: ', formatMetadataKey);
 export default function () {
   console.log('decorator.');
 
-  // const pet = getSmallPet();
-  // console.log(pet);
-  // pet.layEggs();
-
-  // function isFish(pet: Fish | Bird): pet is Fish {
-  //   return (pet as Fish).swim !== undefined;
-  // }
-
-  // if (isFish(pet)) {
-  //   pet.swim();
-  // } else {
-  //   pet.fly();
-  // }
-
   // Decorator
   // Class Decorator & Method Decorator
   function sealed(constructor: Function) {
