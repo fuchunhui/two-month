@@ -4,7 +4,7 @@ const formatMetadataKey = Symbol('format');
 console.log('formatMetadataKey: ', formatMetadataKey);
 
 export default function () {
-  console.log('advance.');
+  console.log('decorator.');
 
   // const pet = getSmallPet();
   // console.log(pet);
