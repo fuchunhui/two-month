@@ -1,19 +1,19 @@
 export default function () {
   console.log('advances.');
 
-  interface Fish {
+  interface Water {
     swim(): void;
   }
-  interface Bird {
+  interface Cloud {
     fly(): void;
   }
 
-  class Whale implements Fish {
+  class Whale implements Water {
     swim(): void {
       console.log('whale swim');
     }
   }
-  class Goose implements Bird {
+  class Goose implements Cloud {
     fly(): void {
       console.log('goose fly..');
     }
@@ -36,4 +36,123 @@ export default function () {
   bt.fly();
 
   // User-Defined
+  // A type guard is some expression that performs a runtime check that guarantees the type in some scope.
+  // Using type predicates
+  function isFish(pet: Fish | Bird): pet is Fish {
+    return (pet as Fish).swim !== undefined;
+  }
+  // Using the in operator
+  function move(pet: Fish | Bird) {
+    if ('swim' in pet) {
+      return pet.swim();
+    }
+    return pet.fly();
+  }
+
+  // typeof type guards
+  function isNumber(x: any): x is number { // eslint-disable-line
+    return typeof x === 'number';
+  }
+  function isString(x: any): x is string { // eslint-disable-line
+    return typeof x === 'string';
+  }
+  function padLeft(value: string, padding: string | number) {
+    if (isNumber(padding)) {
+      return Array(padding + 1).join('') + value;
+    }
+    if (isString(padding)) {
+      return padding + value;
+    }
+    throw new Error(`Expected string or number, got ${padding}`);
+  }
+  function padRight(value: string, padding: string | number) {
+    if (typeof padding === 'number') {
+      return Array(padding + 1).join('') + value;
+    }
+    if (typeof padding === 'string') {
+      return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+  }
+
+  // instanceof type guards
+  interface Padder {
+    getPaddingString(): string;
+  }
+  class SpaceRepeatingPadder implements Padder {
+    constructor(private numSpaces: number) {
+      console.log('SpaceRepeatingPadder constructor.');
+    }
+
+    getPaddingString() {
+      return Array(this.numSpaces + 1).join('');
+    }
+  }
+
+  class StringPadder implements Padder {
+    constructor(private value: string) {
+      console.log('StringPadder constructor.');
+    }
+
+    getPaddingString() {
+      return this.value;
+    }
+  }
+
+  function getRandomPadder() {
+    return Math.random() < 0.5 ? new SpaceRepeatingPadder(4) : new StringPadder('100');
+  }
+  const padder: Padder = getRandomPadder();
+  if (padder instanceof SpaceRepeatingPadder) {
+    console.log('padder is SpaceRepeatingPadder');
+  }
+  if (padder instanceof StringPadder) {
+    console.log('padder is StringPadder');
+  }
+
+  // nullable types
+  let exs: string | null | undefined = 'full';
+  exs = null;
+  exs = undefined;
+
+  // optional parameters and properties
+  function f(x: number, y?: number) {
+    console.log(x + (y || 0));
+  }
+  f(1, 2);
+  f(1);
+  f(1, undefined);
+
+  class C {
+    a: number;
+    b?: number;
+    constructor() {
+      this.a = 10;
+    }
+  }
+  const c = new C();
+  c.a = 12;
+  c.b = undefined || 12;
+  console.log('Constructor: ', {...c});
+
+  // Type guards and type assertions
+  function ff(stringOrNull: string | null): string {
+    if (stringOrNull === null) {
+      return 'default';
+    } else {
+      return stringOrNull;
+    }
+  }
+  function fff(stringOrNull: string | null): string {
+    return stringOrNull || 'default';
+  }
+  interface UserAccount {
+    id: number;
+    email?: string;
+  }
+  function getUser(id: string): UserAccount | undefined {
+    return {} as any;
+  }
+  const user = getUser('admin');
+  console.log('user: ', user!.id);
 };
