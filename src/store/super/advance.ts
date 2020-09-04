@@ -155,4 +155,49 @@ export default function () {
   }
   const user = getUser('admin');
   console.log('user: ', user!.id);
+
+  // Type Aliases
+  type Second = number;
+  type House = string;
+  const color: House = 'red';
+  const num: Second = 20;
+  console.log('Aliases: ', color, num);
+
+  type Tree<T> = {
+    value: T;
+    left?: Tree<T>;
+    right?: Tree<T>;
+  };
+  type Container<T> = { value: T };
+
+  // Polymorphic this types TODO
+  // Index Type
+  function small<T, K extends keyof T>(o: T, propertyNames: K[]): T[K][] {
+    return propertyNames.map(n => o[n]);
+  }
+  const origin = {
+    a: '1',
+    b: 'c',
+    c: '23'
+  };
+  const til = small(origin, ['a', 'c']);
+  console.log('Index Type: ', til);
+
+  interface Car {
+    manufacturer: string;
+    model: string;
+    year: number;
+  }
+  const taxi: Car = {
+    manufacturer: 'Toyota',
+    model: 'Carma',
+    year: 2020
+  };
+  const mm: string[] = small(taxi, ['model', 'manufacturer']);
+  const my = small(taxi, ['year']);
+  console.log('index type: ', mm, my);
+
+  function getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
+    return o[propertyName];
+  }
 };
