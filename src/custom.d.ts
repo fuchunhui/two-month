@@ -28,3 +28,5 @@ declare function f1(arg: {
   a: number;
   b: number;
 }): void;
+
+declare function fmath<T extends boolean>(x: T): T extends true ? string : number;

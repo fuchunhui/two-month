@@ -200,4 +200,110 @@ export default function () {
   function getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
     return o[propertyName];
   }
-};
+  // Index types and index signatures
+  interface Dictionary<T> {
+    [key: string]: T;
+  }
+  // Mapped types
+  interface PersonSubset {
+    name?: string;
+    age?: number;
+  }
+  type Partial<T> = {
+    [P in keyof T]?: T[P];
+  }
+  type Readonly<T> = {
+    readonly [P in keyof T]: T[P];
+  }
+  type PersonPartial = Partial<PersonSubset>;
+  type ReadonlyPerson = Readonly<PersonSubset>;
+
+  type Keys = 'op1' | 'op2';
+  type Flags = {[K in Keys]: boolean};
+  type NullablePerson = { [P in keyof PersonSubset]: PersonSubset[P] | null};
+  type PartialPerson = { [P in keyof PersonSubset]?: PersonSubset[P] };
+  type Nullable<T> = { [P in keyof T]: T[P] | null };
+  type Partial1<T> = { [P in keyof T]?: T[P] };
+  const an: number = 123;
+  const spa: Partial1<Keys> = 'op2';
+
+  type Proxy<T> = {
+    get(): T;
+    set(value: T): void;
+  }
+  type NewPerson = Proxy<PersonSubset>;
+  const sortType: NewPerson = {
+    get(): PersonSubset {
+      return {
+        name: 't'
+      };
+    },
+    set(pos: PersonSubset) {
+      console.log(pos);
+    }
+  };
+  console.log('Proxy: ', {...sortType});
+
+  type Proxify<T> = {
+    [P in keyof T]: Proxy<T[P]>
+  }
+  type NewProxify = Proxify<PersonSubset>;
+
+  // Conditional Types
+  // declare function fmath<T extends boolean>(x: T): T extends true ? string : number;
+  function fmath(falg: boolean) {
+    // return !falg;
+  }
+  const x = fmath(Math.random() < 0.5);
+  console.log('Conditional Types: ', x);
+
+  type TypeName<T> = T extends string
+    ? string
+    : T extends number
+    ? number
+    : T extends boolean
+    ? boolean
+    : T extends undefined
+    ? undefined
+    : T extends Function
+    ? 'function' | never
+    : object;
+  type TN0 = TypeName<string>;
+  type TN1 = TypeName<123>;
+  type TN2 = TypeName<true>;
+  type TN3 = TypeName<() => void>;
+  type TN4 = TypeName<string[]>;
+  type TN5 = TypeName<string | (() => void)>;
+  type TN6 = TypeName<string | string[] | undefined>;
+  type TN7 = TypeName<string[] | number[]>;
+  const tn1: TN1 = 222;
+
+  type BoxedValue<T> = { value: T };
+  type BoxedArray<T> = { array: T[] };
+  type Boxed<T> = T extends any[] ? BoxedArray<T[number]> : BoxedValue<T>;
+  type T1 = Boxed<string>;
+  type T2 = Boxed<number[]>;
+  type T3 = Boxed<string | number[]>;
+
+  type FunctionPropertyNames<T> = {
+    [K in keyof T]: T[K] extends Function ? K : never;
+  }[keyof T];
+  type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
+
+  type NonFunctionPropertyNames<T> = {
+    [K in keyof T]: T[K] extends Function ? never : K;
+  }[keyof T];
+  type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+  interface Part {
+    id: number;
+    name: string;
+    subparts: Part[];
+    updatePart(newName: string): void;
+  }
+
+  type F1 = FunctionPropertyNames<Part>;
+  type F2 = NonFunctionPropertyNames<Part>;
+  type F3 = FunctionProperties<Part>;
+  type F4 = NonFunctionProperties<Part>;
+}

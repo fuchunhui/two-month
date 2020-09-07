@@ -1,6 +1,6 @@
 <template>
   <div class="super-demo">
-    just a demo
+    TypeScript
   </div>
 </template>
 
