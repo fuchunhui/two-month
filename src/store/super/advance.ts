@@ -306,4 +306,47 @@ export default function () {
   type F2 = NonFunctionPropertyNames<Part>;
   type F3 = FunctionProperties<Part>;
   type F4 = NonFunctionProperties<Part>;
+
+  type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
+  type Unpacked<T> = T extends (infer U)[]
+    ? U
+    : T extends (...args: any[]) => infer U
+    ? U
+    : T extends Promise<infer U>
+    ? U
+    : T;
+  type R0 = Unpacked<string>;
+  type R1 = Unpacked<string[]>;
+  type R2 = Unpacked<() => string>;
+  type R3 = Unpacked<Promise<string>>;
+  type R4 = Unpacked<Promise<string>[]>;
+  type R5 = Unpacked<R4>;
+
+  type Foo<T> = T extends {
+    a: infer U;
+    b: infer U;
+  } ? U : never;
+  type Fo1 = Foo<{
+    a: string;
+    b: string;
+  }>;
+  type Fo2 = Foo<{
+    a: string;
+    b: number;
+  }>;
+
+  type Bar<T> = T extends {
+    a: (x: infer U) => void;
+    b: (y: infer U) => void;
+  } ? U : never;
+  type B1 = Bar<{
+    a: (x: string) => void;
+    b: (y: string) => void;
+  }>;
+  type B2 = Bar<{
+    a: (x: string) => void;
+    b: (y: number) => void;
+  }>;
+
+  type RTE = ReturnType<typeof foor>;
 }

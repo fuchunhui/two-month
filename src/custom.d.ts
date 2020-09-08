@@ -30,3 +30,7 @@ declare function f1(arg: {
 }): void;
 
 declare function fmath<T extends boolean>(x: T): T extends true ? string : number;
+
+declare function foor(x: string): number;
+declare function foor(x: number): string;
+declare function foor(x: string | number): string | boolean;
