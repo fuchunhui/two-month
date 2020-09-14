@@ -2,9 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Super Demo</router-link> |
-      <router-link to="travel">Travel</router-link> |
-      <router-link to="acquisition">Acquisition</router-link> |
-      <router-link to="analysis">Analysis</router-link>
+      <router-link to="travel">travel</router-link> |
+      <router-link to="acquisition">acquisition</router-link> |
+      <router-link to="analysis">analysis</router-link>
     </div>
     <router-view/>
   </div>

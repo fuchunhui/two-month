@@ -1,4 +1,4 @@
-<template>
+'<template>
   <div class="super-demo">
     TypeScript
   </div>
@@ -17,7 +17,8 @@ import { Vue, Component } from 'vue-property-decorator';
 // import decorator from '@/store/super/decorator';
 // import utility from '@/store/super/utility';
 // import modules from '@/store/super/modules';
-import advance from '@/store/super/advance';
+// import advance from '@/store/super/advance';
+import cus from '@/store/super/cus';
 
 @Component
 export default class Super extends Vue {
@@ -33,7 +34,8 @@ export default class Super extends Vue {
     // decorator();
     // utility();
     // modules();
-    advance();
+    // advance();
+    cus();
   }
 }
 </script>
