@@ -6,13 +6,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Vue } from 'vue-property-decorator';
+import { Options, props, emits, Vue } from 'vue-class-component';
 
-@Component
+@Options({
+  props: {
+    msg: String
+  }
+})
 export default class Test extends Vue {
-    @Prop() private message!: string
+    // @Prop()
+    private message!: string
 
-    @Emit('on-click')
+    // @emits('on-click')
     onClick(): void {
       console.log(123);
       this.checkConsole();

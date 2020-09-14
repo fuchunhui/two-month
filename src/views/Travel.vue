@@ -10,19 +10,23 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
 import CounterModule from '@/store/counter';
 import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
+import { Options, Vue } from 'vue-class-component';
 
-@Component({
+@Options({
+  props: {
+    msg: String
+  },
   components: {
     Home,
     About
   }
 })
+
 export default class Travel extends Vue {
+  msg!: string;
   get count() {
     return CounterModule.count;
   }

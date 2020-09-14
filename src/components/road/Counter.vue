@@ -7,19 +7,22 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { ref } from 'vue';
 
-@Component
-export default class Counter extends Vue {
-  count = 0;
-
-  increment() {
-    this.count++;
+export default {
+  setup() {
+    const count = ref(0);
+    const increment: Function = () => {
+      count.value++;
+    };
+    const decrement: Function = () => {
+      count.value--;
+    };
+    return {
+      count,
+      increment,
+      decrement
+    };
   }
-
-  decrement() {
-    this.count--;
-  }
-}
+};
 </script>

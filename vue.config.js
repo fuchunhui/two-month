@@ -4,9 +4,9 @@ module.exports = {
       .entry('app')
       .clear()
       .add('./src/main.ts')
-      .end()
+      .end();
   },
   devServer: {
     port: 8090
   }
-}
+};
