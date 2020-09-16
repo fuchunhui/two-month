@@ -1,30 +1,35 @@
 <template>
   <div class="test-wrapper">
-      test demo {{message}}
+      test demo {{msg}}
       <button @click="onClick">click</button>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, props, emits, Vue } from 'vue-class-component';
+import {props, emits, mixins} from 'vue-class-component';
 
-@Options({
-  props: {
-    msg: String
+const Props = props({
+  msg: {
+    type: String,
+    required: false,
+    default: 'hhh'
   }
-})
-export default class Test extends Vue {
-    // @Prop()
-    private message!: string
+});
 
-    // @emits('on-click')
+const Emits = emits({
+  demo: value => {
+    return typeof value === 'number';
+  }
+});
+
+export default class Test extends mixins(Props, Emits) {
     onClick(): void {
-      console.log(123);
+      console.log('test demo click!');
       this.checkConsole();
     }
 
     checkConsole() {
-      console.log('checkConsole');
+      this.$emit('demo', 10);
     }
 }
 </script>

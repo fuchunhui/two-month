@@ -1,34 +1,40 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="@/assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <test ref="test" message="123456"/>
+    <hello-world msg="Welcome to Your Vue.js App"/>
+    <test ref="test" msg="123456" @demo="showDemo"/>
     <counter />
-    <!-- <official message="123456"/> -->
-    <!-- <ReturnValue message="123456"/> -->
+    <official message="123456"/>
+    <return-value message="123456"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from '@/components/road/HelloWorld.vue';
 import Test from '@/components/road/Test';
 import Counter from '@/components/road/Counter';
-// import Official from '@/components/Official';
-// import ReturnValue from '@/components/ReturnValue.ts';
+import Official from '@/components/road/Official.ts';
+import ReturnValue from '@/components/road/ReturnValue.ts';
 
 export default {
   name: 'Home',
+
   components: {
     HelloWorld,
     Test,
-    Counter
-    // Official,
-    // ReturnValue
+    Counter,
+    Official,
+    ReturnValue
   },
+
+  methods: {
+    showDemo(event) {
+      console.log('showDemo: ', event);
+    }
+  },
+
   mounted() {
     console.log('test: ', this.$refs.test);
-    console.log('test: ', this.$refs.test.$mesg);
   }
 };
 </script>

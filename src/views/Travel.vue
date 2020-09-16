@@ -1,45 +1,44 @@
 <template>
   <div class="travel">
-    <home/>
-    <about/>
-    <div class="count-group">
-      <p @click="add">{{$store.state.counter.count}}</p>
-      <p @click="asyncAdd">{{count}}</p>
+    <home />
+    <about />
+    <div class="count-group" @click="this.add">
+      {{ `${this.text}: ${this.count}` }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import CounterModule from '@/store/counter';
 import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
-import { Options, Vue } from 'vue-class-component';
+import { ref } from 'vue';
 
-@Options({
+export default {
   props: {
-    msg: String
+    msg: {
+      type: String,
+      required: false,
+      default: 'hh'
+    }
   },
   components: {
     Home,
     About
+  },
+  setup(props) {
+    const text = '点我，来吧';
+    const count = ref(0);
+    const add: Function = () => {
+      count.value++;
+      console.log('message: ', props.msg);
+    };
+    return {
+      text,
+      count,
+      add
+    };
   }
-})
-
-export default class Travel extends Vue {
-  msg!: string;
-  get count() {
-    return CounterModule.count;
-  }
-
-  add() {
-    console.log('123');
-    CounterModule.add();
-  }
-
-  asyncAdd() {
-    CounterModule.asyncAdd();
-  }
-}
+};
 </script>
 
 <style lang="less">

@@ -1,6 +1,6 @@
-'<template>
+<template>
   <div class="super-demo">
-    TypeScript {{ count }}
+    TypeScript {{ time }}
   </div>
 </template>
 
@@ -17,43 +17,28 @@
 // import utility from '@/store/super/utility';
 // import modules from '@/store/super/modules';
 // import advance from '@/store/super/advance';
-// import cus from '@/store/super/cus';
-
-// export default {
-//   created() {
-//     // basic();
-//     // interfaces();
-//     // functions();
-//     // literal();
-//     // intersections();
-//     // classes();
-//     // enums();
-//     // generics();
-//     // decorator();
-//     // utility();
-//     // modules();
-//     // advance();
-//     cus();
-//   }
-// };
-import { ref } from 'vue';
+import cus from '@/store/super/cus';
 
 export default {
+  created() {
+    // basic();
+    // interfaces();
+    // functions();
+    // literal();
+    // intersections();
+    // classes();
+    // enums();
+    // generics();
+    // decorator();
+    // utility();
+    // modules();
+    // advance();
+    cus();
+  },
   setup() {
-    // 定义一个不需要改变的数据
-    const btnText = '点这个按钮上面的数字会变';
-    // 定义一个 count 的响应式数据，并赋值为 0
-    const count = ref(0);
-    // 定义一个函数，修改 count 的值。
-    const countAdd: Function = () => {
-      count.value++;
-      // console.log(props.message);
-    };
-    // 导出一些内容给上面的模板区域使用
+    const date = new Date();
     return {
-      btnText,
-      count,
-      countAdd
+      time: date.toString()
     };
   }
 };

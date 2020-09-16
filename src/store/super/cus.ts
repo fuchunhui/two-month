@@ -14,4 +14,4 @@ export default function () {
   interface Box2 extends Base2 {
     run(options: { message: string }): void;
   }
-};
+}
