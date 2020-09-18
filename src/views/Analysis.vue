@@ -1,8 +1,23 @@
 <template>
   <div class="analysis">
-    <h1>This is an Analysis page</h1>
+    <condition></condition>
+    <container></container>
   </div>
 </template>
+
+<script lang="ts">
+import Condition from './analysis/Condition.vue';
+import Container from './analysis/Container.vue';
+
+export default {
+  name: 'Analysis',
+
+  components: {
+    Condition,
+    Container
+  }
+};
+</script>
 
 <style lang="less">
 .analysis {

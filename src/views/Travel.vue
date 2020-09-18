@@ -25,7 +25,7 @@ export default {
     Home,
     About
   },
-  setup(props) {
+  setup(props: any) { // eslint-disable-line
     const text = '点我，来吧';
     const count = ref(0);
     const add: Function = () => {
