@@ -22,5 +22,6 @@ export default {
 <style lang="less">
 .analysis {
   background: #446688;
+  padding: 10px;
 }
 </style>

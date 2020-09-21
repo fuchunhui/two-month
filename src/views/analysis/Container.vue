@@ -12,6 +12,7 @@ export default {
 
 <style lang="less">
 .analysis-Container {
-  background: #FF0000;
+  background: #11EEAA;
+  min-height: 300px;
 }
 </style>
