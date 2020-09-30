@@ -10,7 +10,7 @@ export default {
     text: {
       type: [String, Number],
       required: false,
-      default: ''
+      default: 'card'
     }
   }
 };
