@@ -78,6 +78,9 @@ export default {
     change(value: string | number, key: string) {
       console.log(value, key);
       // currentCard = value;
+    },
+    reset() {
+      console.log('params reset');
     }
   }
 };
