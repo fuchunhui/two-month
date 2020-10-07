@@ -1,6 +1,6 @@
 <template>
   <div class="analysis-Container">
-    这里是Container
+    Container
   </div>
 </template>
 

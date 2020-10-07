@@ -1,6 +1,6 @@
 <template>
   <div class="acquisition">
-    <h1>This is an acquisition page</h1>
+    <h1>acquisition</h1>
   </div>
 </template>
 
