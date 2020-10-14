@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, readonly } from 'vue';
+import { computed, reactive, toRefs, ref, watchEffect, watch } from 'vue';
 
 export default {
   name: 'Card',
@@ -28,12 +28,35 @@ export default {
     title.value = '1';
     console.log(book.title, book);
 
-    const original = reactive({
-      count: 0
+    const count = ref(1);
+    watch(
+      () => count.value,
+      (n, o) => {
+        console.log('new old: ', n, o);
+      }
+    );
+    const plusOne = computed({
+      get: () => count.value + 1,
+      set: val => {
+        count.value = val - 1;
+      }
     });
-    const copy = readonly(original);
-    original.count ++;
-    copy.count ++;
+    console.log('computed: ', plusOne.value);
+    plusOne.value ++;
+    
+    const stop = watchEffect(() => {
+      console.log('watchEffect: ', count.value);
+    });
+    setTimeout(() => {
+      count.value ++;
+    }, 1000);
+    setTimeout(() => {
+      stop();
+    }, 1000);
+    setTimeout(() => { // no run.
+      count.value ++;
+    }, 1000);
+    console.log('stop watchEffect: ', stop, stop instanceof Function);
     return {
       price,
       title
