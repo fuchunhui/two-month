@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { computed, reactive, toRefs, ref, watchEffect, watch } from 'vue';
+import { computed, reactive, toRefs, ref, watchEffect, watch, onMounted } from 'vue';
 
 export default {
   name: 'Card',
@@ -30,7 +30,7 @@ export default {
 
     const count = ref(1);
     watch(
-      () => count.value,
+      count,
       (n, o) => {
         console.log('new old: ', n, o);
       }
@@ -57,6 +57,10 @@ export default {
       count.value ++;
     }, 1000);
     console.log('stop watchEffect: ', stop, stop instanceof Function);
+    
+    onMounted(() => {
+      console.log('setup mounted.----------------------------------');
+    });
     return {
       price,
       title
