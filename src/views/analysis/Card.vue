@@ -1,9 +1,8 @@
 <template>
-  <div class="card">{{ `${text}----${title}` }}</div>
+  <div class="card">{{ text }}</div>
 </template>
 
 <script lang="ts">
-import { computed, reactive, toRefs, ref, watchEffect, watch, onMounted } from 'vue';
 
 export default {
   name: 'Card',
@@ -14,57 +13,6 @@ export default {
       required: false,
       default: 'card'
     }
-  },
-
-  setup() {
-    const book = reactive({
-      title: 'a new book',
-      year: 2020,
-      price: 'free'
-    });
-
-    console.log('reactive: ', book);
-    const { price, title } = toRefs(book);
-    title.value = '1';
-    console.log(book.title, book);
-
-    const count = ref(1);
-    watch(
-      count,
-      (n, o) => {
-        console.log('new old: ', n, o);
-      }
-    );
-    const plusOne = computed({
-      get: () => count.value + 1,
-      set: val => {
-        count.value = val - 1;
-      }
-    });
-    console.log('computed: ', plusOne.value);
-    plusOne.value ++;
-    
-    const stop = watchEffect(() => {
-      console.log('watchEffect: ', count.value);
-    });
-    setTimeout(() => {
-      count.value ++;
-    }, 1000);
-    setTimeout(() => {
-      stop();
-    }, 1000);
-    setTimeout(() => { // no run.
-      count.value ++;
-    }, 1000);
-    console.log('stop watchEffect: ', stop, stop instanceof Function);
-    
-    onMounted(() => {
-      console.log('setup mounted.----------------------------------');
-    });
-    return {
-      price,
-      title
-    };
   }
 };
 </script>
