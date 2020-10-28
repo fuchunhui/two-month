@@ -28,17 +28,33 @@
 </template>
 
 <script lang="ts">
+import {defineComponent} from 'vue';
 import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from '@/config/index';
 
-export default {
+export default defineComponent({
   name: 'AnalysisCondition',
 
   components: {
     Card
   },
 
-  setup() {
+  props: {
+    info: {
+      type: Object,
+      required: true,
+      default: () => {
+        return {
+          year: 2020,
+          month: 1,
+          card: '0797'
+        };
+      }
+    }
+  },
+
+  setup(props, context) {
+    console.log('setup: ', {...props.info}, context);
     // TODO 处理事件，选中逻辑，高亮 + 切换判断 + 禁用选择
     // 卡片必选一个
     // 月份可以多选，也可不选择，不选择，默认全年数据
@@ -83,7 +99,7 @@ export default {
       console.log('params reset');
     }
   }
-};
+});
 </script>
 
 <style lang="less">
