@@ -1,6 +1,6 @@
 <template>
   <div class="analysis">
-    <condition v-model="info"></condition>
+    <condition v-model:info="info"></condition>
     <container></container>
   </div>
 </template>

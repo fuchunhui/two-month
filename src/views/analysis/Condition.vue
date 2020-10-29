@@ -5,6 +5,7 @@
         v-for="item in bankList"
         :key="item.value"
         :text="item.label"
+        :active="item.checked"
         @click="change(item.value, 'currentCard')">
       </card>
     </div>
@@ -13,6 +14,7 @@
         v-for="item in monthList"
         :key="item.value"
         :text="item.label"
+        :active="item.checked"
         @click="change(item.value, 'currentMonth')">
       </card>
     </div>
@@ -21,6 +23,7 @@
         v-for="item in yearList"
         :key="item.value"
         :text="item.label"
+        :active="item.checked"
         @click="change(item.value, 'currentYear')">
       </card>
     </div>
@@ -28,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, toRefs} from 'vue';
 import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from '@/config/index';
 
@@ -60,27 +63,27 @@ export default defineComponent({
     // 月份可以多选，也可不选择，不选择，默认全年数据
     // 年必选一个
     // let currentCard: string = BANK.num1;
+    const {year, month, card} = toRefs(props.info);
+    // const {year, month, card} = props.info;
     const bankList = [BANK.num1, BANK.num2].map(item => {
       return {
         label: item,
         value: item,
-        // checked: currentCard === item
-        checked: false
+        checked: card.value === item
       };
     });
-    const date = new Date();
     const monthList = MONTH.map(item => {
       return {
         label: `${item}月`,
         value: item,
-        checked: item === date.getMonth() + 1
+        checked: item === month.value
       };
     });
     const yearList = YEAR.map(item => {
       return {
         label: item,
         value: item,
-        checked: item === date.getFullYear()
+        checked: item === year.value
       };
     });
     return {

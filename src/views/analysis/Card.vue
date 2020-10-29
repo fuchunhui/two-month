@@ -1,5 +1,8 @@
 <template>
-  <div class="card">{{ text }}</div>
+  <div :class="{
+    'card': true,
+    'card-active': active
+  }">{{ text }}</div>
 </template>
 
 <script lang="ts">
@@ -12,6 +15,11 @@ export default {
       type: [String, Number],
       required: false,
       default: 'card'
+    },
+    active: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   }
 };
@@ -36,7 +44,8 @@ export default {
     background-color: #f2f5ff;
     border-color: #4c84ff;
   }
-  &:active {
+  &:active,
+  &.card-active {
     background-color: #4c84ff;
     border-color: #4c84ff;
     color: #ffffff;
