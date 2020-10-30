@@ -4,8 +4,8 @@
       <card
         v-for="item in bankList"
         :key="item.value"
-        :text="item.label"
-        :active="item.checked"
+        :text="item.value"
+        :active="item.value === currentCard"
         @click="change(item.value, 'currentCard')">
       </card>
     </div>
@@ -27,11 +27,12 @@
         @click="change(item.value, 'currentYear')">
       </card>
     </div>
+    {{ currentCard }} - {{ current.card }}
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, toRefs} from 'vue';
+import {defineComponent, reactive, ref, toRefs} from 'vue';
 import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from '@/config/index';
 
@@ -62,42 +63,69 @@ export default defineComponent({
     // 卡片必选一个
     // 月份可以多选，也可不选择，不选择，默认全年数据
     // 年必选一个
-    // let currentCard: string = BANK.num1;
-    const {year, month, card} = toRefs(props.info);
+    // const {year, month, card} = toRefs(props.info);
+    // 思路A-2
+    const {info} = toRefs(props);
+    console.log('init info: ', info);
+    const currentCard = ref(info.value.card);
+
+    // 思路B
+    const current = ref(info.value);
+    console.log('current', current);
     // const {year, month, card} = props.info;
+
+    // 此种当然没问题呀 思路A-1
+    // const {year, month, card} = props.info; // eslint-disable-line
+    // const currentCard = ref(card);
+    // console.log('currentCard: ', card, currentCard);
+
     const bankList = [BANK.num1, BANK.num2].map(item => {
       return {
         label: item,
-        value: item,
-        checked: card.value === item
+        value: item
       };
     });
     const monthList = MONTH.map(item => {
       return {
         label: `${item}月`,
-        value: item,
-        checked: item === month.value
+        value: item
       };
     });
     const yearList = YEAR.map(item => {
       return {
         label: item,
-        value: item,
-        checked: item === year.value
+        value: item
       };
     });
+
+    function change(value: string | number, key: string) {
+      console.log(value, key);
+      if (key === 'currentCard') {
+        // 思路A
+        // currentCard.value = value as string;
+        // console.log('change: ', currentCard.value);
+
+        // 思路B
+        current.value.card = value;
+        console.log('change: ', current.value);
+      }
+    }
     return {
-      // currentCard,
+      currentCard,
+      current,
+      change,
       bankList,
       monthList,
       yearList
     };
   },
   methods: {
-    change(value: string | number, key: string) {
-      console.log(value, key);
-      // currentCard = value;
-    },
+    // change(value: string | number, key: string) {
+    //   console.log(value, key);
+    //   if (key === 'currentCard') {
+    //     this.currentCard = value;
+    //   }
+    // },
     reset() {
       console.log('params reset');
     }
