@@ -27,12 +27,11 @@
         @click="change(item.value, INFO_TYPE.YEAR)">
       </card>
     </div>
-    <!-- {{ currentCard }} - {{ current.card }} -->
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, toRefs} from 'vue';
+import {defineComponent, watch, toRefs} from 'vue';
 import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from '@/config/index';
 
@@ -74,22 +73,10 @@ export default defineComponent({
     // 月份可以多选，也可不选择，不选择，默认全年数据
     // 年必选一个
     const {info} = toRefs(props);
-    // 思路A-2
-    // const {info} = toRefs(props);
-    // const {year, month, card} = toRefs(info.value);
-    console.log(info.value);
-    // console.log('init info: ', info);
-    // const currentCard = ref(info.value);
 
-    // 思路B
-    // const current = ref(info.value);
-    // console.log('current', current);
-    // const {year, month, card} = props.info;
-
-    // 此种当然没问题呀 思路A-1
-    // const {year, month, card} = props.info; // eslint-disable-line
-    // const currentCard = ref(card);
-    // console.log('currentCard: ', card, currentCard);
+    watch(info, (nv, ov) => {
+      console.log('watch: ', nv, ov);
+    });
     
     const bankList = [BANK.num1, BANK.num2].map(item => {
       return {
@@ -111,23 +98,26 @@ export default defineComponent({
     });
 
     function change(value: string | number, key: string) {
-      console.log('change: ', key, value, info.value);
-      const iinfo: Info = {
+      console.log('change: ', key, value, props.info);
+      const localInfo: Info = {
         year: info.value.year,
         month: info.value.month,
         card: info.value.card
       };
       if (key === INFO_TYPE.CARD) {
-        iinfo[key.toLowerCase()] = value;
+        localInfo[key.toLowerCase()] = value;
       } else {
-        iinfo[key.toLowerCase()] = Number(value);
+        localInfo[key.toLowerCase()] = Number(value);
       }
-      console.log('change---------: ', info, key.toLowerCase(), value);
-      emit('update:info', info);
+      console.log('change---------: ', localInfo);
+      emit('update:info', localInfo);
+      // emit('update:info', {
+      //   year: 2020,
+      //   month: Number(value),
+      //   card: '0797'
+      // });
     }
     return {
-      // currentCard,
-      // current,
       change,
       bankList,
       monthList,
@@ -136,12 +126,6 @@ export default defineComponent({
     };
   },
   methods: {
-    // change(value: string | number, key: string) {
-    //   console.log(value, key);
-    //   if (key === 'currentCard') {
-    //     this.currentCard = value;
-    //   }
-    // },
     reset() {
       console.log('params reset');
     }

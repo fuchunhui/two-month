@@ -6,10 +6,10 @@
 </template>
 
 <script lang="ts">
+import { ref } from 'vue';
 import Condition from './analysis/Condition.vue';
 import Container from './analysis/Container.vue';
 import {BANK} from '@/config/index';
-import { reactive, toRefs, ref, Ref } from 'vue';
 
 export default {
   name: 'Analysis',
@@ -20,13 +20,7 @@ export default {
   },
 
   data() {
-    return {
-      info1: {
-        year: 2020,
-        month: 9,
-        card: '0797'
-      }
-    };
+    return {};
   },
 
   setup() {
@@ -39,10 +33,7 @@ export default {
       month,
       card
     });
-    const newTest = toRefs(reactive({current}));
-    console.log('newTest: ', newTest);
     return {
-      // info: newTest.test,
       info: current
     };
   }
