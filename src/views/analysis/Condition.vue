@@ -6,7 +6,7 @@
         :key="item.value"
         :text="item.value"
         :active="item.value === info.card"
-        @click="change(item.value, 'currentCard')">
+        @click="change(item.value, INFO_TYPE.CARD)">
       </card>
     </div>
     <div class="condition-common condition-month">
@@ -15,7 +15,7 @@
         :key="item.value"
         :text="item.label"
         :active="item.value === info.month"
-        @click="change(item.value, 'currentMonth')">
+        @click="change(item.value, INFO_TYPE.MONTH)">
       </card>
     </div>
     <div class="condition-common condition-year">
@@ -24,18 +24,27 @@
         :key="item.value"
         :text="item.label"
         :active="item.value === info.year"
-        @click="change(item.value, 'currentYear')">
+        @click="change(item.value, INFO_TYPE.YEAR)">
       </card>
     </div>
     <!-- {{ currentCard }} - {{ current.card }} -->
-    {{ dept }}
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, toRefs, watch} from 'vue';
+import {defineComponent, ref, toRefs} from 'vue';
 import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from '@/config/index';
+
+enum INFO_TYPE {
+  YEAR = 'YEAR',
+  MONTH = 'MONTH',
+  CARD = 'CARD',
+}
+interface Info {
+  [key: string]: string | number;
+  [index: number]: string;
+}
 
 export default defineComponent({
   name: 'AnalysisCondition',
@@ -55,11 +64,6 @@ export default defineComponent({
           card: '0797'
         };
       }
-    },
-    dept: {
-      type: String,
-      required: true,
-      default: '开开嘻嘻部'
     }
   },
 
@@ -69,11 +73,13 @@ export default defineComponent({
     // 卡片必选一个
     // 月份可以多选，也可不选择，不选择，默认全年数据
     // 年必选一个
-    // const {year, month, card} = toRefs(props.info);
-    // 思路A-2
     const {info} = toRefs(props);
+    // 思路A-2
+    // const {info} = toRefs(props);
+    // const {year, month, card} = toRefs(info.value);
+    console.log(info.value);
     // console.log('init info: ', info);
-    // const currentCard = ref(info.value.card);
+    // const currentCard = ref(info.value);
 
     // 思路B
     // const current = ref(info.value);
@@ -84,9 +90,7 @@ export default defineComponent({
     // const {year, month, card} = props.info; // eslint-disable-line
     // const currentCard = ref(card);
     // console.log('currentCard: ', card, currentCard);
-    watch(info, (nv, ov) => {
-      console.log(nv, ov);
-    });
+    
     const bankList = [BANK.num1, BANK.num2].map(item => {
       return {
         label: item,
@@ -107,30 +111,19 @@ export default defineComponent({
     });
 
     function change(value: string | number, key: string) {
-      console.log(value, key);
-      if (key === 'currentCard') {
-        emit('update:info', {
-          year: 2020,
-          month: 1,
-          card: value
-        });
-
-        emit('aa', {
-          year: 2020,
-          month: 1,
-          card: value
-        });
-
-        emit('update:dept', '伤心总是难免的部');
-        // 思路A
-        // currentCard.value = value as string;
-        // console.log('change: ', currentCard.value);
-
-        // 思路B
-        // current.value.card = value;
-        // info.value.card = value;
-        // console.log('change: ', current.value);
+      console.log('change: ', key, value, info.value);
+      const iinfo: Info = {
+        year: info.value.year,
+        month: info.value.month,
+        card: info.value.card
+      };
+      if (key === INFO_TYPE.CARD) {
+        iinfo[key.toLowerCase()] = value;
+      } else {
+        iinfo[key.toLowerCase()] = Number(value);
       }
+      console.log('change---------: ', info, key.toLowerCase(), value);
+      emit('update:info', info);
     }
     return {
       // currentCard,
@@ -138,7 +131,8 @@ export default defineComponent({
       change,
       bankList,
       monthList,
-      yearList
+      yearList,
+      INFO_TYPE
     };
   },
   methods: {

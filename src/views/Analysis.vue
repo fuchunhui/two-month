@@ -1,6 +1,6 @@
 <template>
   <div class="analysis">
-    <condition v-model:info="info" @aa="click" v-model:dept="dept"></condition>
+    <condition v-model:info="info"></condition>
     <container></container>
   </div>
 </template>
@@ -9,7 +9,7 @@
 import Condition from './analysis/Condition.vue';
 import Container from './analysis/Container.vue';
 import {BANK} from '@/config/index';
-import { reactive, toRef, toRefs, ref, Ref } from 'vue';
+import { reactive, toRefs, ref, Ref } from 'vue';
 
 export default {
   name: 'Analysis',
@@ -34,35 +34,17 @@ export default {
     const year: number = date.getFullYear();
     const month: number = date.getMonth() + 1;
     const card: string = BANK.num1;
-    const test: object = {
+    const current = ref({
       year,
       month,
       card
-    };
-    const dept: Ref<string> = ref('企业智能平台部');
-    console.log('iiii: ', reactive(test));
-    console.log('dept: ', dept);
-    const newTest = toRefs({
-      test
     });
+    const newTest = toRefs(reactive({current}));
     console.log('newTest: ', newTest);
-    const reactiveTest = reactive({
-      test
-    });
-    console.log('reactiveTest: ', reactiveTest);
     return {
-      info: newTest.test,
-      dept
+      // info: newTest.test,
+      info: current
     };
-  },
-
-  methods: {
-    click(value: string) {
-      console.log(value, '------aaa-------');
-    },
-    test(value: object) {
-      console.log(value, '-------test------');
-    }
   }
 };
 </script>
