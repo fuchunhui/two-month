@@ -1,13 +1,40 @@
 <template>
   <div class="analysis-Container">
-    Container
+    Container {{ current }}
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'AnalysisContainer'
-};
+import { defineComponent, toRefs, computed, ref, watch } from 'vue';
+
+export default defineComponent({
+  name: 'AnalysisContainer',
+
+  props: {
+    year: {
+      type: Number,
+      default: 2020
+    },
+    month: {
+      type: Array,
+      default: () => []
+    },
+    card: {
+      type: String,
+      default: ''
+    }
+  },
+
+  setup(props) {
+    const { year, month, card } = toRefs(props);
+    const current = computed(() => {
+      return `${card.value}, ${year.value}, ${month.value.join('-')}`;
+    });
+    return {
+      current
+    };
+  }
+});
 </script>
 
 <style lang="less">

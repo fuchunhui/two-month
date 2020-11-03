@@ -1,7 +1,7 @@
 <template>
   <div class="analysis">
     <condition v-model:info="info"></condition>
-    <container></container>
+    <container v-bind="info"></container>
   </div>
 </template>
 
