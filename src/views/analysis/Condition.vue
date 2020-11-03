@@ -14,7 +14,7 @@
         v-for="item in monthList"
         :key="item.value"
         :text="item.label"
-        :active="item.value === info.month"
+        :active="info.month.includes(item.value)"
         @click="change(item.value, INFO_TYPE.MONTH)">
       </card>
     </div>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, watch, toRefs} from 'vue';
+import {defineComponent, toRefs} from 'vue';
 import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from '@/config/index';
 
@@ -39,10 +39,6 @@ enum INFO_TYPE {
   YEAR = 'YEAR',
   MONTH = 'MONTH',
   CARD = 'CARD',
-}
-interface Info {
-  [key: string]: string | number;
-  [index: number]: string;
 }
 
 export default defineComponent({
@@ -59,7 +55,7 @@ export default defineComponent({
       default: () => {
         return {
           year: 2020,
-          month: 1,
+          month: [1],
           card: '0797'
         };
       }
@@ -67,17 +63,7 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    console.log('setup: ', {...props.info}, emit);
-    // TODO 处理事件，选中逻辑，高亮 + 切换判断 + 禁用选择
-    // 卡片必选一个
-    // 月份可以多选，也可不选择，不选择，默认全年数据
-    // 年必选一个
     const {info} = toRefs(props);
-
-    watch(info, (nv, ov) => {
-      console.log('watch: ', nv, ov);
-    });
-    
     const bankList = [BANK.num1, BANK.num2].map(item => {
       return {
         label: item,
@@ -98,24 +84,24 @@ export default defineComponent({
     });
 
     function change(value: string | number, key: string) {
-      console.log('change: ', key, value, props.info);
-      const localInfo: Info = {
+      const localInfo = {
         year: info.value.year,
         month: info.value.month,
         card: info.value.card
       };
       if (key === INFO_TYPE.CARD) {
-        localInfo[key.toLowerCase()] = value;
+        localInfo.card = value;
+      } else if (key === INFO_TYPE.YEAR) {
+        localInfo.year = Number(value);
       } else {
-        localInfo[key.toLowerCase()] = Number(value);
+        const monthValue = Number(value);
+        if (localInfo.month.includes(monthValue)) {
+          localInfo.month.splice(localInfo.month.indexOf(monthValue), 1);
+        } else {
+          localInfo.month.push(monthValue);
+        }
       }
-      console.log('change---------: ', localInfo);
       emit('update:info', localInfo);
-      // emit('update:info', {
-      //   year: 2020,
-      //   month: Number(value),
-      //   card: '0797'
-      // });
     }
     return {
       change,

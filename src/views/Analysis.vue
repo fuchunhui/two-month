@@ -30,7 +30,7 @@ export default {
     const card: string = BANK.num1;
     const current = ref({
       year,
-      month,
+      month: [month],
       card
     });
     return {
