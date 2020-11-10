@@ -9,8 +9,12 @@
 </template>
 
 <script lang="ts">
-export default {
+import Database from './db/index';
 
+export default {
+  created() {
+    Database.initial();
+  }
 };
 </script>
 
