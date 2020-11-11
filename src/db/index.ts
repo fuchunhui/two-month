@@ -1,5 +1,34 @@
 const initSqlJs = require('sql.js'); // eslint-disable-line
-// import initSqlJs = require('sql.js');
+
+class Singleton {
+  private static instance: Singleton;
+
+  private constructor() {} // eslint-disable-line
+
+  public static getInstance(): Singleton {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
+    }
+    return Singleton.instance;
+  }
+
+  init() {
+    return initSqlJs({
+      locateFile: (file: string) => `/js/${file}`
+    }).then((SQL: any) => {
+      const db = new SQL.Database();
+      console.log('init: ', db);
+      return Promise.resolve(db);
+    });
+  }
+}
+
+function clientCode() {
+  const s1 = Singleton.getInstance();
+  console.log(s1.init().then(<T>(res: T) => console.log('1111: ', res)));
+}
+
+clientCode();
 
 export default {
   // connect(url: string) {
@@ -14,6 +43,7 @@ export default {
     }).then((SQL: any) => { // eslint-disable-lint
       // Create a database
       const db = new SQL.Database();
+      console.log('db: ', db);
       // NOTE: You can also use new SQL.Database(data) where
       // data is an Uint8Array representing an SQLite database file
 
