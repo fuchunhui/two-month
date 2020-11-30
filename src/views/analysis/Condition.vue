@@ -33,7 +33,7 @@
 <script lang="ts">
 import {defineComponent, toRefs} from 'vue';
 import Card from './Card.vue';
-import {BANK, MONTH, YEAR} from '@/config/index';
+import {BANK, MONTH, YEAR} from 'config/index';
 
 enum INFO_TYPE {
   YEAR = 'YEAR',

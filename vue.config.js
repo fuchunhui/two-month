@@ -1,8 +1,13 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // eslint-disable-line
+const path = require('path');
+
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
 
 module.exports = {
   devServer: {
-    port: 8090,
+    port: 8090
   },
   configureWebpack: {
     plugins: [
@@ -12,6 +17,22 @@ module.exports = {
           to: 'js'
         }]
       })
-    ]
+    ],
+    resolve: {
+      modules: [
+        resolve('src'),
+        resolve('src/components')
+      ],
+      alias: {
+        '@': resolve('src'),
+        'src': resolve('src'),
+        'api': resolve('src/api/'),
+        'assets': resolve('src/assets'),
+        'css': resolve('src/assets/css'),
+        'components': resolve('src/components'),
+        'db': resolve('src/components/db'),
+        'directive': resolve('src/directive')
+      }
+    }
   }
 };

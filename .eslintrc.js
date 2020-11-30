@@ -35,7 +35,7 @@ module.exports = {
     // enforce consistent spacing between keys and values in object literal properties
     'key-spacing': 'error',
     // require or disallow spacing between function identifiers and their invocations 
-    'no-spaced-func': ['error', 'never'],
+    'func-call-spacing': ['error', 'never'],
     // enforce consistent spacing before and after commas
     'comma-spacing': ['error', {
         'before': false,

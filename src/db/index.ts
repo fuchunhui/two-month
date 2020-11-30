@@ -1,11 +1,16 @@
+/* eslint-disable */
 const initSqlJs = require('sql.js'); // eslint-disable-line
 
 class Singleton {
   private static instance: Singleton;
+  public db = null;
+  _state = false;
 
-  private constructor() {} // eslint-disable-line
+  private constructor() {
+    this._state = false;
+  }
 
-  public static getInstance(): Singleton {
+  static getInstance(): Singleton {
     if (!Singleton.instance) {
       Singleton.instance = new Singleton();
     }
@@ -13,22 +18,35 @@ class Singleton {
   }
 
   init() {
+    // todo -> async await
     return initSqlJs({
       locateFile: (file: string) => `/js/${file}`
     }).then((SQL: any) => {
       const db = new SQL.Database();
       console.log('init: ', db);
+      this.db = db;
       return Promise.resolve(db);
     });
+  }
+
+  getState() {
+    return this._state;
   }
 }
 
 function clientCode() {
   const s1 = Singleton.getInstance();
   console.log(s1.init().then(<T>(res: T) => console.log('1111: ', res)));
+  // console.log('db: ', s1.db);
 }
 
 clientCode();
+const s2 = Singleton.getInstance();
+setTimeout(() => {
+  console.log(s2.db);
+  const s3 = Singleton.getInstance();
+  console.log(s3.db);
+}, 1000);
 
 export default {
   // connect(url: string) {
