@@ -4,16 +4,9 @@
 
 // 随机生成长度是10的数组
 const start = new Date().getTime();
-const MAX = 100000; // 10
+const MAX = 100; // 10
 
-// 递归 填充
-for (let i = 0; i < MAX; i++) {
-    // console.log(Math.ceil(Math.random() * MAX));
-}
-
-// let target = [];
 const total = [];
-// 初始化
 for (let i = 0; i < MAX; i++) {
     total.push(i + 1);
 }
@@ -26,4 +19,15 @@ while (loopNum > 1) {
 }
 console.log(total);
 const end = new Date().getTime();
-console.log(`${end - start}ms`);
+console.log(`随机填充数组： ${end - start}ms`);
+
+// 有人说是使用求和的方式，然后用100个数的和减去99个数的和，差值就是未存储的那个
+// 这个思路有意思，但是不能够解决，有多个元素未放入数组中的场景
+const findNum = () => {
+    // TODO
+    return 0;
+};
+
+const n1 = findNum();
+console.log('方法1：', n1);
+
