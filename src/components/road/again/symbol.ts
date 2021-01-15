@@ -1,8 +1,8 @@
 class Bar {}
 class Baz extends Bar {
-    static [Symbol.hasInstance]() {
-        return false;
-    }
+  static [Symbol.hasInstance]() {
+    return false;
+  }
 }
 
 const b = new Baz();
@@ -12,10 +12,10 @@ console.log(Baz[Symbol.hasInstance]());
 console.log(b instanceof Baz);
 
 class Foo {
-    // eslint-disable-next-line require-yield
-    *[Symbol.iterator]() {
-        console.log('iterator');
-    }
+  // eslint-disable-next-line require-yield
+  *[Symbol.iterator]() {
+    console.log('iterator');
+  }
 }
 const f = new Foo();
 console.log(f[Symbol.iterator]());
@@ -43,50 +43,50 @@ console.log(f[Symbol.iterator]());
 // count();
 
 class FooMatcher {
-    static [Symbol.match](target) {
-        return target.includes('foo');
-    }
+  static [Symbol.match](target) {
+    return target.includes('foo');
+  }
 }
 
 console.log('foobar'.match(FooMatcher)); // true
 console.log('barbaz'.match(FooMatcher)); // false
 
 class StringMatcher {
-    str = '';
-    constructor(str) {
-        this.str = str;
-    }
-    [Symbol.match](target) {
-        return target.includes(this.str);
-    }
+  str = '';
+  constructor(str) {
+    this.str = str;
+  }
+  [Symbol.match](target) {
+    return target.includes(this.str);
+  }
 }
 
 console.log('foobar'.match(new StringMatcher('foo'))); // true
 console.log('barbaz'.match(new StringMatcher('qux'))); // false
 
 class FooReplacer {
-    static [Symbol.replace](target, replacement) {
-        return target.split('foo').join(replacement);
-    }
+  static [Symbol.replace](target, replacement) {
+    return target.split('foo').join(replacement);
+  }
 }
 console.log('barfoobaz'.replace(FooReplacer, 'qux'));
 
 class StringReplacer {
-    str = '';
-    constructor(str) {
-        this.str = str;
-    }
-    [Symbol.replace](target, replacement) {
-        return target.split(this.str).join(replacement);
-    }
+  str = '';
+  constructor(str) {
+    this.str = str;
+  }
+  [Symbol.replace](target, replacement) {
+    return target.split(this.str).join(replacement);
+  }
 }
 console.log('barfoobaz'.replace(new StringReplacer('foo'), 'qux'));
 
 class SBar extends Array {}
 class SBaz extends Array {
-    static get [Symbol.species]() {
-        return Array;
-    }
+  static get [Symbol.species]() {
+    return Array;
+  }
 }
 let sbar = new SBar();
 console.log(sbar instanceof Array);
@@ -119,9 +119,9 @@ console.log(too.toString());
 console.log(too[Symbol.toStringTag]);
 
 class Tar {
-    constructor() {
-        this[Symbol.toStringTag] = 'Tar';
-    }
+  constructor() {
+    this[Symbol.toStringTag] = 'Tar';
+  }
 }
 const tar = new Tar();
 console.log(tar);

@@ -7,23 +7,23 @@ import store from './index';
   name: 'counter',
   namespaced: true
 }) class CounterModule extends VuexModule {
-    count = 1;
+  count = 1;
 
-    get doubleCount() {
-      return this.count * 2;
-    }
+  get doubleCount() {
+    return this.count * 2;
+  }
 
-    @Mutation
-    add() {
-      this.count++;
-    }
+  @Mutation
+  add() {
+    this.count++;
+  }
 
-    @Action
-    asyncAdd() {
-      setTimeout(() => {
-        this.add();
-      }, 100);
-    }
+  @Action
+  asyncAdd() {
+    setTimeout(() => {
+      this.add();
+    }, 100);
+  }
 }
 
 export default getModule(CounterModule);

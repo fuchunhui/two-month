@@ -36,9 +36,9 @@ import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from 'config/index';
 
 enum INFO_TYPE {
-    YEAR = 'YEAR',
-    MONTH = 'MONTH',
-    CARD = 'CARD',
+  YEAR = 'YEAR',
+  MONTH = 'MONTH',
+  CARD = 'CARD',
 }
 
 export default defineComponent({

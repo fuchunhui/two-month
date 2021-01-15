@@ -25,14 +25,14 @@ const Emits = emits({
 });
 
 export default class Test extends mixins(Props, Emits) {
-    onClick(): void {
-        console.log('test demo click!');
-        this.checkConsole();
-    }
+  onClick(): void {
+    console.log('test demo click!');
+    this.checkConsole();
+  }
 
-    checkConsole() {
-        this.$emit('demo', 10);
-    }
+  checkConsole() {
+    this.$emit('demo', 10);
+  }
 }
 </script>
 

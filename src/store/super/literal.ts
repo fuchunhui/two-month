@@ -28,8 +28,8 @@ export default function () {
   console.log('numberic literal types: ', result);
 
   interface MapConfig {
-      lng: number;
-      lat: number;
-      titleSize: 8 | 16 | 32;
+    lng: number;
+    lat: number;
+    titleSize: 8 | 16 | 32;
   }
 }

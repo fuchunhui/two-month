@@ -1,42 +1,42 @@
 export default function () {
   console.log('utility types.');
 
-    interface Todo {
-        title: string;
-        description: string;
-    }
+  interface Todo {
+    title: string;
+    description: string;
+  }
 
-    function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>) {
-      return {
-        ...todo,
-        ...fieldsToUpdate
-      };
-    }
-
-    const todo1: Todo = {
-      title: 'organize desk',
-      description: 'clear clutter'
+  function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>) {
+    return {
+      ...todo,
+      ...fieldsToUpdate
     };
+  }
 
-    const todo2: Todo = updateTodo(todo1, {
-      description: 'throw out trash'
-    });
+  const todo1: Todo = {
+    title: 'organize desk',
+    description: 'clear clutter'
+  };
 
-    console.log({...todo1}, {...todo2});
+  const todo2: Todo = updateTodo(todo1, {
+    description: 'throw out trash'
+  });
 
-    // Readonly<Type>
-    interface ReadonlyTodo {
-        title: string;
-    }
-    const readTodo: Readonly<ReadonlyTodo> = {
-      title: 'readonly...'
-    };
-    console.log('readonly', {...readTodo});
+  console.log({...todo1}, {...todo2});
 
-    // Record
-    interface PageInfo {
-        title: string;
-    }
+  // Readonly<Type>
+  interface ReadonlyTodo {
+    title: string;
+  }
+  const readTodo: Readonly<ReadonlyTodo> = {
+    title: 'readonly...'
+  };
+  console.log('readonly', {...readTodo});
+
+  // Record
+  interface PageInfo {
+    title: string;
+  }
   type Page = 'home' | 'about' | 'contact';
   const nav: Record<Page, PageInfo> = {
     about: {title: 'abhout'},
@@ -46,9 +46,9 @@ export default function () {
   console.log('Record: ', {...nav});
   // Pick
   interface PickTodo {
-      title: string;
-      description: string;
-      completed: boolean;
+    title: string;
+    description: string;
+    completed: boolean;
   }
   type TodoPreview = Pick<PickTodo, 'title' | 'completed'>;
   const pick: TodoPreview = {
@@ -76,9 +76,9 @@ export default function () {
 
   // Omit
   interface OmitTodo {
-      title: string;
-      description: string;
-      completed: boolean;
+    title: string;
+    description: string;
+    completed: boolean;
   }
   type OmitPreview = Omit<OmitTodo, 'description'>;
   const omit: OmitPreview = {
@@ -148,8 +148,8 @@ export default function () {
 
   // InstanceType
   class ITC {
-      x = 0;
-      y = 0;
+    x = 0;
+    y = 0;
   }
   type IT0 = InstanceType<typeof ITC>;
   type IT1 = InstanceType<any>; // eslint-disable-line
@@ -183,8 +183,8 @@ export default function () {
 
   // ThisType
   type ObjectDescription<D, M> = {
-      data?: D;
-      methods?: M & ThisType<D & M>;
+    data?: D;
+    methods?: M & ThisType<D & M>;
   };
   function makeObject<D, M>(desc: ObjectDescription<D, M>): D & M {
     const data: object = desc.data || {};
@@ -229,13 +229,13 @@ export default function () {
 
   // Mixin
   class Sprite {
-      name = '';
-      x = 0;
-      y = 0;
+    name = '';
+    x = 0;
+    y = 0;
 
-      constructor(name: string) {
-        this.name = name;
-      }
+    constructor(name: string) {
+      this.name = name;
+    }
   }
 
   type Constructor = new (...args: any[]) => {}; // eslint-disable-line
@@ -244,15 +244,15 @@ export default function () {
     return class Scaling extends Base {
       // Mixins may not declare private/protected properties
       // however, you can use ES2020 private fields
-          _scale = 1;
+      _scale = 1;
 
-          setScale(scale: number) {
-            this._scale = scale;
-          }
+      setScale(scale: number) {
+        this._scale = scale;
+      }
 
-          get scale(): number {
-            return this._scale;
-          }
+      get scale(): number {
+        return this._scale;
+      }
     };
   }
 
@@ -290,8 +290,8 @@ export default function () {
     }
   }
   class Sprition {
-      x = 0;
-      y = 0;
+    x = 0;
+    y = 0;
   }
   interface Sprition extends Jumpable, Duckable {}
   applyMixins(Sprition, [Jumpable, Duckable]);

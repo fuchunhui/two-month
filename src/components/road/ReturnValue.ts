@@ -1,8 +1,8 @@
 import {defineComponent, reactive, h} from 'vue';
 
 interface Book {
-    title: string;
-    year?: number;
+  title: string;
+  year?: number;
 }
 
 export default defineComponent({

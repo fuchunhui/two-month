@@ -2,9 +2,9 @@
 import Vue, {PropType} from 'vue';
 
 interface ComplexMessage { 
-    title: string,
-    okMessage: string,
-    cancelMessage: string
+  title: string,
+  okMessage: string,
+  cancelMessage: string
 }
 
 const Component = Vue.extend({
