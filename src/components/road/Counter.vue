@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <button @click="decrement">-</button>
-        {{ count }}
-        <button @click="increment">+</button>
-    </div>
+  <div>
+    <button @click="decrement">-</button>
+    {{ count }}
+    <button @click="increment">+</button>
+  </div>
 </template>
 
 <script lang="ts">

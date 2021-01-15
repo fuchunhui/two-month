@@ -1,4 +1,4 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin'); // eslint-disable-line
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 function resolve(dir) {
