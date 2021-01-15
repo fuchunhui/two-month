@@ -42,8 +42,8 @@ module.exports = {
     'func-call-spacing': ['error', 'never'],
     // enforce consistent spacing before and after commas
     'comma-spacing': ['error', {
-        'before': false,
-        'after': true
+            'before': false,
+            'after': true
     }],
     // disallow or enforce spaces inside of parentheses
     'space-in-parens': ['error', 'never'],
@@ -51,11 +51,11 @@ module.exports = {
     'object-curly-spacing': ['error', 'never'],
     'vue/html-indent': ['error', 2],
     'vue/max-attributes-per-line': ['error', {
-        'singleline': 10,
-        'multiline': {
-          'max': 1,
-          'allowFirstLine': false
-        }
+            'singleline': 10,
+            'multiline': {
+                'max': 1,
+                'allowFirstLine': false
+            }
     }],
 
     '@typescript-eslint/semi': ['error', 'always'],

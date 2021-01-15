@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed } from 'vue';
+import {defineComponent, toRefs, computed} from 'vue';
 
 export default defineComponent({
   name: 'AnalysisContainer',
@@ -26,7 +26,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { year, month, card } = toRefs(props);
+    const {year, month, card} = toRefs(props);
     const current = computed(() => {
       return `${card.value}, ${year.value}, ${month.value.join('-')}`;
     });

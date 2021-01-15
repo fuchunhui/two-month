@@ -29,72 +29,72 @@ export default function () {
   const output4: <U>(arg: U) => U = identity3;
   const output5: { <T>(arg: T): T } = identity3;
 
-  interface GenericIdentityFn {
-    <T>(arg: T): T;
-  }
-  const output6: GenericIdentityFn = identity3;
-  interface GF2<T> {
-    (arg: T): T;
-  }
-  const output7: GF2<number> = identity3;
-  console.log('generic interface: ', output7);
-  // class GT<T> {
-  //   zeroValue: T; // eslint-disable-line
-  //   add: (x: T, y: T) => T; // eslint-disable-line
-  // }
-  // const output8 = new GT<number>();
-  // output8.zeroValue = 0;
-  // output8.add = (x, y) => {
-  //   return x + y;
-  // }
+    interface GenericIdentityFn {
+        <T>(arg: T): T;
+    }
+    const output6: GenericIdentityFn = identity3;
+    interface GF2<T> {
+        (arg: T): T;
+    }
+    const output7: GF2<number> = identity3;
+    console.log('generic interface: ', output7);
+    // class GT<T> {
+    //   zeroValue: T; // eslint-disable-line
+    //   add: (x: T, y: T) => T; // eslint-disable-line
+    // }
+    // const output8 = new GT<number>();
+    // output8.zeroValue = 0;
+    // output8.add = (x, y) => {
+    //   return x + y;
+    // }
 
-  interface Lengthwise {
-    length: number;
-  }
-  function identity6<T extends Lengthwise>(arg: T): T {
-    console.log(arg.length);
-    return arg;
-  }
-  const output8 = identity6({
-    length: 100,
-    value: 44
-  });
-  console.log('generic constraints: ', output8);
+    interface Lengthwise {
+        length: number;
+    }
+    function identity6<T extends Lengthwise>(arg: T): T {
+      console.log(arg.length);
+      return arg;
+    }
+    const output8 = identity6({
+      length: 100,
+      value: 44
+    });
+    console.log('generic constraints: ', output8);
 
-  function getProperty<T, K extends keyof T>(obj: T, key: K) {
-    return obj[key];
-  }
-  const x = {
-    a: 1,
-    b: 2,
-    c: 3,
-    d: 4
-  };
-  getProperty(x, 'a');
-  // getProperty(x, 'm');
+    function getProperty<T, K extends keyof T>(obj: T, key: K) {
+      return obj[key];
+    }
+    const x = {
+      a: 1,
+      b: 2,
+      c: 3,
+      d: 4
+    };
+    getProperty(x, 'a');
+    // getProperty(x, 'm');
 
-  function create<T>(c: { new (): T }): T {
+    function create<T>(c: { new (): T }): T {
     return new c(); // eslint-disable-line
-  }
+    }
 
-  class BeeKeeper {
-    hasMask: boolean = false;
-  }
-  class Zookeeper {
-    nametag: string = 'tty';
-  }
-  class Animal {
-    numLegs: number = 8;
-  }
-  class Bee extends Animal {
-    keeper: BeeKeeper = new BeeKeeper();
-  }
-  class Lion extends Animal {
-    keeper: Zookeeper = new Zookeeper();
-  }
-  function createInstance<A extends Animal>(c: new () => A): A {
+    class BeeKeeper {
+        hasMask: boolean = false;
+    }
+    class Zookeeper {
+        nametag: string = 'tty';
+    }
+    class Animal {
+        numLegs: number = 8;
+    }
+    class Bee extends Animal {
+        keeper: BeeKeeper = new BeeKeeper();
+    }
+    class Lion extends Animal {
+        keeper: Zookeeper = new Zookeeper();
+    }
+    function createInstance<A extends Animal>(c: new () => A): A {
     return new c(); // eslint-disable-line
-  }
-  console.log(createInstance(Lion).keeper.nametag);
-  console.log(createInstance(Bee).keeper.hasMask);
+    }
+    console.log(createInstance(Lion).keeper.nametag);
+    console.log(createInstance(Bee).keeper.hasMask);
 }

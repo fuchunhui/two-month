@@ -1,10 +1,10 @@
 // 未测试，参考写法
-import Vue, { PropType } from 'vue'
+import Vue, {PropType} from 'vue';
 
 interface ComplexMessage { 
-  title: string,
-  okMessage: string,
-  cancelMessage: string
+    title: string,
+    okMessage: string,
+    cancelMessage: string
 }
 
 const Component = Vue.extend({
@@ -19,9 +19,9 @@ const Component = Vue.extend({
     message: {
       type: Object as PropType<ComplexMessage>,
       required: true,
-      validator (message: ComplexMessage) {
+      validator(message: ComplexMessage) {
         return !!message.title;
       }
     }
   }
-})
+});

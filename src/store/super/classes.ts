@@ -2,14 +2,14 @@ export default function () {
   console.log('classes!');
 
   class Greeter {
-    greeting: string;
-    constructor(message: string) {
-      this.greeting = message;
-    }
+        greeting: string;
+        constructor(message: string) {
+          this.greeting = message;
+        }
 
-    greet() {
-      return `hellow, ${this.greeting}`;
-    }
+        greet() {
+          return `hellow, ${this.greeting}`;
+        }
   }
 
   const greeter = new Greeter('music');
@@ -31,14 +31,14 @@ export default function () {
   dog.break();
 
   class AnimalHigh {
-    public name: string;
-    public constructor(name: string) {
-      this.name = name;
-    }
+        public name: string;
+        public constructor(name: string) {
+          this.name = name;
+        }
 
-    public move(distance: number = 0): void {
-      console.log(`${this.name} moved ${distance}m.`, this);
-    }
+        public move(distance: number = 0): void {
+          console.log(`${this.name} moved ${distance}m.`, this);
+        }
   }
   class Snake extends AnimalHigh {
     move(distance = 5) {
@@ -65,10 +65,10 @@ export default function () {
   tom.move(34);
 
   class AnimalPP {
-    private name: string;
-    constructor(name: string) {
-      this.name = name;
-    }
+        private name: string;
+        constructor(name: string) {
+          this.name = name;
+        }
   }
   const pp = new AnimalPP('Cat');
   console.log('ECMAScript Private Fields: ', pp);
@@ -85,22 +85,22 @@ export default function () {
   console.log(animal);
 
   class Person {
-    protected name: string;
-    protected constructor(name: string) {
-      this.name = name;
-    }
+        protected name: string;
+        protected constructor(name: string) {
+          this.name = name;
+        }
   }
 
   class Employee extends Person {
-    public department: string;
-    constructor(name: string, department: string) {
-      super(name);
-      this.department = department;
-    }
+        public department: string;
+        constructor(name: string, department: string) {
+          super(name);
+          this.department = department;
+        }
 
-    public getElevatorPitch() {
-      return `Hello, my name is ${this.name} and I work in ${this.department}`;
-    }
+        public getElevatorPitch() {
+          return `Hello, my name is ${this.name} and I work in ${this.department}`;
+        }
   }
 
   const howard = new Employee('Howard', 'Sales');
@@ -108,10 +108,10 @@ export default function () {
   console.log('protected: ', howard.department);
 
   class Octopus {
-    readonly numberOfLegs: number = 8;
-    constructor(readonly name: string) {
-      console.log(name);
-    }
+        readonly numberOfLegs: number = 8;
+        constructor(readonly name: string) {
+          console.log(name);
+        }
   }
   const dad = new Octopus('eight legs');
   // dad.name = 'more';
@@ -123,17 +123,17 @@ export default function () {
 
   const fullNameMaxLength = 10;
   class Employee3 {
-    private _fullName: string = '';
-    get fullName(): string {
-      return this._fullName;
-    }
+        private _fullName: string = '';
+        get fullName(): string {
+          return this._fullName;
+        }
 
-    set fullName(newName: string) {
-      if (newName && newName.length > fullNameMaxLength) {
-        throw new Error('fullName has a max length of ' + fullNameMaxLength);
-      }
-      this._fullName = newName;
-    }
+        set fullName(newName: string) {
+          if (newName && newName.length > fullNameMaxLength) {
+            throw new Error('fullName has a max length of ' + fullNameMaxLength);
+          }
+          this._fullName = newName;
+        }
   }
   const emp = new Employee3();
   emp.fullName = 'Bob Smith';
@@ -142,23 +142,23 @@ export default function () {
   }
 
   class Grid {
-    static origin = {
-      x: 0,
-      y: 0
-    };
+        static origin = {
+          x: 0,
+          y: 0
+        };
 
-    constructor(public scale: number = 1) {
-      console.log('Static Properties', scale);
-    }
+        constructor(public scale: number = 1) {
+          console.log('Static Properties', scale);
+        }
 
-    calculateDistanceFromOrigin(point: {
-      x: number;
-      y: number;
-    }) {
-      const xD = point.x - Grid.origin.x;
-      const yD = point.y - Grid.origin.y;
-      return Math.sqrt(xD * xD + yD * yD) / this.scale;
-    }
+        calculateDistanceFromOrigin(point: {
+            x: number;
+            y: number;
+        }) {
+          const xD = point.x - Grid.origin.x;
+          const yD = point.y - Grid.origin.y;
+          return Math.sqrt(xD * xD + yD * yD) / this.scale;
+        }
   }
   const g1 = new Grid(10);
   const g2 = new Grid(25);
@@ -187,7 +187,7 @@ export default function () {
       console.log('Department name: ' + this.name);
     }
 
-    abstract printMeeting (): void;
+        abstract printMeeting (): void;
   }
   class AccountingDepartment extends Department3 {
     constructor() {
@@ -209,28 +209,28 @@ export default function () {
   // depart.generateReports();
 
   class Greeter3 {
-    greeting: string;
-    constructor(mes: string) {
-      this.greeting = mes;
-    }
+        greeting: string;
+        constructor(mes: string) {
+          this.greeting = mes;
+        }
 
-    greet() {
-      return 'hellow' + this.greeting;
-    }
+        greet() {
+          return 'hellow' + this.greeting;
+        }
   }
   const greet: Greeter3 = new Greeter3('1234dasd');
   console.log(greet.greet());
 
   class Greeter4 {
-    static standardGreeting = 'Hello, there';
-    greeting: string = '';
-    greet() {
-      if (this.greeting) {
-        return 'Hello, ' + this.greeting;
-      } else {
-        return Greeter4.standardGreeting;
-      }
-    }
+        static standardGreeting = 'Hello, there';
+        greeting: string = '';
+        greet() {
+          if (this.greeting) {
+            return 'Hello, ' + this.greeting;
+          } else {
+            return Greeter4.standardGreeting;
+          }
+        }
   }
 
   const greeter1: Greeter4 = new Greeter4();
@@ -241,16 +241,16 @@ export default function () {
   console.log('Constructor functions: ', greeter2.greet()); // 'Hey there!'
 
   class Point5 {
-    x: number = 0;
-    y: number = 2;
+        x: number = 0;
+        y: number = 2;
   }
-  interface Point3d extends Point5 {
-    z: number;
-  }
-  const point4: Point3d = {
-    x: 1,
-    y: 2,
-    z: 3
-  };
-  console.log('using a class an interface', point4);
-};
+    interface Point3d extends Point5 {
+        z: number;
+    }
+    const point4: Point3d = {
+      x: 1,
+      y: 2,
+      z: 3
+    };
+    console.log('using a class an interface', point4);
+}

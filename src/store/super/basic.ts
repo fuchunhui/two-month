@@ -32,59 +32,59 @@ export default function basic() {
     x = ['story', 100];
     console.log('tuple: ', x[0].substring(2), x[1]);
 
-    enum Color {
-      Red = 'RED',
-      Green = 300,
-      White = 'WHITE'
-    };
-    const co: Color = Color.White;
-    const cn: string = Color[300];
-    console.log('enum: ', co, cn); // 枚举类型好爽，替代对象数组的查找映射。
+        enum Color {
+            Red = 'RED',
+            Green = 300,
+            White = 'WHITE'
+        }
+        const co: Color = Color.White;
+        const cn: string = Color[300];
+        console.log('enum: ', co, cn); // 枚举类型好爽，替代对象数组的查找映射。
 
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     let notSure: any = 4;
-    notSure = 'maybe a string instead';
-    notSure = false;
-    // eslint-disable-next-line
+        notSure = 'maybe a string instead';
+        notSure = false;
+        // eslint-disable-next-line
     const listAny: any[] = [1, true, '123'];
-    listAny[1] = 123;
-    console.log('any: ', notSure, listAny);
+        listAny[1] = 123;
+        console.log('any: ', notSure, listAny);
 
-    (function warnUser(): void {
-      console.log('void: ', 'this is a message!');
-    })();
+        (function warnUser(): void {
+          console.log('void: ', 'this is a message!');
+        })();
 
-    const u: undefined = undefined;
-    const n: null = null;
-    console.log('undefined and null: ', u, n);
+        const u: undefined = undefined;
+        const n: null = null;
+        console.log('undefined and null: ', u, n);
 
-    const v: string | null | undefined = null;
-    console.log('v: ', v);
+        const v: string | null | undefined = null;
+        console.log('v: ', v);
 
-    // function error (message: string): never {
-    //   throw new Error(message);
-    // }
-    // function fail () {
-    //   return error('some errors');
-    // }
-    // fail();
+        // function error (message: string): never {
+        //   throw new Error(message);
+        // }
+        // function fail () {
+        //   return error('some errors');
+        // }
+        // fail();
 
-    function create(o: object | null): void {
-      console.log('object: ', o);
-    }
-    create({
-      prop: 100
-    });
-    create(null);
-    create({});
+        function create(o: object | null): void {
+          console.log('object: ', o);
+        }
+        create({
+          prop: 100
+        });
+        create(null);
+        create({});
 
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     const someValue: any = 'this a number';
-    const strLength: number = (someValue as string).length;
-    const strLength2: number = (<string>someValue).length;
-    console.log('assertions: ', strLength, strLength2);
+        const strLength: number = (someValue as string).length;
+        const strLength2: number = (<string>someValue).length;
+        console.log('assertions: ', strLength, strLength2);
   };
   (function () {
     basicTypes();
   })();
-};
+}

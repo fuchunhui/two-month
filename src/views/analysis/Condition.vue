@@ -6,8 +6,8 @@
         :key="item.value"
         :text="item.value"
         :active="item.value === info.card"
-        @click="change(item.value, INFO_TYPE.CARD)">
-      </card>
+        @click="change(item.value, INFO_TYPE.CARD)"
+      />
     </div>
     <div class="condition-common condition-month">
       <card
@@ -15,8 +15,8 @@
         :key="item.value"
         :text="item.label"
         :active="info.month.includes(item.value)"
-        @click="change(item.value, INFO_TYPE.MONTH)">
-      </card>
+        @click="change(item.value, INFO_TYPE.MONTH)"
+      />
     </div>
     <div class="condition-common condition-year">
       <card
@@ -24,8 +24,8 @@
         :key="item.value"
         :text="item.label"
         :active="item.value === info.year"
-        @click="change(item.value, INFO_TYPE.YEAR)">
-      </card>
+        @click="change(item.value, INFO_TYPE.YEAR)"
+      />
     </div>
   </div>
 </template>
@@ -36,9 +36,9 @@ import Card from './Card.vue';
 import {BANK, MONTH, YEAR} from 'config/index';
 
 enum INFO_TYPE {
-  YEAR = 'YEAR',
-  MONTH = 'MONTH',
-  CARD = 'CARD',
+    YEAR = 'YEAR',
+    MONTH = 'MONTH',
+    CARD = 'CARD',
 }
 
 export default defineComponent({
@@ -62,7 +62,7 @@ export default defineComponent({
     }
   },
 
-  setup(props, { emit }) {
+  setup(props, {emit}) {
     const {info} = toRefs(props);
     const bankList = [BANK.num1, BANK.num2].map(item => {
       return {

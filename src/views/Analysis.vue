@@ -1,12 +1,12 @@
 <template>
   <div class="analysis">
-    <condition v-model:info="info"></condition>
-    <container v-bind="info"></container>
+    <condition v-model:info="info" />
+    <container v-bind="info" />
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import {ref} from 'vue';
 import Condition from './analysis/Condition.vue';
 import Container from './analysis/Container.vue';
 import {BANK} from '@/config/index';

@@ -13,30 +13,30 @@ export default function () {
   const str = padLeft('Hello world', 4);
   console.log('union types: ', str);
 
-  interface Bird {
-    fly(): void;
-    layEggs(): void;
-  }
-  interface Fish {
-    swim(): void;
-    layEggs(): void;
-  }
+    interface Bird {
+        fly(): void;
+        layEggs(): void;
+    }
+    interface Fish {
+        swim(): void;
+        layEggs(): void;
+    }
 
   type NetworkLoadingState = {
-    state: 'loading';
-  }
+      state: 'loading';
+  };
   type NetworkFailedState = {
-    state: 'failed';
-    code: number;
-  }
+      state: 'failed';
+      code: number;
+  };
   type NetworkSuccessState = {
-    state: 'success';
-    response: {
-      title: string;
-      duration: number;
-      summary: string;
-    };
-  }
+      state: 'success';
+      response: {
+          title: string;
+          duration: number;
+          summary: string;
+      };
+  };
   type NetworkState =
     | NetworkLoadingState
     | NetworkFailedState
@@ -58,14 +58,14 @@ export default function () {
   console.log('Discriminating unions: ', newworkStatus(net));
 
   interface ErrorHandling {
-    success: boolean;
-    error?: { message: string };
+      success: boolean;
+      error?: { message: string };
   }
   interface ArtworksData {
-    antworks: { title: string }[];
+      antworks: { title: string }[];
   }
   interface ArtistsData {
-    artists: { name: string }[];
+      artists: { name: string }[];
   }
   type ArtworksResponse = ArtworksData & ErrorHandling;
   type ArtistsResponse = ArtistsData & ErrorHandling;
@@ -101,7 +101,7 @@ export default function () {
   const tes = new Person('123');
   console.log({...tes});
   interface Loggable {
-    log (name: string): void;
+      log (name: string): void;
   }
   class ConsoleLogger implements Loggable {
     log(name: string) {
@@ -129,4 +129,4 @@ export default function () {
   const jim = extend(new Person('Jim'), ConsoleLogger.prototype);
   console.log({...jim});
   jim.log(jim.name);
-};
+}

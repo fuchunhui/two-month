@@ -1,4 +1,4 @@
-import { h, ref, reactive } from 'vue';
+import {h, ref, reactive} from 'vue';
 
 export default {
   props: {
@@ -9,7 +9,7 @@ export default {
   },
   setup(props: any) { // eslint-disable-line
     const readersNumber = ref(0);
-    const book = reactive({ title: 'A New Guide' });
+    const book = reactive({title: 'A New Guide'});
     return () => h('div', [readersNumber.value, book.title, props.message]);
   }
 };

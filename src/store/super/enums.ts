@@ -1,79 +1,79 @@
 export default function () {
   console.log('enums');
 
-  enum Direction {
-    Up,
-    Down,
-    Left,
-    Right
-  }
+    enum Direction {
+        Up,
+        Down,
+        Left,
+        Right
+    }
 
-  console.log('enums: ', {...Direction}, Direction[2], Direction.Down);
+    console.log('enums: ', {...Direction}, Direction[2], Direction.Down);
 
-  enum Response {
-    No = 0,
-    Yes = 1
-  }
-  function respond(recipient: string, message: Response): void {
-    console.log(recipient + message);
-  }
-  respond('Princess Caroline ', Response.Yes);
+    enum Response {
+        No = 0,
+        Yes = 1
+    }
+    function respond(recipient: string, message: Response): void {
+      console.log(recipient + message);
+    }
+    respond('Princess Caroline ', Response.Yes);
 
-  enum Streat {
-    Up = 'UUP',
-    Down = 'DDOWN',
-    Left = 'LLEFT',
-    Right = 'RRIGHT'
-  }
+    enum Streat {
+        Up = 'UUP',
+        Down = 'DDOWN',
+        Left = 'LLEFT',
+        Right = 'RRIGHT'
+    }
 
-  console.log('enums: ', {...Streat}, Streat.Down);
+    console.log('enums: ', {...Streat}, Streat.Down);
 
-  enum FileAccess {
+    enum FileAccess {
     // constant members
-    None,
-    Read = 1 << 1,
-    Write = 1 << 2,
-    ReadWrite = Read | Write,
-    // computed member
-    G = '123'.length
-  }
-  console.log('enums: ', {...FileAccess}, FileAccess.Write);
+        None,
+        Read = 1 << 1,
+        Write = 1 << 2,
+        ReadWrite = Read | Write,
+        // computed member
+        G = '123'.length
+    }
+    console.log('enums: ', {...FileAccess}, FileAccess.Write);
 
-  enum ShapeKind {
-    Circle,
-    Square
-  }
-  interface Circle {
-    kind: ShapeKind.Circle;
-    radius: number;
-  }
-  interface Square {
-    kind: ShapeKind.Square;
-    length: number;
-  }
-  const c: Circle = {
-    kind: ShapeKind.Circle,
-    radius: 10
-  };
-  console.log({...ShapeKind}, c);
+    enum ShapeKind {
+        Circle,
+        Square
+    }
+    interface Circle {
+        kind: ShapeKind.Circle;
+        radius: number;
+    }
+    interface Square {
+        kind: ShapeKind.Square;
+        length: number;
+    }
+    const c: Circle = {
+      kind: ShapeKind.Circle,
+      radius: 10
+    };
+    console.log({...ShapeKind}, c);
 
-  enum E {
-    X,
-    Y,
-    TES
-  }
+    enum E {
+        X,
+        Y,
+        TES
+    }
 
-  function f(obj: { X: number }) {
-    return obj.X;
-  }
-  console.log(f(E));
+    function f(obj: { X: number }) {
+      return obj.X;
+    }
+    console.log(f(E));
 
-  enum LogLevel {
-    ERROR,
-    WARN,
-    INFO,
-    DEBUG
-  }
+    enum LogLevel {
+        ERROR,
+        WARN,
+        INFO,
+        DEBUG
+    }
 
   /**
    * This is equivalent to:
@@ -89,9 +89,9 @@ export default function () {
   print('ERROR', 'mmmm');
 
   const enum Letter {
-    A = 18,
-    B = A * 4
-  };
+      A = 18,
+      B = A * 4
+  }
   const num = [
     Letter.A,
     Letter.B

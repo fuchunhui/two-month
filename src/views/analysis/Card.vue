@@ -1,8 +1,12 @@
 <template>
-  <div :class="{
-    'card': true,
-    'card-active': active
-  }">{{ text }}</div>
+  <div
+    :class="{
+      'card': true,
+      'card-active': active
+    }"
+  >
+    {{ text }}
+  </div>
 </template>
 
 <script lang="ts">

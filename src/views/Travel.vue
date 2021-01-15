@@ -11,7 +11,7 @@
 <script lang="ts">
 import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 export default {
   props: {

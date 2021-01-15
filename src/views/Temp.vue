@@ -1,9 +1,11 @@
 <template>
-  <div class="card">{{ text }}</div>
+  <div class="card">
+    {{ text }}
+  </div>
 </template>
 
 <script lang="ts">
-import { computed, reactive, toRefs, ref, watchEffect, watch, onMounted } from 'vue';
+import {computed, reactive, toRefs, ref, watchEffect, watch, onMounted} from 'vue';
 
 export default {
   name: 'Card',
@@ -24,7 +26,7 @@ export default {
     });
 
     console.log('reactive: ', book);
-    const { price, title } = toRefs(book);
+    const {price, title} = toRefs(book);
     title.value = '1';
     console.log(book.title, book);
 

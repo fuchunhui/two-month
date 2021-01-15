@@ -1,7 +1,9 @@
 <template>
   <div class="test-wrapper">
-      test demo {{msg}}
-      <button @click="onClick">click</button>
+    test demo {{ msg }}
+    <button @click="onClick">
+      click
+    </button>
   </div>
 </template>
 
@@ -24,12 +26,12 @@ const Emits = emits({
 
 export default class Test extends mixins(Props, Emits) {
     onClick(): void {
-      console.log('test demo click!');
-      this.checkConsole();
+        console.log('test demo click!');
+        this.checkConsole();
     }
 
     checkConsole() {
-      this.$emit('demo', 10);
+        this.$emit('demo', 10);
     }
 }
 </script>

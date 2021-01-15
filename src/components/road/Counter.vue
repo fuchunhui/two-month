@@ -1,13 +1,17 @@
 <template>
   <div>
-    <button @click="decrement">-</button>
+    <button @click="decrement">
+      -
+    </button>
     {{ count }}
-    <button @click="increment">+</button>
+    <button @click="increment">
+      +
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 export default {
   setup() {

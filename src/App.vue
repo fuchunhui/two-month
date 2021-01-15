@@ -1,11 +1,19 @@
 <template>
   <div id="nav">
-    <router-link to="acquisition">acquisition</router-link> |
-    <router-link to="analysis">analysis</router-link> |
-    <router-link to="travel">travel</router-link> |
-    <router-link to="/">Super Demo</router-link>
+    <router-link to="acquisition">
+      acquisition
+    </router-link> |
+    <router-link to="analysis">
+      analysis
+    </router-link> |
+    <router-link to="travel">
+      travel
+    </router-link> |
+    <router-link to="/">
+      Super Demo
+    </router-link>
   </div>
-  <router-view/>
+  <router-view />
 </template>
 
 <script lang="ts">
