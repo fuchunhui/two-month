@@ -2,8 +2,8 @@
   <div class="travel">
     <home />
     <about />
-    <div class="count-group" @click="this.add">
-      {{ `${this.text}: ${this.count}` }}
+    <div class="count-group" @click="add">
+      {{ `${text}: ${count}` }}
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
   setup(props: any) { // eslint-disable-line
     const text = '点我，来吧';
     const count = ref(0);
-    const add: Function = () => {
+    const add: () => void = () => {
       count.value++;
       console.log('message: ', props.msg);
     };

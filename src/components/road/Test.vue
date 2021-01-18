@@ -8,32 +8,32 @@
 </template>
 
 <script lang="ts">
-import {props, emits, mixins} from 'vue-class-component';
+import {defineComponent} from 'vue';
 
-const Props = props({
-  msg: {
-    type: String,
-    required: false,
-    default: 'hhh'
+export default defineComponent({
+  props: {
+    msg: {
+      type: String,
+      required: false,
+      default: 'hhh'
+    }
+  },
+  emits: ['demo'],
+
+  setup(props, {emit}) {
+    const checkConsole = () => {
+      emit('demo', 10);
+    };
+    const onClick = () => {
+      console.log('test demo click!');
+      checkConsole();
+    };
+
+    return {
+      onClick
+    };
   }
 });
-
-const Emits = emits({
-  demo: value => {
-    return typeof value === 'number';
-  }
-});
-
-export default class Test extends mixins(Props, Emits) {
-  onClick(): void {
-    console.log('test demo click!');
-    this.checkConsole();
-  }
-
-  checkConsole() {
-    this.$emit('demo', 10);
-  }
-}
 </script>
 
 <style lang="less">
