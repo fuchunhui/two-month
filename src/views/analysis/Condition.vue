@@ -61,6 +61,7 @@ export default defineComponent({
       }
     }
   },
+  emits: ['update:info'],
 
   setup(props, {emit}) {
     const {info} = toRefs(props);

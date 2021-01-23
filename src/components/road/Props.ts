@@ -1,27 +1,28 @@
-// 未测试，参考写法
-import Vue, {PropType} from 'vue';
-
-interface ComplexMessage { 
-  title: string,
-  okMessage: string,
-  cancelMessage: string
+import {defineComponent, PropType} from 'vue';
+interface Book {
+  title: string;
+  author: string;
+  year: number;
 }
 
-const Component = Vue.extend({
+const Component = defineComponent({
   props: {
-    name: String,
-    success: { 
-      type: String 
+    name: {
+      type: String,
+      default: ''
     },
-    callback: { 
-      type: Function as PropType<() => void>
+    success: {
+      type: String,
+      default: ''
     },
-    message: {
-      type: Object as PropType<ComplexMessage>,
-      required: true,
-      validator(message: ComplexMessage) {
-        return !!message.title;
-      }
+    callback: {
+      type: Function as PropType<() => void>, // what 意思？
+      default: () => {}
+    },
+    book: {
+      type: Object as PropType<Book>,
+      required: true
     }
   }
 });
+console.log('components: ', Component);

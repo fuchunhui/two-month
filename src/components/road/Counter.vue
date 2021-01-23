@@ -16,10 +16,10 @@ import {ref} from 'vue';
 export default {
   setup() {
     const count = ref(0);
-    const increment: Function = () => {
+    const increment = () => {
       count.value++;
     };
-    const decrement: Function = () => {
+    const decrement = () => {
       count.value--;
     };
     return {
