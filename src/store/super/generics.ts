@@ -1,4 +1,4 @@
-export default function () {
+export default function (): void {
   console.log('123');
 
   function identity(arg: number): number {
@@ -10,6 +10,8 @@ export default function () {
   function identity3<T>(arg: T): T {
     return arg;
   }
+  console.log(identity(121));
+  console.log(identity2(false));
   const output = identity3<string>('astring');
   console.log('generics', output);
 
@@ -24,15 +26,21 @@ export default function () {
     console.log(arg.length);
     return arg;
   }
+  console.log(identity5(['1', '2', '3']));
 
   const output3: <T>(arg: T) => T = identity3;
   const output4: <U>(arg: U) => U = identity3;
   const output5: { <T>(arg: T): T } = identity3;
+  console.log(output3('abc'));
+  console.log(output4(62.32));
+  console.log(output5('1'));
+  console.log('--------------------------久未放晴的天空', output3 === output5);
 
   interface GenericIdentityFn {
     <T>(arg: T): T;
   }
   const output6: GenericIdentityFn = identity3;
+  console.log(output6('666666, 我很快就离开'));
   interface GF2<T> {
     (arg: T): T;
   }
@@ -73,6 +81,7 @@ export default function () {
   getProperty(x, 'a');
   // getProperty(x, 'm');
 
+  // eslint-disable-next-line
   function create<T>(c: { new (): T }): T {
     return new c(); // eslint-disable-line
   }

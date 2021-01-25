@@ -1,4 +1,4 @@
-export default function () {
+export default function (): void {
   console.log('utility types.');
 
   interface Todo {
@@ -187,8 +187,8 @@ export default function () {
     methods?: M & ThisType<D & M>;
   };
   function makeObject<D, M>(desc: ObjectDescription<D, M>): D & M {
-    const data: object = desc.data || {};
-    const methods: object = desc.methods || {};
+    const data: Record<string, unknown> = desc.data || {};
+    const methods: Record<string, unknown> = desc.methods || {};
     return {...data, ...methods} as D & M;
   }
   const obj = makeObject({

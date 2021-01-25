@@ -15,7 +15,7 @@ export default function () {
     Yes = 1
   }
   function respond(recipient: string, message: Response): void {
-    console.log(recipient + message);
+    console.log(Number(recipient) + message);
   }
   respond('Princess Caroline ', Response.Yes);
 
@@ -55,7 +55,11 @@ export default function () {
     kind: ShapeKind.Circle,
     radius: 10
   };
-  console.log({...ShapeKind}, c);
+  const s: Square = {
+    kind: ShapeKind.Square,
+    length: 100
+  };
+  console.log({...ShapeKind}, c, s);
 
   enum E {
     X,
