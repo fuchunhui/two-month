@@ -6,13 +6,13 @@
 
 <script lang="ts">
 // import basic from '@/store/super/basic';
-// import interfaces from '@/store/super/interfaces';
+import interfaces from '@/store/super/interfaces';
 // import functions from '@/store/super/functions';
 // import literal from '@/store/super/literal';
 // import intersections from '@/store/super/intersections';
 // import classes from '@/store/super/classes';
 // import enums from '@/store/super/enums';
-import generics from '@/store/super/generics';
+// import generics from '@/store/super/generics';
 // import decorator from '@/store/super/decorator';
 // import utility from '@/store/super/utility';
 // import modules from '@/store/super/modules';
@@ -22,13 +22,13 @@ import generics from '@/store/super/generics';
 export default {
   created() {
     // basic();
-    // interfaces();
+    interfaces();
     // functions();
     // literal();
     // intersections();
     // classes();
     // enums();
-    generics();
+    // generics();
     // decorator();
     // utility();
     // modules();

@@ -1,4 +1,4 @@
-export default function interfaces() {
+export default function interfaces(): void {
   function printLabel(labeledObj: { label: string }) {
     console.log(labeledObj.label);
   }
@@ -8,7 +8,9 @@ export default function interfaces() {
   };
   printLabel(myObj);
 
-  interface LabeledValue {label: string}
+  interface LabeledValue {
+    label: string;
+  }
   function printLabel2(labeledObj: LabeledValue) {
     console.log('printLabel2: ', labeledObj.label);
   }
@@ -19,7 +21,7 @@ export default function interfaces() {
   interface SquareConfig {
     color?: string;
     width?: number;
-    [propName: string]: any; // eslint-disable-line
+    [propName: string]: any; 
   }
   function createSquare(config: SquareConfig): SquareConfig {
     const newSquare = {
@@ -97,13 +99,32 @@ export default function interfaces() {
     [x: number]: Animal;
     // [x: string]: Dog;
   }
-
   interface NumberDictionary {
     [index: string]: number;
     length: number;
     name: number;
   }
+  const dog: Dog = {
+    name: 'Shar Pei',
+    bread: 'wang wang wang'
+  };
+  const zebra: NotOkay = [
+    {
+      name: 'zebra'
+    }
+  ];
+  const moneky: NotOkay = {
+    5: {
+      name: 'moneky'
+    }
+  };
+  const nd: NumberDictionary = {
+    'a': 13,
+    length: 33,
+    name: 250
+  };
 
+  console.log(`------------------> ${dog.name} say : ${dog.bread}`, zebra, moneky, nd);
   interface ReadonlyStringArray {
     readonly [index: number]: string;
   }
