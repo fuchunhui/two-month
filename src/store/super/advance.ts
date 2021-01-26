@@ -305,11 +305,22 @@ export default function (): void {
     [P in keyof T]: Proxy<T[P]>
   };
   type NewProxify = Proxify<PersonSubset>;
-
+  const np: NewProxify = {
+    name: {
+      get(): string {
+        return 'get string';
+      },
+      set(value: string): void {
+        console.log('this is set value', value);
+      }
+    }
+  };
+  console.log('proxy: ', np);
   // Conditional Types
   // declare function fmath<T extends boolean>(x: T): T extends true ? string : number;
-  function fmath(falg: boolean) {
-    // return !falg;
+  function fmath(flag: boolean) {
+    console.log(flag);
+    return !flag;
   }
   const x = fmath(Math.random() < 0.5);
   console.log('Conditional Types: ', x);
@@ -322,9 +333,9 @@ export default function (): void {
         ? boolean
         : T extends undefined
           ? undefined
-          : T extends Function
-            ? 'function' | never
-            : object;
+          : T extends () => void // eslint-disable-line1
+            ? () => number | never
+            : Record<string, T>;
   type TN0 = TypeName<string>;
   type TN1 = TypeName<123>;
   type TN2 = TypeName<true>;
@@ -333,22 +344,44 @@ export default function (): void {
   type TN5 = TypeName<string | (() => void)>;
   type TN6 = TypeName<string | string[] | undefined>;
   type TN7 = TypeName<string[] | number[]>;
+  const tn0: TN0 = 'abc';
   const tn1: TN1 = 222;
+  const tn2: TN2 = false;
+  const tn3: TN3 = () => 123;
+  const tn4: TN4 = {
+    name: ['hello', 'world']
+  };
+  const tn5: TN5 = '222';
+  const tn6: TN6 = undefined;
+  const tn7: TN7 = {
+    123: [100, 200]
+  };
+  console.log(tn0, tn1, tn2, tn3, tn4, tn5, tn6, tn7);
 
   type BoxedValue<T> = { value: T };
-  type BoxedArray<T> = { array: T[] };
+  type BoxedArray<T> = { value: T[] };
   type Boxed<T> = T extends any[] ? BoxedArray<T[number]> : BoxedValue<T>;
   type T1 = Boxed<string>;
   type T2 = Boxed<number[]>;
   type T3 = Boxed<string | number[]>;
+  const t1: T1= {
+    value: 'abc'
+  };
+  const t2: T2 = {
+    value: [1, 2, 3]
+  };
+  const t3: T3 = {
+    value: [1, 2]
+  };
+  console.log(t1, t2, t3);
 
   type FunctionPropertyNames<T> = {
-    [K in keyof T]: T[K] extends Function ? K : never;
+    [K in keyof T]: T[K] extends Function ? K : never; // eslint-disable-line
   }[keyof T];
   type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 
   type NonFunctionPropertyNames<T> = {
-    [K in keyof T]: T[K] extends Function ? never : K;
+    [K in keyof T]: T[K] extends Function ? never : K; // eslint-disable-line
   }[keyof T];
   type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
@@ -363,6 +396,26 @@ export default function (): void {
   type F2 = NonFunctionPropertyNames<Part>;
   type F3 = FunctionProperties<Part>;
   type F4 = NonFunctionProperties<Part>;
+  const f1: F1 = 'updatePart';
+  const f2: F2 = 'name';
+  const f3: F3 = {
+    updatePart(newName: string): void {
+      console.log(newName);
+    }
+  };
+  const f4: F4 = {
+    id: 12345,
+    name: 'mouth',
+    subparts: [
+      {
+        id: 12,
+        name: 'abc',
+        subparts: [],
+        updatePart(): void {}
+      }
+    ]
+  };
+  console.log(f1, f2, f3, f4);
 
   type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
   type Unpacked<T> = T extends (infer U)[]
@@ -378,6 +431,13 @@ export default function (): void {
   type R3 = Unpacked<Promise<string>>;
   type R4 = Unpacked<Promise<string>[]>;
   type R5 = Unpacked<R4>;
+  const r0: R0 = 'abc';
+  const r1: R1 = 'abcd';
+  const r2: R2 = 'abcde';
+  const r3: R3 = 'promiise';
+  const r4: R4 = new Promise(() => {});
+  const r5: R5 = 'promise';
+  console.log(r0, r1, r2, r3, r4, r5);
 
   type Foo<T> = T extends {
     a: infer U;
@@ -391,6 +451,9 @@ export default function (): void {
     a: string;
     b: number;
   }>;
+  const fo1: Fo1 = 'foo1';
+  const fo2: Fo2 = 2;
+  console.log(fo1, fo2);
 
   type Bar<T> = T extends {
     a: (x: infer U) => void;
@@ -400,10 +463,14 @@ export default function (): void {
     a: (x: string) => void;
     b: (y: string) => void;
   }>;
-  type B2 = Bar<{
+  // eslint-disable-next-line
+  type B2 = Bar<{ // type B2: never
     a: (x: string) => void;
     b: (y: number) => void;
   }>;
 
   type RTE = ReturnType<typeof foor>;
+  const b1: B1 = 'bar1';
+  const rte: RTE = false;
+  console.log(b1, rte);
 }
