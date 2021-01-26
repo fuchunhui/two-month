@@ -1,4 +1,4 @@
-export default function () {
+export default function (): void {
   console.log('advances.');
 
   interface Water {
@@ -48,6 +48,15 @@ export default function () {
     }
     return pet.fly();
   }
+  const fish: Fish = {
+    swim(): void {
+      console.log('swim');
+    },
+    layEggs(): void {
+      console.log('hhhh');
+    }
+  };
+  console.log(isFish(fish), move(fish));
 
   // typeof type guards
   function isNumber(x: any): x is number { // eslint-disable-line
@@ -74,6 +83,7 @@ export default function () {
     }
     throw new Error(`Expected string or number, got '${padding}'.`);
   }
+  console.log(padLeft('abc', 100), padRight('xds', 'eslint'));
 
   // instanceof type guards
   interface Padder {
@@ -114,7 +124,7 @@ export default function () {
   let exs: string | null | undefined = 'full';
   exs = null;
   exs = undefined;
-
+  console.log(exs, 'exs');
   // optional parameters and properties
   function f(x: number, y?: number) {
     console.log(x + (y || 0));
@@ -146,15 +156,20 @@ export default function () {
   function fff(stringOrNull: string | null): string {
     return stringOrNull || 'default';
   }
+  ff(null);
+  fff('abc');
   interface UserAccount {
     id: number;
     email?: string;
   }
   function getUser(id: string): UserAccount | undefined {
+    if (id === 'abc') {
+      console.log(`${id}--->!`);
+    }
     return {} as any;
   }
   const user = getUser('admin');
-  console.log('user: ', user!.id);
+  console.log('user: ', user&&user.id);
 
   // Type Aliases
   type Second = number;
@@ -169,6 +184,13 @@ export default function () {
     right?: Tree<T>;
   };
   type Container<T> = { value: T };
+  const treeContainer: Tree<string> & Container<string> = {
+    value: 'abc',
+    left: {
+      value: 'left'
+    }
+  };
+  console.log('treeContainer: ', treeContainer);
 
   // Polymorphic this types TODO
   // Index Type
@@ -200,10 +222,23 @@ export default function () {
   function getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
     return o[propertyName];
   }
+  const source = {
+    key: 'small',
+    value: '16px'
+  };
+  getProperty(source, 'value');
   // Index types and index signatures
   interface Dictionary<T> {
     [key: string]: T;
   }
+
+  const dictionary: Dictionary<boolean> = {
+    name: false,
+    show: true,
+    ready: false,
+    loading: true
+  };
+  console.log('dictionary', dictionary);
   // Mapped types
   interface PersonSubset {
     name?: string;
@@ -224,8 +259,30 @@ export default function () {
   type PartialPerson = { [P in keyof PersonSubset]?: PersonSubset[P] };
   type Nullable<T> = { [P in keyof T]: T[P] | null };
   type Partial1<T> = { [P in keyof T]?: T[P] };
+  const flag: Flags = {
+    op1: false,
+    op2: true
+  };
+  const noPerson: NullablePerson = {
+    name: 'Tomas',
+    age: 25
+  };
+  const partialPerson: PartialPerson = {
+    age: 24
+  };
+  const nullable: Nullable<PersonSubset> = {
+    name: null,
+    age: 25
+  };
+  const pp: PersonPartial = {
+    name: 'null'
+  };
+  const readonlyPP: ReadonlyPerson = {
+    name: 'Superman'
+  };
   const an: number = 123;
   const spa: Partial1<Keys> = 'op2';
+  console.log(an, spa, flag, noPerson, partialPerson, nullable, pp, readonlyPP);
 
   type Proxy<T> = {
     get(): T;

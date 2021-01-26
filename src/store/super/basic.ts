@@ -1,6 +1,4 @@
-declare function create (o: object | null): void;
-
-export default function basic() {
+export default function basic(): void {
   const basicTypes = () => {
     let isDone: boolean = false;
     isDone = true;
@@ -69,7 +67,7 @@ export default function basic() {
     // }
     // fail();
 
-    function create(o: object | null): void {
+    function create(o: Record<string, unknown> | null): void {
       console.log('object: ', o);
     }
     create({
@@ -78,7 +76,6 @@ export default function basic() {
     create(null);
     create({});
 
-    // eslint-disable-next-line
     const someValue: any = 'this a number';
     const strLength: number = (someValue as string).length;
     const strLength2: number = (<string>someValue).length;

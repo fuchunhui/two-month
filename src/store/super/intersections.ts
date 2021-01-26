@@ -1,4 +1,4 @@
-export default function () {
+export default function (): void {
   console.log('unions and intersections');
 
   function padLeft(value: string, padding: string | number) {
@@ -21,6 +21,23 @@ export default function () {
     swim(): void;
     layEggs(): void;
   }
+  const bird: Bird = {
+    fly() {
+      console.log('I can fly.');
+    },
+    layEggs() {
+      return 2;
+    }
+  };
+  const fish: Fish = {
+    swim() {
+      console.log('I can swim.');
+    },
+    layEggs() {
+      return 0;
+    }
+  };
+  console.log(bird, fish);
 
   type NetworkLoadingState = {
     state: 'loading';
@@ -92,41 +109,4 @@ export default function () {
     }
   };
   console.log(handleArtistsResponse(res), {...art});
-
-  class Person {
-    constructor(public name: string) {
-      console.log('constructor: ', name);
-    }
-  }
-  const tes = new Person('123');
-  console.log({...tes});
-  interface Loggable {
-    log (name: string): void;
-  }
-  class ConsoleLogger implements Loggable {
-    log(name: string) {
-      console.log(`Hello, is ${name}`);
-    }
-  }
-
-  function extend<First extends {}, Second extends {}>(
-    first: First,
-    second: Second
-  ): First & Second {
-    const result: Partial<First & Second> = {};
-    for (const prop in first) {
-      if (Object.prototype.hasOwnProperty.call(first, prop)) {
-        (result as First)[prop] = first[prop];
-      }
-    }
-    for (const prop in second) {
-      if (Object.prototype.hasOwnProperty.call(second, prop)) {
-        (result as Second)[prop] = second[prop];
-      }
-    }
-    return result as First & Second;
-  }
-  const jim = extend(new Person('Jim'), ConsoleLogger.prototype);
-  console.log({...jim});
-  jim.log(jim.name);
 }
