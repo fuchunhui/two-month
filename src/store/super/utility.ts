@@ -59,14 +59,15 @@ export default function (): void {
   // Exclude
   type T0 = Exclude<'a' | 'b' | 'c', 'a'>;
   type T1 = Exclude<'a' | 'b' | 'c', 'a' | 'b'>;
-  type T2 = Exclude<string | number | (() => void), Function>;
+  type T2 = Exclude<string | number | (() => void), () => void>;
   const t2: T2 = 'string or number';
+  const t1: T1 = 'c';
   const t0: T0 = 'b';
-  console.log('Exclude: ', t0, t2);
+  console.log('Exclude: ', t0, t1, t2);
 
   // Extract
   type E0 = Extract<'a' | 'b' | 'c', 'a' | 'f'>;
-  type E1 = Extract<string | number | (() => void), Function>;
+  type E1 = Extract<string | number | (() => void), () => void>;
   const e0: E0 = 'a';
   const e1: E1 = () => {
     console.log('Extract');
@@ -131,7 +132,7 @@ export default function (): void {
   type R3 = ReturnType<<T extends U, U extends number[]>() => T>;
   type R4 = ReturnType<typeof f1>;
   type R5 = ReturnType<any>; // eslint-disable-line
-  type R6 = ReturnType<never>;
+  // type R6 = ReturnType<never>;
   const r0: R0 = 'abc';
   const r1 = function rt1(): R1 {
     console.log(r1);
@@ -153,7 +154,44 @@ export default function (): void {
   }
   type IT0 = InstanceType<typeof ITC>;
   type IT1 = InstanceType<any>; // eslint-disable-line
-  type IT2 = InstanceType<never>;
+  // type IT2 = InstanceType<never>;
+  const it0: IT0 = {
+    x: 0,
+    y: 0
+  };
+  const it1: IT1 = {};
+  console.log(it0, it1);
+
+  interface Foo {
+    type: 'foo'
+  }
+  interface Bar {
+    type: 'bar'
+  }
+  interface Baz {
+    type: 'baz'
+  }
+  type All = Foo | Bar | Baz;
+  
+
+  function handleValue(val: All) {
+    switch (val.type) {
+      case 'foo':
+        // 这里 val 被收窄为 Foo
+        break;
+      case 'bar':
+        // val 在这里是 Bar
+        break;
+      default:
+        // val 在这里是 never
+        // const exhaustiveCheck: never = val; // eslint-disable-line
+        break;
+    }
+  }
+  const foo: Foo = {
+    type: 'foo'
+  };
+  console.log(handleValue(foo));
 
   // Required
   interface Props {
@@ -187,8 +225,8 @@ export default function (): void {
     methods?: M & ThisType<D & M>;
   };
   function makeObject<D, M>(desc: ObjectDescription<D, M>): D & M {
-    const data: Record<string, unknown> = desc.data || {};
-    const methods: Record<string, unknown> = desc.methods || {};
+    const data: {} = desc.data || {}; // eslint-disable-line
+    const methods: {} = desc.methods || {}; // eslint-disable-line
     return {...data, ...methods} as D & M;
   }
   const obj = makeObject({
