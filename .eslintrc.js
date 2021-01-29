@@ -87,6 +87,12 @@ module.exports = {
       rules: {
         '@typescript-eslint/explicit-module-boundary-types': 'warn'
       }
+    },
+    {
+      files: ['vue.config.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off'
+      }
     }
   ]
 };
