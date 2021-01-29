@@ -1,4 +1,4 @@
-export default function () {
+export default function (): void {
   console.log('classes!');
 
   class Greeter {
@@ -130,7 +130,7 @@ export default function () {
 
     set fullName(newName: string) {
       if (newName && newName.length > fullNameMaxLength) {
-        throw new Error('fullName has a max length of ' + fullNameMaxLength);
+        throw new Error(`fullName has a max length of ${fullNameMaxLength}`);
       }
       this._fullName = newName;
     }

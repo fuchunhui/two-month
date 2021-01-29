@@ -1,4 +1,4 @@
-export default function functions() {
+export default function functions(): void {
   console.log('functions');
 
   function add(x: number, y: number): number {
@@ -96,7 +96,7 @@ export default function functions() {
     }
   ];
   const pickedCard1 = myDeck[pickCard(myDeck)];
-  console.log('card: ' + pickedCard1.card + ' of ' + pickedCard1.suit);
+  console.log(`card: ${pickedCard1.card} of ${pickedCard1.suit}`);
   const pickedCard2 = pickCard(15);
-  console.log('card: ' + pickedCard2.card + ' of ' + pickedCard2.suit);
+  console.log(`card: ${pickedCard2.card} of ${pickedCard2.suit}`);
 }

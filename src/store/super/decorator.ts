@@ -3,12 +3,12 @@ import 'reflect-metadata';
 const formatMetadataKey = Symbol('format');
 console.log('formatMetadataKey: ', formatMetadataKey);
 
-export default function () {
+export default function (): void {
   console.log('decorator.');
 
   // Decorator
   // Class Decorator & Method Decorator
-  function sealed(constructor: Function) {
+  function sealed(constructor: Function) { // eslint-disable-line
     Object.seal(constructor);
     Object.seal(constructor.prototype);
   }
