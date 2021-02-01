@@ -3,6 +3,13 @@
 // 随机生成数组，长度自定义。
 // 找到缺失项
 // 多种方法
+const log = console.log;
+const constantContent = (label = 'start', handler = () => {}) => {
+  log(`---------------------------${label}---------------------------`);
+  console.time(label);
+  handler();
+  console.timeEnd(label);
+};
 
 const createArr = (max = 100) => {
   const source = [];
@@ -18,41 +25,56 @@ const createRandomArr = (length, max) => {
   let loopNum = max;
   while (loopNum > max - length) {
     const targetIndex = Math.floor(Math.random() * loopNum);
-    const delItem = source.splice(targetIndex, 1);
-    target.push(delItem[0]);
+    const delArr = source.splice(targetIndex, 1);
+    target.push(delArr[0]);
     loopNum--;
   }
   return target;
 };
 
-console.time('生成初始数组');
 const MAX = 100;
-const source = createArr(MAX);
-console.log(`生成长度为${MAX}的原始数组：`, source);
-console.timeEnd('生成初始数组');
+let source = [];
+let target = [];
 
-console.time('生成随机数组');
-const target = createRandomArr(MAX - 1, MAX);
-console.log(`生成长度为${MAX}的随机数组为：`, target);
-console.timeEnd('生成随机数组');
+constantContent('生成原始数组', () => {
+  source = createArr(MAX);
+  log(`生成长度为${MAX}的原始数组：`, source);
+});
 
-// console.log('循环处理后，剩余元素为：', localSource);
-// console.log(`随机填充数组： ${end - start}ms`);
-// console.timeEnd('start');
+constantContent('生成随机数组', () => {
+  target = createRandomArr(MAX - 1, MAX);
+  log(`生成长度为${MAX}的随机数组为：`, target);
+});
 
-// 有人说是使用求和的方式，然后用100个数的和减去99个数的和，差值就是未存储的那个
-// 这个思路有意思，但是不能够解决，有多个元素未放入数组中的场景
-const findNum = () => {
+let sortTarget = [];
+constantContent('排序', () => {
+  sortTarget = [...target].sort((a, b) => a - b);
+});
+
+const findNumByTotal = (randomArr, length) => {
   let sum = 0;
-  for (let i = 1; i <= MAX; i++) {
+  for (let i = 1; i <= length; i++) {
     sum = sum + i;
   }
-  const randomTotal = source.reduce((a, b) => a + b, 0);
-  console.log(sum, randomTotal);
-  return sum - randomTotal;
+  const total = randomArr.reduce((a, b) => a + b, 0);
+  log('数组求和: ', sum, total);
+  return sum - total;
 };
 
-const n1 = findNum();
-console.log('方法1：', n1);
+constantContent('method 1，求和取差值即结果', () => {
+  log(findNumByTotal(sortTarget, MAX));
+  // log('有同学提到先计算求和，然后差值就是缺失那个。这个思路有意思，但是不能解决，有多个元素未放入数组中的场景');
+});
 
+const findNumByIndex = randomArr => {
+  const missNum = randomArr.find((item, index) => {
+    if (item !== index + 1) {
+      return item;
+    }
+  });
+  return missNum - 1;
+};
 
+constantContent('method 2，索引与value不想等', () => {
+  log(findNumByIndex(target));
+});
