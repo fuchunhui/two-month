@@ -24,6 +24,12 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Acquisition',
     component: () =>
       import(/* webpackChunkName: "acquisition" */ '@/views/Acquisition.vue')
+  },
+  {
+    path: '/magic',
+    name: 'Magic',
+    component: () =>
+      import(/* webpackChunkName: "magic" */ '@/views/episodes/MagicCSS.vue')
   }
 ];
 

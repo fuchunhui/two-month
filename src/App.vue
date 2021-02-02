@@ -1,5 +1,5 @@
 <template>
-  <div id="nav">
+  <div class="nav">
     <router-link to="acquisition">
       acquisition
     </router-link> |
@@ -11,9 +11,12 @@
     </router-link> |
     <router-link to="/">
       Super Demo
+    </router-link> |
+    <router-link to="magic">
+      Magic CSS
     </router-link>
   </div>
-  <router-view />
+  <router-view class="content" />
 </template>
 
 <script lang="ts">
@@ -33,9 +36,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
 }
 
-#nav {
+.nav {
   padding: 30px;
 
   a {
@@ -46,5 +51,8 @@ export default {
       color: #42b983;
     }
   }
+}
+.content {
+  flex: 1;
 }
 </style>
