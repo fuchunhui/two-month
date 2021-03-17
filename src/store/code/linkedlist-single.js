@@ -7,6 +7,14 @@ function Node(element) {
   this.next = null;
 }
 
+// 插入到item之后，如insert('newName', 'old')
+function insert(newElement, item) {
+  let newNode = new Node(newElement);
+  let currNode = this.find(item);
+  newNode.next = currNode.next;
+  currNode.next = newNode;
+}
+
 // 查找给定节点，会不会比较慢，有没有更佳快捷的方式？
 function find(item) {
   let currNode = this.head;
@@ -22,14 +30,6 @@ function findPrev(item) {
     currNode = currNode.next;
   }
   return currNode;
-}
-
-// 插入到item之后，如insert('newName', 'old')
-function insert(newElement, item) {
-  let newNode = new Node(newElement);
-  let currNode = this.find(item);
-  newNode.next = currNode.next;
-  currNode.next = newNode;
 }
 
 function remove(item) {
@@ -49,9 +49,9 @@ function display() {
 
 function LinkedList() {
   this.head = new Node('head');
+  this.insert = insert;
   this.find = find;
   this.findPrev = findPrev;
-  this.insert = insert;
   this.remove = remove;
   this.display = display;
 }
