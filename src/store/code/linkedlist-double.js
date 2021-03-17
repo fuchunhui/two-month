@@ -73,4 +73,3 @@ console.log('分界线----------', prevNode.element);
 fruits.remove(prevNode.element);
 fruits.remove('apple');
 fruits.display();
-
