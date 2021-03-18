@@ -29,14 +29,6 @@ function find(item) {
   return currNode;
 }
 
-function findPrev(item) {
-  let currNode = this.head;
-  while (currNode.next !== null && currNode.next.element !== item) {
-    currNode = currNode.next;
-  }
-  return currNode;
-}
-
 // 显示链表元素
 function display() {
   let currNode = this.head;
@@ -61,7 +53,6 @@ function LinkedList() {
   this.head = new Node('head');
   this.insert = insert;
   this.find = find;
-  this.findPrev = findPrev;
   this.remove = remove;
   this.display = display;
 }
@@ -75,9 +66,6 @@ fruits.insert('group', 'apple');
 fruits.insert('strawberry', 'group');
 fruits.insert('litchi', 'banana');
 fruits.display();
-// const findElement = 'orange';
-// const currNode = fruits.find(findElement);
-// console.log(`${findElement}的node是：`, {...currNode});
 console.log('分界线-------------------------------------');
 fruits.remove('orange');
 fruits.remove('apple');
