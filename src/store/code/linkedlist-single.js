@@ -35,14 +35,16 @@ function findPrev(item) {
 function remove(item) {
   let prevNode = this.findPrev(item);
   prevNode.next = prevNode.next.next;
-  item.next = null; // 是否删除item，仅仅置空就可以吗？
+  prevNode = null;
 }
 
 // 显示链表元素
 function display() {
   let currNode = this.head;
-  while (currNode && currNode.next !== null) {
-    console.log(currNode.next.element);
+  while (currNode !== null) {
+    if (currNode.element !== 'head') {
+      console.log(currNode.element);
+    }
     currNode = currNode.next;
   }
 }
