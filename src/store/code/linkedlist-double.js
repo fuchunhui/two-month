@@ -70,3 +70,7 @@ console.log('分界线-------------------------------------');
 fruits.remove('orange');
 fruits.remove('apple');
 fruits.display();
+
+module.exports = {
+  LinkedList
+};
