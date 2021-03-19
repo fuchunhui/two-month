@@ -9,10 +9,59 @@
  * 使用HashMap 和 双向链表解决这个问题。
  */
 
-// 定义双向链表
+/**
+ * 定义双向链表
+ */
+class Node {
+  key = '';
+  value = '';
+  prev = null;
+  next = null;
 
-// eslint-disable-next-line
-const {LinkedList} = require('./linkedlist-double.js');
+  constructor(key) {
+    this.key = key;
+  }
+
+  getValue() {
+    return this.value;
+  }
+}
+
+class LinkedList {
+  head = null;
+  tail = null;
+
+  constructor() {
+    this.head = new Node('head');
+    this.tail = new Node('tail');
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
+  }
+
+  // 默认插入到链表的尾部
+  append(node) {
+    const prevNode = this.tail.prev;
+    node.prev = prevNode;
+    node.next = prevNode.next;
+    prevNode.next = node;
+    node.next.prev = node;
+  }
+
+  delete(node) {
+    const prevNode = node.prev;
+    const nextNode = node.next;
+    nextNode.prev = prevNode;
+    prevNode.next = nextNode;
+  }
+
+  getFirst() {
+    return this.head.next;
+  }
+
+  getLast() {
+    return this.tail.prev;
+  }
+}
 
 class LRU {
   capacity = 0;
