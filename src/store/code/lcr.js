@@ -85,8 +85,8 @@ class LRU {
 
   put_recently(key) {
     const node = this.cache.get(key);
-    this.linked_list.remove(node);
-    // this.linked_list.insert(node);
+    this.linked_list.delete(node);
+    this.linked_list.append(node);
   }
 }
 
