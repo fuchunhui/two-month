@@ -9,6 +9,8 @@
  * 使用HashMap 和 双向链表解决这个问题。
  */
 
+const { LanguageServiceMode } = require("typescript");
+
 /**
  * 定义双向链表
  */
@@ -18,8 +20,9 @@ class Node {
   prev = null;
   next = null;
 
-  constructor(key) {
+  constructor(key, value = '') {
     this.key = key;
+    this.value = value;
   }
 
   getValue() {
@@ -61,6 +64,17 @@ class LinkedList {
   getLast() {
     return this.tail.prev;
   }
+
+  display() {
+    let currNode = this.head;
+    while (currNode !== null) {
+      const {key, value} = currNode;
+      if (!(key === 'head' || key === 'tail')) {
+        console.log(key, value);
+      }
+      currNode = currNode.next;
+    }
+  }
 }
 
 class LRU {
@@ -79,33 +93,46 @@ class LRU {
       return null;
     }
     // 更新链表中元素的位置
-    this.put_recently(key);
+    this._put_recently(key);
     return this.cache.get(key);
   }
 
-  put_recently(key) {
+  _put_recently(key) {
     const node = this.cache.get(key);
     this.linked_list.delete(node);
     this.linked_list.append(node);
   }
+
+  put(key, value) {
+    if (this.cache.has(key)) {
+      this.linked_list.delete(this.cache.get(key));
+      const newCode = new Node(key, value);
+      this.cache.set(key, newCode);
+      this.linked_list.append(newCode);
+      return;
+    }
+    if (this.cache.size + 2 > this.capacity) {
+      const first = this.linked_list.getFirst();
+      this.linked_list.delete(first);
+      this.cache.delete(key);
+    }
+    const newCode = new Node(key, value);
+    this.linked_list.append(newCode);
+    this.cache.set(key, newCode);
+  }
 }
 
 const lru = new LRU();
-console.log('当前初始化内容为：', lru);
-
-
-
-
-
-
+lru.put('first', new Date(1616395485966));
+lru.put('second', new Date());
+lru.put('3', {
+  small: '1',
+  large: Math.pow(2, 32)
+});
+lru.put('4', ['READ', 'EDIT', 'SHARE']);
+lru.get('second');
+lru.linked_list.display();
 
 console.log('-------------------------------------');
-// const fruits = new LinkedList();
-// fruits.insert('apple', 'head');
-// fruits.insert('group', 'apple');
-// fruits.insert('strawberry', 'group');
-// fruits.insert('litchi', 'apple');
-// fruits.display();
-// fruits.remove('orange');
-// fruits.remove('apple');
-// fruits.display();
+lru.put('first', new Array(10));
+lru.linked_list.display();
