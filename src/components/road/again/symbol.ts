@@ -43,7 +43,7 @@ console.log(f[Symbol.iterator]());
 // count();
 
 class FooMatcher {
-  static [Symbol.match](target) {
+  static [Symbol.match](target: any) {
     return target.includes('foo');
   }
 }
@@ -53,10 +53,10 @@ console.log('barbaz'.match(FooMatcher)); // false
 
 class StringMatcher {
   str = '';
-  constructor(str) {
+  constructor(str: string) {
     this.str = str;
   }
-  [Symbol.match](target) {
+  [Symbol.match](target: any) {
     return target.includes(this.str);
   }
 }
@@ -65,7 +65,7 @@ console.log('foobar'.match(new StringMatcher('foo'))); // true
 console.log('barbaz'.match(new StringMatcher('qux'))); // false
 
 class FooReplacer {
-  static [Symbol.replace](target, replacement) {
+  static [Symbol.replace](target: string, replacement: string) {
     return target.split('foo').join(replacement);
   }
 }
@@ -73,10 +73,10 @@ console.log('barfoobaz'.replace(FooReplacer, 'qux'));
 
 class StringReplacer {
   str = '';
-  constructor(str) {
+  constructor(str: string) {
     this.str = str;
   }
-  [Symbol.replace](target, replacement) {
+  [Symbol.replace](target: string, replacement: string) {
     return target.split(this.str).join(replacement);
   }
 }
@@ -116,14 +116,14 @@ class Too {}
 const too = new Too();
 console.log(too);
 console.log(too.toString());
-console.log(too[Symbol.toStringTag]);
+// console.log(too[Symbol.toStringTag]);
 
 class Tar {
   constructor() {
-    this[Symbol.toStringTag] = 'Tar';
+    // this[Symbol.toStringTag] = 'Tar';
   }
 }
 const tar = new Tar();
 console.log(tar);
 console.log(tar.toString());
-console.log(tar[Symbol.toStringTag]);
+// console.log(tar[Symbol.toStringTag]);
