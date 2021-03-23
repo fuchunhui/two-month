@@ -1,6 +1,7 @@
 /*eslint-disable*/
 const chalk = require('chalk');
-const msgPath = process.env.HUSKY_GIT_PARAMS;
+const path = require('path');
+const msgPath = path.resolve(__dirname, '../.git/COMMIT_EDITMSG');
 const msg = require('fs').readFileSync(msgPath, 'utf-8').trim();
 const rule = /^(revert: )?(feat|fix|docs|style|refactor|test|build|ci|chore|types|wip|release|perf)(\(.+\))?: .{1,50}/
 

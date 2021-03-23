@@ -6,12 +6,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "node scripts/verifyCommit.js"
-    }
+    "lint": "vue-cli-service lint",
+    "prepare": "husky install",
+    "commitlint": "node scripts/verify-commit.js"
   },
   "dependencies": {
     "core-js": "^3.9.1",
