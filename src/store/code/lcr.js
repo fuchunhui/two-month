@@ -6,10 +6,8 @@
  * 
  * 约定：越靠近链表头部的数据越旧，越靠近链表尾部的数据越新。
  * 
- * 使用HashMap 和 双向链表解决这个问题。
+ * 使用Map 和 双向链表解决这个问题。
  */
-
-const { LanguageServiceMode } = require("typescript");
 
 /**
  * 定义双向链表
