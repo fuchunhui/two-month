@@ -6,3 +6,11 @@ export default createStore({
   actions: {},
   modules: {}
 });
+
+// export default createStore({
+//   state() {
+//     return {
+//       count: 1
+//     };
+//   }
+// });
