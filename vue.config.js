@@ -18,6 +18,9 @@ module.exports = {
         }]
       })
     ],
+    externals: {
+      fs: 'fs'
+    },
     resolve: {
       modules: [
         resolve('src'),
@@ -32,6 +35,11 @@ module.exports = {
         'components': resolve('src/components'),
         'db': resolve('src/components/db'),
         'directive': resolve('src/directive')
+      },
+      fallback: {
+        'path': require.resolve('path-browserify'),
+        'crypto': require.resolve('crypto-browserify'),
+        'stream': require.resolve('stream-browserify')
       }
     }
   }
