@@ -36,7 +36,7 @@ module.exports = {
         'db': resolve('src/components/db'),
         'directive': resolve('src/directive')
       },
-      fallback: {
+      fallback: { // TODO 临时兼容修复
         'path': require.resolve('path-browserify'),
         'crypto': require.resolve('crypto-browserify'),
         'stream': require.resolve('stream-browserify')

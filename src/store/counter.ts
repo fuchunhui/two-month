@@ -10,7 +10,7 @@ type Count = {
 
 export default {
   state: {
-    count: 0
+    count: 10
   },
   getters: {
     getCount: ({count}: State): number => {

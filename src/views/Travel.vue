@@ -5,6 +5,9 @@
     <div class="count-group" @click="add">
       {{ `${text}: ${count}` }}
     </div>
+    <div class="store-group" @click="storeAdd">
+      {{ storeCount }}
+    </div>
   </div>
 </template>
 
@@ -12,6 +15,7 @@
 import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
 import {ref} from 'vue';
+import {useStore} from 'vuex';
 
 export default {
   props: {
@@ -28,14 +32,22 @@ export default {
   setup(props: any) { // eslint-disable-line
     const text = '点我，来吧';
     const count = ref(0);
+    const store = useStore();
+    const storeCount = ref(store.getters.getCount); // 竟然不是响应式，Store的使用，需要跟进。
+    console.log('vuex: ', store, store.getters.getCount);
     const add: () => void = () => {
       count.value++;
       console.log('message: ', props.msg);
     };
+    const storeAdd = () => {
+      store.dispatch('addCount', {num: 100});
+    };
     return {
       text,
       count,
-      add
+      add,
+      storeCount,
+      storeAdd
     };
   }
 };
