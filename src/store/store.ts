@@ -1,5 +1,5 @@
 import {InjectionKey} from 'vue';
-import {createStore, Store} from 'vuex';
+import {createStore, Store, useStore as baseUseStore} from 'vuex';
 
 export interface State {
   count: number
@@ -13,4 +13,6 @@ export const store = createStore<State>({
   }
 });
 
-// TODO 看到了这里，https://next.vuex.vuejs.org/guide/typescript-support.html#typing-usestore-composition-function
+export function useStore(): Store<State> {
+  return baseUseStore(key);
+}

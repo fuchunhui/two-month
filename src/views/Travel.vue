@@ -17,6 +17,7 @@ import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
 import {ref, defineComponent, PropType} from 'vue';
 import {useStore} from 'vuex';
+import {key} from '../store/store';
 
 interface Book {
   title: string;
@@ -91,7 +92,8 @@ export default defineComponent({
   setup(props: any) { // eslint-disable-line
     const text = '点我，来吧';
     const count = ref(0);
-    const store = useStore();
+    const store = useStore(key);
+    console.log('store-------------->', {...store});
     // const storeCount = ref(store.getters.getCount); // 竟然不是响应式，Store的使用，需要跟进。
     console.log('vuex: ', store, store.getters.getCount);
     const add: () => void = () => {
