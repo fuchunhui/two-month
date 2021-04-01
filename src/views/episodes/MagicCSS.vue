@@ -34,6 +34,7 @@
           <span class="hover-tenth-item-text">tonight</span>
         </div>
       </div>
+      <div class="magic-wrap-item checker-board-item" />
       <div class="magic-wrap-item">
         something to do
       </div>
@@ -280,7 +281,11 @@ export default {
       animation: clippath-over 3s infinite -1.5s linear;
     }
   }
+  .checker-board-item {
+    background-image: paint(checkerboard);
+  }
 }
+
 @keyframes linearGradientMove {
   100% {
     background-position: 4px 0, -4px 100%, 0 -4px, 100% 4px;
