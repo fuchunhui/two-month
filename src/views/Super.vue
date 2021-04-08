@@ -47,7 +47,7 @@ export default {
 <style lang="less">
 .super-demo {
   padding: 30px;
-  @media not screen and (prefers-color-scheme: light) { // dark not working
+  @media (prefers-color-scheme: dark) {
     background: #E5EEEF;
   }
 }
