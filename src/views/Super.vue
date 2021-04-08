@@ -47,19 +47,8 @@ export default {
 <style lang="less">
 .super-demo {
   padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-  .count-group {
-    p {
-      background: #339966;
-      cursor: pointer;
-    }
+  @media not screen and (prefers-color-scheme: light) { // dark not working
+    background: #E5EEEF;
   }
 }
 </style>
