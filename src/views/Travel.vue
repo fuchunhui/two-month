@@ -6,7 +6,7 @@
       {{ `${text}: ${count}` }}
     </div>
     <div class="store-group" @click="storeAdd">
-      {{ storeCount }}
+      {{ `${storeText}: ${storeCount}` }}
     </div>
     {{ book }}
   </div>
@@ -17,7 +17,6 @@ import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
 import {ref, defineComponent, PropType} from 'vue';
 import {useStore} from 'vuex';
-import {key} from '../store/store';
 
 interface Book {
   title: string;
@@ -91,23 +90,25 @@ export default defineComponent({
   },  
   setup(props: any) { // eslint-disable-line
     const text = '点我，来吧';
+    const storeText = '帮我挠挠，点我';
     const count = ref(0);
-    const store = useStore(key);
+    const store = useStore();
     console.log('store-------------->', {...store});
     // const storeCount = ref(store.getters.getCount); // 竟然不是响应式，Store的使用，需要跟进。
     console.log('vuex: ', store, store.getters.getCount);
     const add: () => void = () => {
       count.value++;
-      console.log('message: ', props.msg);
+      console.log('add message: ', props.msg);
     };
     const storeAdd = () => {
-      store.dispatch('addCount', {num: 100});
+      store.dispatch('addCount', {num: 10});
     };
     return {
       text,
       count,
       add,
       // storeCount,
+      storeText,
       storeAdd
     };
   },
