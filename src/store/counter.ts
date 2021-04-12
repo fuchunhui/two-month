@@ -19,7 +19,13 @@ export default {
     }
   },
   actions: {
-    async addCount(context: any, {num}: Count): Promise<void> { // eslint-disable-line
+    // TODO 如何接机context定义any的问题，全局定义types?
+    addCount(context: any, {num}: Count): void { // eslint-disable-line
+      context.commit(types.ADD_COUNT, {
+        num
+      });
+    },
+    async plusCount(context: any, {num}: Count): Promise<void> { // eslint-disable-line
       await context.commit(types.ADD_COUNT, {
         num
       });
