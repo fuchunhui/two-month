@@ -27,6 +27,9 @@ export default {
     },
     getQuadruple: ({bundles}: DateInfo): (num: number) => number => (num: number): number => { // TODO 简化写法是什么，泛型吧
       return (bundles + num) * 4;
+    },
+    getListLength: (state: any, getters: any): number => { // TODO 解决掉提示线
+      return getters.getDateList.length;
     }
   },
   actions: {

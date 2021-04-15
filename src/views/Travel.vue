@@ -11,7 +11,7 @@
     {{ book }}
   </div>
   <div class="travel">
-    {{ `Normal Store.${dateProtocol}: ${dateCouple}` }}
+    {{ `Normal Store.${dateProtocol}: ${dateCouple}, ${getListLength} --- ${getLength}` }}
     <ul>
       <li
         v-for="(item, index) in dateList"
@@ -27,7 +27,7 @@
 import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
 import {ref, defineComponent, PropType} from 'vue';
-import {useStore} from 'vuex';
+import {useStore, mapState, mapGetters} from 'vuex';
 
 interface Book {
   title: string;
@@ -147,7 +147,22 @@ export default defineComponent({
     dateProtocol(): string {
       // return this.$store.state.date.protocol; // 怎么解决这种红线的问题
       return 'https';
-    }
+    },
+    ...mapState({
+      protocolAlias: (state: any) => state.date.protocol,
+      countPlusLocalState(state: any) {
+        return state.date.bundles + this.count;
+      }
+    }),
+    ...mapState([
+      'date'
+    ]),
+    ...mapGetters({
+      'getLength': 'getListLength'
+    }),
+    ...mapGetters([
+      'getListLength'
+    ])
   },
   methods: {
     onSubmit() {
