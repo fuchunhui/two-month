@@ -1,5 +1,5 @@
 <template>
-  <div class="travel">
+  <div class="travel" v-bind="$attrs">
     <home />
     <about />
     <div class="count-group" @click="add">
@@ -9,6 +9,17 @@
       {{ `${storeText}: ${storeCount}` }}
     </div>
     {{ book }}
+  </div>
+  <div class="travel">
+    {{ `Normal Store.${dateProtocol}: ${dateCouple}` }}
+    <ul>
+      <li
+        v-for="(item, index) in dateList"
+        :key="index"
+      >
+        {{ item.toDateString() }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -126,6 +137,16 @@ export default defineComponent({
       set(newValue: string) {
         this.book.title = newValue.toUpperCase();
       }
+    },
+    dateList(): Array<Date> {
+      return this.$store.getters.getDateList;
+    },
+    dateCouple(): number {
+      return this.$store.getters.getQuadruple(3);
+    },
+    dateProtocol(): string {
+      // return this.$store.state.date.protocol; // 怎么解决这种红线的问题
+      return 'https';
     }
   },
   methods: {
