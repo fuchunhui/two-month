@@ -1,5 +1,5 @@
 export default function interfaces(): void {
-  function printLabel(labeledObj: { label: string }) {
+  function printLabel(labeledObj: { label: string }): void {
     console.log(labeledObj.label);
   }
   const myObj = {
@@ -11,7 +11,7 @@ export default function interfaces(): void {
   interface LabeledValue {
     label: string;
   }
-  function printLabel2(labeledObj: LabeledValue) {
+  function printLabel2(labeledObj: LabeledValue): void {
     console.log('printLabel2: ', labeledObj.label);
   }
   printLabel2(myObj);

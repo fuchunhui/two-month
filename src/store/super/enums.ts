@@ -67,7 +67,7 @@ export default function (): void {
     TES
   }
 
-  function f(obj: { X: number }) {
+  function f(obj: { X: number }): number {
     return obj.X;
   }
   console.log(f(E));
@@ -84,7 +84,7 @@ export default function (): void {
    * type LogLevelStrings = 'ERROR' | 'WARN' | 'INFO' | 'DEBUG';
    */
   type LogLevelStrings = keyof typeof LogLevel;
-  function print(key: LogLevelStrings, msg: string) {
+  function print(key: LogLevelStrings, msg: string): void {
     const num = LogLevel[key];
     if (num <= LogLevel.WARN) {
       console.log('Log: ', key, num, msg);

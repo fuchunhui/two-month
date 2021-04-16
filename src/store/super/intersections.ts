@@ -1,7 +1,7 @@
 export default function (): void {
   console.log('unions and intersections');
 
-  function padLeft(value: string, padding: string | number) {
+  function padLeft(value: string, padding: string | number): string | number {
     if (typeof padding === 'number') {
       return Array(padding + 1).join('') + value;
     }
@@ -87,7 +87,7 @@ export default function (): void {
   type ArtworksResponse = ArtworksData & ErrorHandling;
   type ArtistsResponse = ArtistsData & ErrorHandling;
 
-  const handleArtistsResponse = (response: ArtistsResponse) => {
+  const handleArtistsResponse = (response: ArtistsResponse): void => {
     if (response.error) {
       console.log(response.error.message);
       return;

@@ -20,7 +20,7 @@ export default function functions(): void {
   };
   console.log(anotherAdd(11, 22), anotherAddAgain(42, 5), anotherAddAgain(2, 3));
 
-  function buildName(fn: string, ln: string = 'Smith', md?: string) {
+  function buildName(fn: string, ln: string = 'Smith', md?: string): string {
     if (md) {
       return fn + md + ln;
     } else {
