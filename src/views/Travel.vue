@@ -6,7 +6,7 @@
       {{ `${text}: ${count}` }}
     </div>
     <div class="store-group" @click="storeAdd">
-      {{ `${storeText}: ${storeCount}` }}
+      {{ `${storeText}: ${storeCount}, ${storeCountCC}` }}
     </div>
     {{ book }}
   </div>
@@ -26,7 +26,7 @@
 <script lang="ts">
 import Home from '@/components/road/Home.vue';
 import About from '@/components/road/About.vue';
-import {ref, defineComponent, PropType} from 'vue';
+import {ref, defineComponent, PropType, computed} from 'vue';
 import {useStore, mapState, mapGetters} from 'vuex';
 
 interface Book {
@@ -105,8 +105,7 @@ export default defineComponent({
     const count = ref(0);
     const store = useStore();
     console.log('store-------------->', {...store});
-    // const storeCount = ref(store.getters.getCount); // 竟然不是响应式，Store的使用，需要跟进。
-    console.log('vuex: ', store, store.getters.getCount);
+    const storeCountCC = computed(() => store.getters.getCount);
     const add: () => void = () => {
       count.value++;
       console.log('add message: ', props.msg);
@@ -118,14 +117,14 @@ export default defineComponent({
       text,
       count,
       add,
-      // storeCount,
+      storeCountCC,
       storeText,
       storeAdd
     };
   },
   computed: {
     storeCount(): number {
-      return this.$store.getters.getCount; // TODO 放在setup里面的不生效问题
+      return this.$store.getters.getCount;
     },
     greeting(): string {
       return this.book.title + '!';

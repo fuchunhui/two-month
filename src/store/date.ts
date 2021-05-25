@@ -1,5 +1,4 @@
-import * as types from './mutation-types';
-
+// import * as types from './mutation-types';
 interface DateInfo {
   list: [];
   protocol: string;
@@ -28,6 +27,7 @@ export default {
     getQuadruple: ({bundles}: DateInfo): (num: number) => number => (num: number): number => { // TODO 简化写法是什么，泛型吧
       return (bundles + num) * 4;
     },
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     getListLength: (state: any, getters: any): number => { // TODO 解决掉提示线
       return getters.getDateList.length;
     }
