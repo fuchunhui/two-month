@@ -4,7 +4,9 @@ import date from './date';
 
 export default createStore({
   strict: process.env.NODE_ENV !== 'production',
-  state: {},
+  state: {
+    count: 1000
+  },
   mutations: {},
   actions: {},
   modules: {

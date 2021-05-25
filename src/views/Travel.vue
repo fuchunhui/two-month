@@ -104,7 +104,7 @@ export default defineComponent({
     const storeText = '帮我挠挠，点我';
     const count = ref(0);
     const store = useStore();
-    console.log('store-------------->', {...store});
+    console.log('store-------------->', {...store}, store.state.count);
     const storeCountCC = computed(() => store.getters.getCount);
     const add: () => void = () => {
       count.value++;
@@ -124,7 +124,7 @@ export default defineComponent({
   },
   computed: {
     storeCount(): number {
-      return this.$store.getters.getCount;
+      return this.$store.getters.getCount + this.$store.state.count;
     },
     greeting(): string {
       return this.book.title + '!';
