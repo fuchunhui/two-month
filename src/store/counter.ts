@@ -29,6 +29,9 @@ export default {
       await context.commit(types.ADD_COUNT, {
         num
       });
+    },
+    async quadrupleCount(context: any, {num}: Count): Promise<void> { // eslint-disable-line
+      await context.dispatch('plusCount', {num});
     }
   },
   mutations: {

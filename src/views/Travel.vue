@@ -8,7 +8,9 @@
     <div class="store-group" @click="storeAdd">
       {{ `${storeText}: ${storeCount}, ${storeCountCC}` }}
     </div>
-    {{ book }}
+    <div class="store-group" @click="doubleAdd">
+      {{ book }}
+    </div>
   </div>
   <div class="travel">
     {{ `Normal Store.${dateProtocol}: ${dateCouple}, ${getListLength} --- ${getLength}` }}
@@ -113,13 +115,20 @@ export default defineComponent({
     const storeAdd = () => {
       store.dispatch('addCount', {num: 10});
     };
+    const doubleAdd = () => {
+      store.dispatch('quadrupleCount', {num: 10});
+    };
+    store.subscribe(mutation => {
+      console.log(mutation.type, mutation.payload);
+    });
     return {
       text,
       count,
       add,
       storeCountCC,
       storeText,
-      storeAdd
+      storeAdd,
+      doubleAdd
     };
   },
   computed: {
