@@ -36,6 +36,34 @@
       </div>
       <div class="magic-wrap-item checker-board-item" />
       <div class="magic-wrap-item">
+        <div class="dynamic-title">
+          <p class="dynamic-title-content">
+            北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色，茂密的叶子把阳光分割成好多块，像极了筛子。
+          </p>
+          <p class="dynamic-title-content dynamic-title-back" title="北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色，茂密的叶子把阳光分割成好多块，像极了筛子。">
+            北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色，茂密的叶子把阳光分割成好多块，像极了筛子。
+          </p>
+        </div>
+        <div class="dynamic-title">
+          <p class="dynamic-title-content">
+            北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色。
+          </p>
+          <p class="dynamic-title-content dynamic-title-back" title="北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色。">
+            北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色。
+          </p>
+        </div>
+      </div>
+      <div class="magic-wrap-item">
+        <div class="dynamic-title">
+          <p class="dynamic-title-content">
+            北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色，茂密的叶子把阳光分割成好多块，像极了筛子。
+          </p>
+          <p class="dynamic-title-content dynamic-title-back-before" title="北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色，茂密的叶子把阳光分割成好多块，像极了筛子。">
+            北京的夏天，总是来的静悄悄，不知不觉中，就是满眼绿色，茂密的叶子把阳光分割成好多块，像极了筛子。
+          </p>
+        </div>
+      </div>
+      <div class="magic-wrap-item">
         something to do
       </div>
     </div>
@@ -283,6 +311,38 @@ export default {
   }
   .checker-board-item {
     background-image: paint(checkerboard);
+  }
+
+  .dynamic-title {
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+  }
+  .dynamic-title-content {
+    max-height: 48px;
+    margin: 0;
+  }
+  .dynamic-title-back {
+    background-color: #399953;
+    position: relative;
+    top: -48px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .dynamic-title-back-before {
+    background-color: #399953;
+    position: relative;
+    top: -48px;
+  }
+  .dynamic-title-back-before::before {
+    content: attr(title);
+    width: 50%;
+    float: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
   }
 }
 
