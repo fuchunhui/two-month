@@ -32,9 +32,7 @@ export default {
       return getters.getDateList.length;
     }
   },
-  actions: {
-
-  },
+  actions: {},
   mutations: {
     // [types.SET_DATE](state: State, {num}: Count): void {}
   }
