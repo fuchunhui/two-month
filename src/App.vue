@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <router-link to="acquisition">
+    <router-link to="acquisition" v-if="ready">
       acquisition
     </router-link> |
     <router-link to="analysis">
@@ -20,13 +20,23 @@
 </template>
 
 <script lang="ts">
+import {defineComponent, ref} from 'vue';
 import Database from './db/index';
 
-export default {
+export default defineComponent({
   created() {
-    Database.initial();
+    Database.initDB().then(() => {
+      this.ready = true;
+      Database.initial();
+    });
+  },
+  setup() {
+    const ready = ref(false);
+    return {
+      ready
+    };
   }
-};
+});
 </script>
 
 <style lang="less">

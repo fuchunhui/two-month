@@ -14,7 +14,7 @@ module.exports = {
       new CopyWebpackPlugin({
         patterns: [{
           from: 'node_modules/sql.js/dist/sql-wasm.wasm',
-          to: 'js'
+          to: 'wasm'
         }]
       })
     ],
