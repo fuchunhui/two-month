@@ -1,22 +1,34 @@
 <template>
-  <button>{{ label }}</button>
+  <button class="month-button">
+    {{ localLabel }}
+  </button>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue';
+import {defineComponent, toRefs} from 'vue';
 
 export default defineComponent({
   name: 'Button',
 
-  setup() {
-    let label = ref('ffff');
+  props: {
+    label: {
+      type: String,
+      default: '提交'
+    }
+  },
+
+  setup(props) {
+    const {label} = toRefs(props);
     return {
-      label
+      localLabel: label
     };
   }
 });
 </script>
 
 <style lang="less">
-
+.month-button {
+  min-width: 98px;
+  height: 32px;
+}
 </style>

@@ -12,7 +12,10 @@
       <month-button label="录入"/>
       <month-button label="分析"/>
       <month-button label="入库"/>
-      <month-button label="清空"/>
+      <month-button :label="emptyBtn"/>
+      <button @click="handleLabel">
+        测试按钮
+      </button>
     </div>
   </div>
 </template>
@@ -30,8 +33,14 @@ export default defineComponent({
 
   setup() {
     let showRecord = ref(true);
+    let emptyBtn = ref('请看看');
+    const handleLabel = () => {
+      emptyBtn.value = '清空';
+    };
     return {
-      showRecord
+      showRecord,
+      emptyBtn,
+      handleLabel
     };
   }
 });
@@ -40,7 +49,6 @@ export default defineComponent({
 <style lang="less">
 .acquisition {
   padding: 10px;
-  // background: #2CB732;
   &-btn {
     background-color: #FF0000;
   }
