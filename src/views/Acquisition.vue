@@ -8,13 +8,10 @@
       <div>右侧列表</div>
     </div>
     <div class="acquisition-btn">
-      <month-button label="录入"/>
+      <month-button label="录入" @click="record"/>
       <month-button label="分析" u="primary"/>
       <month-button label="入库" u="primary"/>
-      <month-button label="清空" u="grey"/>
-      <!-- <button @click="handleLabel">
-        测试按钮
-      </button> -->
+      <month-button label="清空" u="grey" @click="reset"/>
     </div>
   </div>
 </template>
@@ -32,14 +29,19 @@ export default defineComponent({
 
   setup() {
     let showRecord = ref(true);
-    let emptyBtn = ref('请看看');
-    const handleLabel = () => {
-      emptyBtn.value = '清空';
+    const reset = () => {
+      console.log('clear');
+    };
+    // const store = () => {
+    //   console.log('store');
+    // };
+    const record = () => {
+      console.log('record');
     };
     return {
       showRecord,
-      emptyBtn,
-      handleLabel
+      record,
+      reset
     };
   }
 });
