@@ -2,39 +2,39 @@
   <div class="magic-css">
     <div class="magic-wrap">
       <div class="magic-wrap-item first-item">
-        <div class="hover-first-item" />
+        <div class="hover-first-item"/>
       </div>
       <div class="magic-wrap-item second-item">
         <time datetime="2021-02-1" pubdate="">February 1st, 2021</time>
       </div>
       <div class="magic-wrap-item third-item">
-        <div class="dashed-third-item-1" />
-        <div class="dashed-third-item-2" />
+        <div class="dashed-third-item-1"/>
+        <div class="dashed-third-item-2"/>
       </div>
       <div class="magic-wrap-item forth-item">
-        <div class="hover-forth-item" />
+        <div class="hover-forth-item"/>
       </div>
       <div class="magic-wrap-item fifth-item">
-        <div class="hover-fifth-item" />
+        <div class="hover-fifth-item"/>
       </div>
       <div class="magic-wrap-item">
-        <div class="hover-sixth-item" />
+        <div class="hover-sixth-item"/>
       </div>
       <div class="magic-wrap-item">
-        <div class="hover-seventh-item" />
+        <div class="hover-seventh-item"/>
       </div>
       <div class="magic-wrap-item">
-        <div class="hover-eighth-item" />
+        <div class="hover-eighth-item"/>
       </div>
       <div class="magic-wrap-item">
-        <div class="hover-ninth-item" />
+        <div class="hover-ninth-item"/>
       </div>
       <div class="magic-wrap-item tenth-item">
         <div class="hover-tenth-item">
           <span class="hover-tenth-item-text">tonight</span>
         </div>
       </div>
-      <div class="magic-wrap-item checker-board-item" />
+      <div class="magic-wrap-item checker-board-item"/>
       <div class="magic-wrap-item">
         <div class="dynamic-title">
           <p class="dynamic-title-content">

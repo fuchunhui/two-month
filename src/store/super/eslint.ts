@@ -76,7 +76,7 @@
 
 // const fn = () => {};
 
-export default () => {};
+export default ():void => {};
 
 const arrowFn = () => 'test';
 

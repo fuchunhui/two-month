@@ -95,7 +95,7 @@ export default {
 
     db.run("CREATE TABLE test (col1, col2);");
     // Insert two rows: (1,111) and (2,222)
-    db.run("INSERT INTO test VALUES (?,?), (?,?)", [1, 111, 2, 222]);
+    db.run("INSERT INTO test VALUES (?,?), (?,?)", [1, 111, 0, 222]);
 
     // Prepare a statement
     const stmt1 = db.prepare("SELECT * FROM test WHERE col1 BETWEEN $start AND $end");

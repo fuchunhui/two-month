@@ -1,7 +1,7 @@
 <template>
   <div class="travel" v-bind="$attrs">
-    <home />
-    <about />
+    <home/>
+    <about/>
     <div class="count-group" @click="add">
       {{ `${text}: ${count}` }}
     </div>

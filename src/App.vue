@@ -16,7 +16,7 @@
       Magic CSS
     </router-link>
   </div>
-  <router-view class="content" />
+  <router-view class="content"/>
 </template>
 
 <script lang="ts">
@@ -27,7 +27,7 @@ export default defineComponent({
   created() {
     Database.initDB().then(() => {
       this.ready = true;
-      Database.initial();
+      // Database.initial();
     });
   },
   setup() {

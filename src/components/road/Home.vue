@@ -1,11 +1,11 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="@/assets/logo.png">
-    <hello-world msg="Welcome to Your Vue.js App" />
-    <test ref="test" msg="123456" @demo="showDemo" />
-    <counter />
-    <official message="123456" />
-    <return-value message="123456" />
+    <hello-world msg="Welcome to Your Vue.js App"/>
+    <test ref="test" msg="123456" @demo="showDemo"/>
+    <counter/>
+    <official message="123456"/>
+    <return-value message="123456"/>
   </div>
 </template>
 

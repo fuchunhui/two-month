@@ -57,6 +57,11 @@ module.exports = {
         'allowFirstLine': false
       }
     }],
+    'vue/html-closing-bracket-spacing': ['error', {
+      'startTag': 'never',
+      'endTag': 'never',
+      'selfClosingTag': 'never'
+    }],
 
     '@typescript-eslint/semi': ['error', 'always'],
     '@typescript-eslint/indent': ['error', 2],
