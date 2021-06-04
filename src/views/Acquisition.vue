@@ -1,7 +1,7 @@
 <template>
   <div class="acquisition">
     <div class="acquisition-record" v-if="showRecord">
-      <textarea>这里是录入内容框</textarea>
+      <textarea class="acquisition-area" placeholder="请输入你的数据"/>
     </div>
     <div class="acquisition-content" v-else>
       <div>左侧表格</div>
@@ -57,10 +57,21 @@ export default defineComponent({
     min-height: 300px;
     background-color: cadetblue;
   }
+  &-record {
+    border-radius: 20px;
+  }
+  &-area {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    position: relative;
+    &::placeholder {
+      .position-center();
+    }
+  }
   &-btn {
     .flex-center();
-    height: 60px;
-    border-top: 1px solid #DDD;
+    height: 64px;
     .month-button {
       margin-right: 20px;
     }
