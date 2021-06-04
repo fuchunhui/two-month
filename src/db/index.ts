@@ -110,5 +110,11 @@ export default {
       const row = stmt1.getAsObject();
       console.log('Here is a row: ' + JSON.stringify(row));
     }
+  },
+  createTable(): void {
+    // 建表
+    // 点击按钮后，再首次执行建表操作
+    // 查询取值
+    // 插入数据
   }
 };
