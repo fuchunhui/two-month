@@ -1,5 +1,11 @@
 <template>
-  <button class="month-button">
+  <button
+    :class="[
+      'month-button',
+      {
+        'disabled': disabled
+      }]"
+  >
     {{ localLabel }}
   </button>
 </template>
@@ -14,6 +20,10 @@ export default defineComponent({
     label: {
       type: String,
       default: '提交'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -49,6 +59,7 @@ export default defineComponent({
       border-color: #DDDEE4;
       color: rgba(102, 102, 102, 0.4);
       opacity: 1;
+      cursor: default;
     }
   }
 
@@ -59,6 +70,10 @@ export default defineComponent({
     &:hover {
       background-color: #388AFA;
       border-color: #388AFA;
+    }
+    &.disabled,
+    &.disabled:hover {
+      background-color: #F6F6F6; // TODO check
     }
   }
 
@@ -73,8 +88,8 @@ export default defineComponent({
       background-color: #ECECEC;
     }
 
-    &:disabled,
-    &:disabled:hover {
+    &.disabled,
+    &.disabled:hover {
       background-color: #F6F6F6;
       opacity: .4;
     }

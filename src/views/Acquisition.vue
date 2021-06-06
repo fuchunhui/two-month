@@ -17,9 +17,9 @@
     </div>
     <div class="acquisition-btn">
       <month-button label="录入" @click="record"/>
-      <month-button label="分析" u="primary" @click="parse"/>
-      <month-button label="入库" u="primary" @click="store"/>
-      <month-button label="清空" u="grey" @click="reset"/>
+      <month-button label="分析" u="primary" :disabled="parseEnabled" @click="parse"/>
+      <month-button label="入库" u="primary" :disabled="storeEnabled" @click="store"/>
+      <month-button label="清空" u="grey" :disabled="true" @click="reset"/>
     </div>
   </div>
 </template>
@@ -39,6 +39,10 @@ export default defineComponent({
     let showRecord = ref(true);
     let localSource = ref('');
 
+    // let recordEnabled = ref(false);
+    let parseEnabled = ref(true);
+    let storeEnabled = ref(false);
+
     const record = () => {
       showRecord.value = !showRecord.value;
     };
@@ -55,6 +59,9 @@ export default defineComponent({
     return {
       showRecord,
       localSource,
+      // recordEnabled,
+      parseEnabled,
+      storeEnabled,
       record,
       store,
       parse,
