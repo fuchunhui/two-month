@@ -1,7 +1,11 @@
 <template>
   <div class="acquisition">
     <div class="acquisition-record" v-if="showRecord">
-      <textarea class="acquisition-area" placeholder="请输入你的数据"/>
+      <textarea
+        class="acquisition-area"
+        placeholder="请输入你的数据"
+        v-model="localSource"
+      />
     </div>
     <div class="acquisition-content" v-else>
       <div class="acquisition-left">
@@ -13,8 +17,8 @@
     </div>
     <div class="acquisition-btn">
       <month-button label="录入" @click="record"/>
-      <month-button label="分析" u="primary"/>
-      <month-button label="入库" u="primary"/>
+      <month-button label="分析" u="primary" @click="parse"/>
+      <month-button label="入库" u="primary" @click="store"/>
       <month-button label="清空" u="grey" @click="reset"/>
     </div>
   </div>
@@ -32,19 +36,28 @@ export default defineComponent({
   },
 
   setup() {
-    let showRecord = ref(false);
-    const reset = () => {
-      console.log('clear');
-    };
-    // const store = () => {
-    //   console.log('store');
-    // };
+    let showRecord = ref(true);
+    let localSource = ref('');
+
     const record = () => {
-      console.log('record');
+      showRecord.value = !showRecord.value;
+    };
+    const parse = () => {
+      console.log('parse localdata data.');
+    };
+    const store = () => {
+      console.log('store to database.');
+    };
+    const reset = () => {
+      localSource.value = '';
+      showRecord.value = true;
     };
     return {
       showRecord,
+      localSource,
       record,
+      store,
+      parse,
       reset
     };
   }
