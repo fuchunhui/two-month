@@ -4,8 +4,12 @@
       <textarea class="acquisition-area" placeholder="请输入你的数据"/>
     </div>
     <div class="acquisition-content" v-else>
-      <div>左侧表格</div>
-      <div>右侧列表</div>
+      <div class="acquisition-left">
+        左侧表格
+      </div>
+      <div class="acquisition-right">
+        右侧列表
+      </div>
     </div>
     <div class="acquisition-btn">
       <month-button label="录入" @click="record"/>
@@ -28,7 +32,7 @@ export default defineComponent({
   },
 
   setup() {
-    let showRecord = ref(true);
+    let showRecord = ref(false);
     const reset = () => {
       console.log('clear');
     };
@@ -70,6 +74,19 @@ export default defineComponent({
     &::placeholder {
       .position-center();
     }
+  }
+  &-content {
+    display: flex;
+  }
+  &-left {
+    width: 100%;
+    height: 100%;
+    background-color: aquamarine;
+  }
+  &-right {
+    width: 100%;
+    height: 100%;
+    background-color: blanchedalmond;
   }
   &-btn {
     .flex-center();
