@@ -73,7 +73,9 @@ export default defineComponent({
     }
     &.disabled,
     &.disabled:hover {
-      background-color: #F6F6F6; // TODO check
+      background-color: #F6F6F6;
+      border-color: #4B98F8;
+      color: #4B98F8;
     }
   }
 

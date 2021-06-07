@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue';
+import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
 
 export default defineComponent({
@@ -40,8 +40,13 @@ export default defineComponent({
     let localSource = ref('');
 
     // let recordEnabled = ref(false);
-    let parseEnabled = ref(true);
-    let storeEnabled = ref(false);
+    let parseEnabled = computed(() => {
+      return localSource.value === '';
+    });
+    const noError = ref(true);
+    let storeEnabled = computed(() => {
+      return parseEnabled.value && noError.value;
+    });
 
     const record = () => {
       showRecord.value = !showRecord.value;
