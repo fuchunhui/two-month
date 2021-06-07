@@ -9,7 +9,12 @@
     </div>
     <div class="acquisition-content" v-else>
       <div class="acquisition-left">
-        左侧表格
+        <div
+          v-for="(item, index) in sourceList"
+          :key="index"
+        >
+          {{ item }}
+        </div>
       </div>
       <div class="acquisition-right">
         右侧列表
@@ -38,8 +43,8 @@ export default defineComponent({
   setup() {
     let showRecord = ref(true);
     let localSource = ref('');
+    let sourceList = ref({});
 
-    // let recordEnabled = ref(false);
     let parseEnabled = computed(() => {
       return localSource.value === '';
     });
@@ -48,13 +53,20 @@ export default defineComponent({
       return parseEnabled.value && noError.value;
     });
 
-    const record = () => {
+    const record = () => { // 把粘贴过来的数据，清理，筛选成一条一条的内容
       showRecord.value = !showRecord.value;
+      sourceList.value = localSource.value.split('\n');
     };
     const parse = () => {
+      if (!parseEnabled.value) {
+        return;
+      }
       console.log('parse localdata data.');
     };
     const store = () => {
+      if (!storeEnabled.value) {
+        return;
+      }
       console.log('store to database.');
     };
     const reset = () => {
@@ -64,9 +76,9 @@ export default defineComponent({
     return {
       showRecord,
       localSource,
-      // recordEnabled,
       parseEnabled,
       storeEnabled,
+      sourceList,
       record,
       store,
       parse,
