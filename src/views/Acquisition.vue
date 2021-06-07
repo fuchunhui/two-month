@@ -8,14 +8,10 @@
       />
     </div>
     <div class="acquisition-content" v-else>
-      <div class="acquisition-left">
-        <div
-          v-for="(item, index) in sourceList"
-          :key="index"
-        >
-          {{ item }}
-        </div>
-      </div>
+      <source-list
+        class="acquisition-left"
+        :source="sourceList"
+      />
       <div class="acquisition-right">
         右侧列表
       </div>
@@ -32,12 +28,14 @@
 <script lang="ts">
 import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
+import {SourceList} from 'components/business';
 
 export default defineComponent({
   name: 'Acquisition',
 
   components: {
-    MonthButton
+    MonthButton,
+    SourceList
   },
 
   setup() {
@@ -115,10 +113,13 @@ export default defineComponent({
   &-content {
     display: flex;
   }
-  &-left {
+  &-left,
+  &-right {
     width: 100%;
     height: 100%;
-    background-color: aquamarine;
+  }
+  .source-list {
+    opacity: 1; // TODO delete
   }
   &-right {
     width: 100%;
