@@ -16,9 +16,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
     'semi': ['error', 'always'],
-    'indent': ['error', 2, {
-      'SwitchCase': 1
-    }],
+    'indent': 'off',
     'no-empty-function': 'off',
     'no-useless-escape': 'off',
 
@@ -64,7 +62,9 @@ module.exports = {
     }],
 
     '@typescript-eslint/semi': ['error', 'always'],
-    '@typescript-eslint/indent': ['error', 2],
+    '@typescript-eslint/indent': ['error', 2, {
+      'SwitchCase': 1
+    }],
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-this-alias': 'off',

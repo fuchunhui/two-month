@@ -10,14 +10,14 @@
     <div class="acquisition-content" v-else>
       <source-list
         class="acquisition-left"
-        :source-list="sourceList"
+        :source-list="sourceList.data"
       />
       <div class="acquisition-right">
         右侧列表
       </div>
     </div>
     <div class="acquisition-btn">
-      <month-button label="录入" @click="record"/>
+      <month-button :label="recordLabel" @click="record"/>
       <month-button label="分析" u="primary" :disabled="!parseEnabled" @click="parse"/>
       <month-button label="入库" u="primary" :disabled="!storeEnabled" @click="store"/>
       <month-button label="清空" u="grey" @click="reset"/>
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, computed} from 'vue';
+import {defineComponent, ref, reactive, computed} from 'vue';
 import {MonthButton} from 'components/month';
 import {SourceList} from 'components/business';
 
@@ -39,24 +39,38 @@ export default defineComponent({
   },
 
   setup() {
-    let showRecord = ref(true);
-    let localSource = ref('');
-    let sourceList = ref({});
+    const showRecord = ref(true);
+    const localSource = ref('');
+    const sourceList: {
+      data: string[]
+    } = reactive({
+      data: []
+    });
 
-    let parseEnabled = computed(() => {
+    const recordLabel = computed(() => {
+      return showRecord.value ? '录入' : '继续录入';
+    });
+    const parseEnabled = computed(() => {
       return !showRecord.value;
     });
     const noError = ref(true);
-    let storeEnabled = computed(() => {
+    const storeEnabled = computed(() => {
       return parseEnabled.value && noError.value;
     });
 
+    console.log('sourceList: ', sourceList, sourceList.data);
     const record = () => {
-      if (localSource.value === '') {
-        return;
+      if (showRecord.value) {
+        if (localSource.value === '') {
+          return;
+        }
+        const list = localSource.value.trim().split('\n');
+        const oldList = sourceList.data as string[];
+        sourceList.data = oldList.concat(list);
+        localSource.value = '';
       }
       showRecord.value = !showRecord.value;
-      sourceList.value = localSource.value.split('\n');
+      
     };
     const parse = () => {
       if (!parseEnabled.value) {
@@ -76,6 +90,7 @@ export default defineComponent({
     };
     return {
       showRecord,
+      recordLabel,
       localSource,
       parseEnabled,
       storeEnabled,

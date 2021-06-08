@@ -5,13 +5,14 @@
       :key="index"
       :source="item"
       :index="index"
+      @del="deleteItem"
     />
   </div>
 </template>
 
-<script>
-import {defineComponent} from 'vue';
-import SourceItem from './SourceItem';
+<script lang="ts">
+import {defineComponent, toRefs} from 'vue';
+import SourceItem from './SourceItem.vue';
 
 export default defineComponent({
   name: 'SourceList',
@@ -25,6 +26,17 @@ export default defineComponent({
       type: Array,
       default: () => []
     }
+  },
+
+  setup(props: any) {
+    const {sourceList} = toRefs(props); // eslint-disable-line
+    const deleteItem = (index: number) => {
+      console.log('list: ', index);
+    };
+
+    return {
+      deleteItem
+    };
   }
 });
 </script>
