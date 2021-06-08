@@ -142,6 +142,8 @@ export default defineComponent({
   }
   &-content {
     display: flex;
+    height: 100%;
+    overflow: scroll;
   }
   &-left,
   &-right {
