@@ -1,22 +1,27 @@
 <template>
   <div class="source-list">
-    <div
-      v-for="(item, index) in source"
+    <source-item
+      v-for="(item, index) in sourceList"
       :key="index"
-    >
-      {{ item }}
-    </div>
+      :source="item"
+      :index="index"
+    />
   </div>
 </template>
 
 <script>
 import {defineComponent} from 'vue';
+import SourceItem from './SourceItem';
 
 export default defineComponent({
   name: 'SourceList',
 
+  components: {
+    SourceItem
+  },
+
   props: {
-    source: {
+    sourceList: {
       type: Array,
       default: () => []
     }

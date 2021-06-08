@@ -10,7 +10,7 @@
     <div class="acquisition-content" v-else>
       <source-list
         class="acquisition-left"
-        :source="sourceList"
+        :source-list="sourceList"
       />
       <div class="acquisition-right">
         右侧列表
@@ -18,9 +18,9 @@
     </div>
     <div class="acquisition-btn">
       <month-button label="录入" @click="record"/>
-      <month-button label="分析" u="primary" :disabled="parseEnabled" @click="parse"/>
-      <month-button label="入库" u="primary" :disabled="storeEnabled" @click="store"/>
-      <month-button label="清空" u="grey" :disabled="true" @click="reset"/>
+      <month-button label="分析" u="primary" :disabled="!parseEnabled" @click="parse"/>
+      <month-button label="入库" u="primary" :disabled="!storeEnabled" @click="store"/>
+      <month-button label="清空" u="grey" @click="reset"/>
     </div>
   </div>
 </template>
@@ -44,14 +44,17 @@ export default defineComponent({
     let sourceList = ref({});
 
     let parseEnabled = computed(() => {
-      return localSource.value === '';
+      return !showRecord.value;
     });
     const noError = ref(true);
     let storeEnabled = computed(() => {
       return parseEnabled.value && noError.value;
     });
 
-    const record = () => { // 把粘贴过来的数据，清理，筛选成一条一条的内容
+    const record = () => {
+      if (localSource.value === '') {
+        return;
+      }
       showRecord.value = !showRecord.value;
       sourceList.value = localSource.value.split('\n');
     };
