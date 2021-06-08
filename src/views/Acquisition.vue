@@ -10,7 +10,9 @@
     <div class="acquisition-content" v-else>
       <source-list
         class="acquisition-left"
-        :source-list="sourceList.data"
+        :source-list="sourceList"
+        @del="deleteItem"
+        @update="updateItem"
       />
       <div class="acquisition-right">
         右侧列表
@@ -26,9 +28,14 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, reactive, computed} from 'vue';
+import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
 import {SourceList} from 'components/business';
+import {SourceItemInfo} from 'types/business';
+
+interface SourceListInfo {
+  value: string[]
+}
 
 export default defineComponent({
   name: 'Acquisition',
@@ -41,11 +48,7 @@ export default defineComponent({
   setup() {
     const showRecord = ref(true);
     const localSource = ref('');
-    const sourceList: {
-      data: string[]
-    } = reactive({
-      data: []
-    });
+    const sourceList: SourceListInfo = ref([]);
 
     const recordLabel = computed(() => {
       return showRecord.value ? '录入' : '继续录入';
@@ -58,15 +61,13 @@ export default defineComponent({
       return parseEnabled.value && noError.value;
     });
 
-    console.log('sourceList: ', sourceList, sourceList.data);
     const record = () => {
       if (showRecord.value) {
         if (localSource.value === '') {
           return;
         }
-        const list = localSource.value.trim().split('\n');
-        const oldList = sourceList.data as string[];
-        sourceList.data = oldList.concat(list);
+        const list = localSource.value.trim().split('\n').filter(item => item !== '');
+        sourceList.value = sourceList.value.concat(list);
         localSource.value = '';
       }
       showRecord.value = !showRecord.value;
@@ -87,7 +88,16 @@ export default defineComponent({
     const reset = () => {
       localSource.value = '';
       showRecord.value = true;
+      sourceList.value = [];
     };
+    const deleteItem = (index: number) => {
+      sourceList.value.splice(index, 1);
+    };
+
+    const updateItem = ({value, index}: SourceItemInfo) => {
+      console.log('update content----->', value, index);
+    };
+
     return {
       showRecord,
       recordLabel,
@@ -98,7 +108,9 @@ export default defineComponent({
       record,
       store,
       parse,
-      reset
+      reset,
+      deleteItem,
+      updateItem
     };
   }
 });

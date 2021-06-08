@@ -1,6 +1,9 @@
 <template>
   <div class="source-item">
-    <div class="source-item-content">
+    <div
+      class="source-item-content"
+      @click="updateItem(source)"
+    >
       {{ source }}
     </div>
     <div
@@ -14,6 +17,7 @@
 
 <script lang="ts">
 import {defineComponent, toRefs} from 'vue';
+import {SourceItemInfo} from 'types/business';
 
 export default defineComponent({
   name: 'SourceItem',
@@ -28,12 +32,18 @@ export default defineComponent({
       default: 0
     }
   },
-  emits: ['del'],
+  emits: ['del', 'update'],
 
   setup(props: any, {emit}: any) {
     const {index} = toRefs(props);
-    const updateItem = () => {
-      console.log('update');
+    const updateItem = (value: string) => {
+      update({
+        value,
+        index: index.value
+      });
+    };
+    const update = (payload: SourceItemInfo) => {
+      emit('update', payload);
     };
     const deleteItem = () => {
       emit('del', index.value);

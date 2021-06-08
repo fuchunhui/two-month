@@ -6,19 +6,26 @@
       :source="item"
       :index="index"
       @del="deleteItem"
+      @update="updateItem"
     />
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, toRefs} from 'vue';
+import {defineComponent} from 'vue';
 import SourceItem from './SourceItem.vue';
+import {SourceItemInfo} from 'types/business';
 
 export default defineComponent({
   name: 'SourceList',
 
   components: {
     SourceItem
+  },
+
+  emits: {
+    'del': null,
+    'update': null
   },
 
   props: {
@@ -28,13 +35,16 @@ export default defineComponent({
     }
   },
 
-  setup(props: any) {
-    const {sourceList} = toRefs(props); // eslint-disable-line
+  setup(props: any, {emit}: any) {
     const deleteItem = (index: number) => {
-      console.log('list: ', index);
+      emit('del', index);
+    };
+    const updateItem = (payload: SourceItemInfo) => {
+      emit('update', payload);
     };
 
     return {
+      updateItem,
       deleteItem
     };
   }
