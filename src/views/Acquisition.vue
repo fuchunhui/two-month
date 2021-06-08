@@ -14,9 +14,10 @@
         @del="deleteItem"
         @update="updateItem"
       />
-      <div class="acquisition-right">
-        右侧列表
-      </div>
+      <table-list
+        class="acquisition-right"
+        :source-list="sourceList"
+      />
     </div>
     <div class="acquisition-btn">
       <month-button :label="recordLabel" @click="record"/>
@@ -30,7 +31,7 @@
 <script lang="ts">
 import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
-import {SourceList} from 'components/business';
+import {SourceList, TableList} from 'components/business';
 import {SourceItemInfo} from 'types/business';
 
 interface SourceListInfo {
@@ -42,7 +43,8 @@ export default defineComponent({
 
   components: {
     MonthButton,
-    SourceList
+    SourceList,
+    TableList
   },
 
   setup() {
@@ -71,7 +73,6 @@ export default defineComponent({
         localSource.value = '';
       }
       showRecord.value = !showRecord.value;
-      
     };
     const parse = () => {
       if (!parseEnabled.value) {
@@ -118,6 +119,7 @@ export default defineComponent({
 
 <style lang="less">
 @import url('css/mixins.less');
+
 .acquisition {
   display: flex;
   flex-direction: column;

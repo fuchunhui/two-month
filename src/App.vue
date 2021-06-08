@@ -16,7 +16,7 @@
       Magic CSS
     </router-link>
   </div>
-  <router-view class="content"/>
+  <router-view class="month-content"/>
 </template>
 
 <script lang="ts">
@@ -63,7 +63,7 @@ export default defineComponent({
     }
   }
 }
-.content {
+.month-content {
   flex: 1;
   width: 100%;
   height: 100%;
