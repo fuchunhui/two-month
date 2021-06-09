@@ -3,7 +3,7 @@
     <table-item
       v-for="(item, index) in sourceList"
       :key="index"
-      :source="item"
+      :source="item.name"
       :order="index"
     />
   </div>
