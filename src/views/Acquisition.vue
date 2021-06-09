@@ -16,7 +16,7 @@
       />
       <table-list
         class="acquisition-right"
-        :source-list="sourceList"
+        :source-list="tableList"
       />
     </div>
     <div class="acquisition-btn">
@@ -32,10 +32,15 @@
 import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
 import {SourceList, TableList} from 'components/business';
-import {SourceItemInfo} from 'types/business';
+import {SourceItemInfo, TableItemInfo} from 'types/business';
+import Parser from 'utils/parser';
 
 interface SourceListInfo {
   value: string[]
+}
+
+interface TableListInfo {
+  value: TableItemInfo[]
 }
 
 export default defineComponent({
@@ -51,6 +56,7 @@ export default defineComponent({
     const showRecord = ref(true);
     const localSource = ref('');
     const sourceList: SourceListInfo = ref([]);
+    const tableList: TableListInfo = ref([]);
 
     const recordLabel = computed(() => {
       return showRecord.value ? '录入' : '继续录入';
@@ -79,6 +85,23 @@ export default defineComponent({
         return;
       }
       console.log('parse localdata data.');
+      // tableList 操作内容
+      // tableList.value = Parser.parser(sourceList.value);
+      Parser.parser(sourceList.value);
+      const list: TableItemInfo[] = [];
+      sourceList.value.forEach(() => {
+        list.push({
+          card: '0797',
+          name: '工商银行',
+          time: '2021-06-09 12:18:00',
+          type: '支出',
+          purpose: '滴滴出行科技有限公司',
+          app: '滴滴',
+          amount: 13,
+          balance: 1392
+        });
+      });
+      tableList.value = list;
     };
     const store = () => {
       if (!storeEnabled.value) {
@@ -106,6 +129,7 @@ export default defineComponent({
       parseEnabled,
       storeEnabled,
       sourceList,
+      tableList,
       record,
       store,
       parse,
