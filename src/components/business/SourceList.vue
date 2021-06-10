@@ -5,6 +5,7 @@
       :key="index"
       :source="item"
       :order="index + 1"
+      :error="errorList.includes(index)"
       @del="deleteItem"
       @update="updateItem"
     />
@@ -30,6 +31,10 @@ export default defineComponent({
 
   props: {
     sourceList: {
+      type: Array,
+      default: () => []
+    },
+    errorList: {
       type: Array,
       default: () => []
     }

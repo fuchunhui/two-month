@@ -47,7 +47,7 @@ export default defineComponent({
     },
     type: {
       type: String,
-      default: '收入',
+      default: 'INCOME',
       required: true
     },
     purpose: {
@@ -57,7 +57,7 @@ export default defineComponent({
     },
     app: {
       type: String,
-      default: 'keep',
+      default: 'Keep',
       required: true
     },
     amount: {

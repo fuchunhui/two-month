@@ -11,6 +11,7 @@
       <source-list
         class="acquisition-left"
         :source-list="sourceList"
+        :error-list="errorList"
         @del="deleteItem"
         @update="updateItem"
       />
@@ -42,6 +43,9 @@ interface SourceListInfo {
 interface TableListInfo {
   value: TableItemInfo[]
 }
+interface ErrorList {
+  value: number[]
+}
 
 export default defineComponent({
   name: 'Acquisition',
@@ -57,6 +61,7 @@ export default defineComponent({
     const localSource = ref('');
     const sourceList: SourceListInfo = ref([]);
     const tableList: TableListInfo = ref([]);
+    const errorList: ErrorList = ref([]);
 
     const recordLabel = computed(() => {
       return showRecord.value ? '录入' : '继续录入';
@@ -64,7 +69,9 @@ export default defineComponent({
     const parseEnabled = computed(() => {
       return !showRecord.value;
     });
-    const noError = ref(true);
+    const noError = computed(() => {
+      return !errorList.value.length;
+    });
     const storeEnabled = computed(() => {
       return parseEnabled.value && noError.value;
     });
@@ -84,9 +91,6 @@ export default defineComponent({
       if (!parseEnabled.value) {
         return;
       }
-      console.log('parse localdata data.');
-      // tableList 操作内容
-      // tableList.value = Parser.parser(sourceList.value);
       Parser.parserArr(sourceList.value);
       const list: TableItemInfo[] = [];
       sourceList.value.forEach(() => {
@@ -101,6 +105,8 @@ export default defineComponent({
           balance: 1392
         });
       });
+      // if 解析正确，赋值list
+      // else 解析失败，错误提示对应的内容，提示移除
       tableList.value = list;
     };
     const store = () => {
@@ -113,6 +119,8 @@ export default defineComponent({
       localSource.value = '';
       showRecord.value = true;
       sourceList.value = [];
+      tableList.value = [];
+      errorList.value = [];
     };
     const deleteItem = (index: number) => {
       sourceList.value.splice(index, 1);
@@ -129,6 +137,7 @@ export default defineComponent({
       parseEnabled,
       storeEnabled,
       sourceList,
+      errorList,
       tableList,
       record,
       store,
@@ -152,7 +161,7 @@ export default defineComponent({
   &-content {
     flex: 1;
     min-height: 300px;
-    background-color: cadetblue;
+    background-color: rgb(239, 245, 231);
   }
   &-record {
     border-radius: 20px;
@@ -176,13 +185,9 @@ export default defineComponent({
     width: 100%;
     height: 100%;
   }
-  .source-list {
-    opacity: 1; // TODO delete
-  }
   &-right {
     width: 100%;
     height: 100%;
-    background-color: blanchedalmond;
   }
   &-btn {
     .flex-center();

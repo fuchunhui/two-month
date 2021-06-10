@@ -1,5 +1,9 @@
 <template>
-  <div class="source-item">
+  <div
+    :class="['source-item', {
+      'source-item-error': error
+    }]"
+  >
     <div class="source-item-order">
       {{ order }}
     </div>
@@ -33,6 +37,10 @@ export default defineComponent({
     order: {
       type: Number,
       default: 0
+    },
+    error: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['del', 'update'],
@@ -81,6 +89,14 @@ export default defineComponent({
     color: rgb(4, 136, 212);
     text-align: center;
     cursor: pointer;
+  }
+  &-error {
+    border: 1px solid #FF6847;
+    border-radius: 4px;
+    box-shadow: 0 0 3px 1px rgba(240, 78, 42, 0.45);
+    .source-item-btn {
+      font-weight: 500;
+    }
   }
 }
 </style>

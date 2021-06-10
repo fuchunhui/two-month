@@ -1,5 +1,5 @@
 <template>
-  <div class="source-list">
+  <div class="table-list">
     <template 
       v-for="(item, index) in sourceList"
       :key="index"
@@ -28,11 +28,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style lang="less">
-.source-list {
-  &-error {
-    background-color: red;
-  }
-}
-</style>
