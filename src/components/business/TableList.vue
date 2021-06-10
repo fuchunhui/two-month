@@ -3,14 +3,14 @@
     <table-item
       v-for="(item, index) in sourceList"
       :key="index"
-      :source="item.name"
-      :order="index"
+      v-bind="item"
+      :order="index + 1"
     />
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, toRefs} from 'vue';
+import {defineComponent} from 'vue';
 import TableItem from './TableItem.vue';
 
 export default defineComponent({
@@ -25,18 +25,6 @@ export default defineComponent({
       type: Array,
       default: () => []
     }
-  },
-
-  setup(props: any) {
-    const {sourceList}  = toRefs(props);
-    // parse data
-    return {
-      tableList: sourceList
-    };
   }
 });
 </script>
-
-<style lang="less">
-
-</style>

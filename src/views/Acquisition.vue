@@ -32,7 +32,7 @@
 import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
 import {SourceList, TableList} from 'components/business';
-import {SourceItemInfo, TableItemInfo} from 'types/business';
+import {SourceItemInfo, TableItemInfo, BUSINESS_TYPE} from 'types/business';
 import Parser from 'utils/parser';
 
 interface SourceListInfo {
@@ -87,14 +87,14 @@ export default defineComponent({
       console.log('parse localdata data.');
       // tableList 操作内容
       // tableList.value = Parser.parser(sourceList.value);
-      Parser.parser(sourceList.value);
+      Parser.parserArr(sourceList.value);
       const list: TableItemInfo[] = [];
       sourceList.value.forEach(() => {
         list.push({
           card: '0797',
           name: '工商银行',
-          time: '2021-06-09 12:18:00',
-          type: '支出',
+          date: '2021-06-09 12:18',
+          type: BUSINESS_TYPE.EXPENDITURE,
           purpose: '滴滴出行科技有限公司',
           app: '滴滴',
           amount: 13,
