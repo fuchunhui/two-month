@@ -1,24 +1,24 @@
 <template>
   <div class="table-item">
-    <p class="table-item-content">
+    <p class="table-item-short">
       {{ cardName }}
     </p>
-    <p class="">
+    <p class="table-item-normal">
       {{ date }}
     </p>
-    <p class="">
+    <p class="table-item-tiny">
       {{ type }}
     </p>
-    <p class="">
-      {{ purpose }}
-    </p>
-    <p class="">
-      {{ app }}
-    </p>
-    <p class="">
+    <p class="table-item-short">
       {{ amount }}
     </p>
-    <p class="">
+    <p class="table-item-long">
+      {{ purpose }}
+    </p>
+    <p class="table-item-tiny">
+      {{ app }}
+    </p>
+    <p class="table-item-short">
       {{ balance }}
     </p>
   </div>
@@ -87,14 +87,43 @@ export default defineComponent({
 </script>
 
 <style lang="less">
+@import (reference) url('assets/css/variable.less');
+
 .table-item {
   display: flex;
-  height: 37px;
-  line-height: 36px;
-  border-bottom: 1px solid red;
-  &-content {
+  height: @line-height + 1;
+  line-height: @line-height;
+  border-bottom: 1px solid @line-color;
+
+  &-tiny,
+  &-short,
+  &-normal,
+  &-long {
+    text-align: center;
+  }
+
+  &-tiny {
+    width: 60px;
+  }
+  &-short {
+    width: 96px;
+  }
+  &-normal {
+    width: 120px;
+  }
+  &-long {
     flex: 1;
-    background-color: violet;
+  }
+  @media screen and (min-width: 1600px) {
+    &-tiny {
+      width: 80px;
+    }
+    &-short {
+      width: 120px;
+    }
+    &-normal {
+      width: 160px;
+    }
   }
 }
 </style>

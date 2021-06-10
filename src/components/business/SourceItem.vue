@@ -1,5 +1,8 @@
 <template>
   <div class="source-item">
+    <div class="source-item-order">
+      {{ order }}
+    </div>
     <div
       class="source-item-content"
       @click="updateItem(source)"
@@ -27,7 +30,7 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    index: {
+    order: {
       type: Number,
       default: 0
     }
@@ -35,18 +38,18 @@ export default defineComponent({
   emits: ['del', 'update'],
 
   setup(props: any, {emit}: any) {
-    const {index} = toRefs(props);
+    const {order} = toRefs(props);
     const updateItem = (value: string) => {
       update({
         value,
-        index: index.value
+        order: order.value
       });
     };
     const update = (payload: SourceItemInfo) => {
       emit('update', payload);
     };
     const deleteItem = () => {
-      emit('del', index.value);
+      emit('del', order.value);
     };
 
     return {
@@ -58,18 +61,25 @@ export default defineComponent({
 </script>
 
 <style lang="less">
+@import (reference) url('assets/css/variable.less');
+
 .source-item {
   display: flex;
-  height: 37px;
-  line-height: 36px;
-  border-bottom: 1px solid red;
+  height: @line-height + 1;
+  line-height: @line-height;
+  border-bottom: 1px solid @line-color;
+  &-order {
+    width: 42px;
+    text-align: center;
+  }
   &-content {
     flex: 1;
-    background-color: darkkhaki;
+    padding-left: 8px;
   }
   &-btn {
-    width: 30px;
-    background-color: wheat;
+    width: 42px;
+    color: rgb(4, 136, 212);
+    text-align: center;
     cursor: pointer;
   }
 }

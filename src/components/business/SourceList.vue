@@ -4,7 +4,7 @@
       v-for="(item, index) in sourceList"
       :key="index"
       :source="item"
-      :index="index"
+      :order="index + 1"
       @del="deleteItem"
       @update="updateItem"
     />

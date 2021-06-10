@@ -118,8 +118,8 @@ export default defineComponent({
       sourceList.value.splice(index, 1);
     };
 
-    const updateItem = ({value, index}: SourceItemInfo) => {
-      console.log('update content----->', value, index);
+    const updateItem = ({value, order}: SourceItemInfo) => {
+      console.log('update content----->', value, order);
     };
 
     return {

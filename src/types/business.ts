@@ -1,6 +1,6 @@
 export interface SourceItemInfo {
   value: string;
-  index: number;
+  order: number;
 }
 
 export enum BUSINESS_TYPE {
