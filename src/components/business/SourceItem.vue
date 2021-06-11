@@ -16,9 +16,11 @@
       </template>
       <month-input
         v-else
+        :ref="`ref${order}`"
         :model-value="source"
         :title="source"
         @update:modelValue="updateItem"
+        @blur="toggleEditable"
       />
     </div>
     <div
@@ -58,11 +60,18 @@ export default defineComponent({
   },
   emits: ['del', 'update'],
 
-  setup(props: any, {emit}: any) {
+  setup(props: any, {emit, refs}: any) {
     // const editable = ref(true); 
     const editable = ref(false);
     const {order} = toRefs(props);
 
+    const toggleEditable = () => {
+      // TODO 陷入困境了，一时忘记应该如何在vue3中操作refs，还是先回家吧。
+      // 目前需要解决，点击的不是input框，也要让焦点失去
+      // 或者，点击编辑后，自动让input获取焦点。
+      console.log(refs[`ref${order.value}`]); 
+      editable.value = false;
+    };
     const updateItem = (value: string) => {
       update({
         value,
@@ -73,7 +82,7 @@ export default defineComponent({
       editable.value = true;
     };
     const update = (payload: SourceItemInfo) => {
-      editable.value = false;
+      toggleEditable();
       emit('update', payload);
     };
     const deleteItem = () => {
@@ -81,6 +90,7 @@ export default defineComponent({
     };
     const testValue = ref('');
     return {
+      toggleEditable,
       edit,
       editable,
       updateItem,

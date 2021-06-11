@@ -8,7 +8,8 @@
     ]"
     :title="title"
     :value="modelValue"
-    @change="changeValue"
+    @blur="blur"
+    @keyup.enter="$event.target.blur()" 
   >
 </template>
 
@@ -33,14 +34,19 @@ export default defineComponent({
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'blur'],
 
   setup(props: any, {emit}: any) {
     const changeValue = (event: InputEvent) => {
       emit('update:modelValue', (event.target as HTMLInputElement).value);
     };
+    const blur = (event: InputEvent) => {
+      changeValue(event);
+      emit('blur');
+    };
     return {
-      changeValue
+      changeValue,
+      blur
     };
   }
 });
