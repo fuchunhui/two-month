@@ -7,7 +7,6 @@
     <div class="source-item-order">
       {{ order + 1 }}
     </div>
-    <!-- @click="updateItem(source)" -->
     <div
       class="source-item-content"
       @click="edit"
@@ -15,10 +14,10 @@
       <template v-if="!editable">
         {{ source }}
       </template>
-      <!-- :modal-value="source" -->
       <month-input
         v-else
         :model-value="source"
+        :title="source"
         @update:modelValue="updateItem"
       />
     </div>
@@ -60,8 +59,8 @@ export default defineComponent({
   emits: ['del', 'update'],
 
   setup(props: any, {emit}: any) {
-    const editable = ref(true); // test
-    // const editable = ref(false);
+    // const editable = ref(true); 
+    const editable = ref(false);
     const {order} = toRefs(props);
 
     const updateItem = (value: string) => {
@@ -74,6 +73,7 @@ export default defineComponent({
       editable.value = true;
     };
     const update = (payload: SourceItemInfo) => {
+      editable.value = false;
       emit('update', payload);
     };
     const deleteItem = () => {
@@ -106,6 +106,14 @@ export default defineComponent({
   &-content {
     flex: 1;
     padding-left: 8px;
+    .month-input {
+      text-indent: 0;
+      // border: none;
+      // &:focus {
+      //   border-width: 1px;
+      //   border-style: solid;
+      // }
+    }
   }
   &-btn {
     width: 42px;

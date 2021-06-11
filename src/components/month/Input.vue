@@ -6,8 +6,9 @@
         'disabled': disabled
       }
     ]"
+    :title="title"
     :value="modelValue"
-    @input="changeValue"
+    @change="changeValue"
   >
 </template>
 
@@ -19,6 +20,10 @@ export default defineComponent({
 
   props: {
     modelValue: {
+      type: String,
+      default: ''
+    },
+    title: {
       type: String,
       default: ''
     },
@@ -43,6 +48,12 @@ export default defineComponent({
 
 <style lang="less">
 .month-input {
-  background-color: aqua;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-indent: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
