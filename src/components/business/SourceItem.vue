@@ -5,7 +5,7 @@
     }]"
   >
     <div class="source-item-order">
-      {{ order }}
+      {{ order + 1 }}
     </div>
     <div
       class="source-item-content"

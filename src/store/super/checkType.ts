@@ -19,7 +19,7 @@ const VALID_TYPE_MAP = {
   [FieldType.DATETIME]: [FieldType.DATETIME, FieldType.DATE],
   [FieldType.STRING]: [FieldType.STRING],
   [FieldType.TEXT]: [FieldType.TEXT, FieldType.STRING],
-  [FieldType.MULTIVALUE]: [FieldType.MULTIVALUE]
+  [FieldType.MULTIVALUE]: [FieldType.MULTIVALUE],
 };
 
 /**

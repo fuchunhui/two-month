@@ -4,7 +4,7 @@
       v-for="(item, index) in sourceList"
       :key="index"
       :source="item"
-      :order="index + 1"
+      :order="index"
       :error="errorList.includes(index)"
       @del="deleteItem"
       @update="updateItem"
@@ -41,8 +41,8 @@ export default defineComponent({
   },
 
   setup(props: any, {emit}: any) {
-    const deleteItem = (index: number) => {
-      emit('del', index);
+    const deleteItem = (order: number) => {
+      emit('del', order);
     };
     const updateItem = (payload: SourceItemInfo) => {
       emit('update', payload);

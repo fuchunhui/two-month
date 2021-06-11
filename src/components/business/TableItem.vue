@@ -69,11 +69,6 @@ export default defineComponent({
       type: Number,
       default: 10000,
       required: true
-    },
-    order: {
-      type: Number,
-      default: 1,
-      required: true
     }
   },
 

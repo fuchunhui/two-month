@@ -4,7 +4,7 @@
       v-for="(item, index) in sourceList"
       :key="index"
     >
-      <table-item v-bind="item" :order="index + 1"/>
+      <table-item v-bind="item"/>
     </template>
   </div>
 </template>

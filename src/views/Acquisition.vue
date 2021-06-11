@@ -124,6 +124,9 @@ export default defineComponent({
     };
     const deleteItem = (index: number) => {
       sourceList.value.splice(index, 1);
+      if (noError.value) {
+        tableList.value.splice(index, 1);
+      }
     };
 
     const updateItem = ({value, order}: SourceItemInfo) => {
