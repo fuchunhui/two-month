@@ -130,7 +130,7 @@ export default defineComponent({
     };
 
     const updateItem = ({value, order}: SourceItemInfo) => {
-      console.log('update content----->', value, order);
+      sourceList.value[order] = value;
     };
 
     return {
@@ -163,7 +163,7 @@ export default defineComponent({
   &-record,
   &-content {
     flex: 1;
-    min-height: 300px;
+    min-height: 120px;
     background-color: rgb(239, 245, 231);
   }
   &-record {

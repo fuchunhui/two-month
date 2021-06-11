@@ -7,11 +7,20 @@
     <div class="source-item-order">
       {{ order + 1 }}
     </div>
+    <!-- @click="updateItem(source)" -->
     <div
       class="source-item-content"
-      @click="updateItem(source)"
+      @click="edit"
     >
-      {{ source }}
+      <template v-if="!editable">
+        {{ source }}
+      </template>
+      <!-- :modal-value="source" -->
+      <month-input
+        v-else
+        :model-value="source"
+        @update:modelValue="updateItem"
+      />
     </div>
     <div
       class="source-item-btn"
@@ -23,11 +32,16 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, toRefs} from 'vue';
+import {defineComponent, toRefs, ref} from 'vue';
+import {MonthInput} from 'components/month';
 import {SourceItemInfo} from 'types/business';
 
 export default defineComponent({
   name: 'SourceItem',
+
+  components: {
+    MonthInput
+  },
 
   props: {
     source: {
@@ -46,12 +60,18 @@ export default defineComponent({
   emits: ['del', 'update'],
 
   setup(props: any, {emit}: any) {
+    const editable = ref(true); // test
+    // const editable = ref(false);
     const {order} = toRefs(props);
+
     const updateItem = (value: string) => {
       update({
         value,
         order: order.value
       });
+    };
+    const edit = () => {
+      editable.value = true;
     };
     const update = (payload: SourceItemInfo) => {
       emit('update', payload);
@@ -59,10 +79,13 @@ export default defineComponent({
     const deleteItem = () => {
       emit('del', order.value);
     };
-
+    const testValue = ref('');
     return {
+      edit,
+      editable,
       updateItem,
-      deleteItem
+      deleteItem,
+      testValue
     };
   }
 });
