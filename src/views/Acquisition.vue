@@ -188,10 +188,6 @@ export default defineComponent({
     width: 100%;
     height: 100%;
   }
-  &-right {
-    width: 100%;
-    height: 100%;
-  }
   &-btn {
     .flex-center();
     height: 64px;

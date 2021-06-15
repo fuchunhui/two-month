@@ -16,7 +16,7 @@
       </template>
       <month-input
         v-else
-        :ref="`ref${order}`"
+        ref="itemRef"
         :model-value="source"
         :title="source"
         @update:modelValue="updateItem"
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, toRefs, ref} from 'vue';
+import {defineComponent, toRefs, ref, onMounted, nextTick} from 'vue';
 import {MonthInput} from 'components/month';
 import {SourceItemInfo} from 'types/business';
 
@@ -60,16 +60,20 @@ export default defineComponent({
   },
   emits: ['del', 'update'],
 
-  setup(props: any, {emit, refs}: any) {
-    // const editable = ref(true); 
+  setup(props: any, {emit}: any) {
     const editable = ref(false);
     const {order} = toRefs(props);
+    const itemRef = ref<null | HTMLElement | any>(null);
+
+    onMounted(() => {
+      console.log('root.value ---------> ', itemRef.value);
+    });
 
     const toggleEditable = () => {
       // TODO 陷入困境了，一时忘记应该如何在vue3中操作refs，还是先回家吧。
       // 目前需要解决，点击的不是input框，也要让焦点失去
       // 或者，点击编辑后，自动让input获取焦点。
-      console.log(refs[`ref${order.value}`]); 
+      // console.log(refs[`ref${order.value}`]); 
       editable.value = false;
     };
     const updateItem = (value: string) => {
@@ -78,8 +82,12 @@ export default defineComponent({
         order: order.value
       });
     };
-    const edit = () => {
+    const edit = async () => {
       editable.value = true;
+      console.log('edit ---------> ', itemRef.value);
+      await nextTick();
+      console.log('edit ---------> nextTick', itemRef.value);
+      itemRef.value.$el.focus();
     };
     const update = (payload: SourceItemInfo) => {
       toggleEditable();
@@ -95,7 +103,8 @@ export default defineComponent({
       editable,
       updateItem,
       deleteItem,
-      testValue
+      testValue,
+      itemRef
     };
   }
 });
@@ -108,6 +117,7 @@ export default defineComponent({
   display: flex;
   height: @line-height + 1;
   line-height: @line-height;
+  background-color: lightskyblue;
   border-bottom: 1px solid @line-color;
   &-order {
     width: 42px;
@@ -118,11 +128,6 @@ export default defineComponent({
     padding-left: 8px;
     .month-input {
       text-indent: 0;
-      // border: none;
-      // &:focus {
-      //   border-width: 1px;
-      //   border-style: solid;
-      // }
     }
   }
   &-btn {
