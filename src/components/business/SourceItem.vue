@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, toRefs, ref, onMounted, nextTick} from 'vue';
+import {defineComponent, toRefs, ref, nextTick} from 'vue';
 import {MonthInput} from 'components/month';
 import {SourceItemInfo} from 'types/business';
 
@@ -65,15 +65,7 @@ export default defineComponent({
     const {order} = toRefs(props);
     const itemRef = ref<null | HTMLElement | any>(null);
 
-    onMounted(() => {
-      console.log('root.value ---------> ', itemRef.value);
-    });
-
     const toggleEditable = () => {
-      // TODO 陷入困境了，一时忘记应该如何在vue3中操作refs，还是先回家吧。
-      // 目前需要解决，点击的不是input框，也要让焦点失去
-      // 或者，点击编辑后，自动让input获取焦点。
-      // console.log(refs[`ref${order.value}`]); 
       editable.value = false;
     };
     const updateItem = (value: string) => {
@@ -84,9 +76,7 @@ export default defineComponent({
     };
     const edit = async () => {
       editable.value = true;
-      console.log('edit ---------> ', itemRef.value);
       await nextTick();
-      console.log('edit ---------> nextTick', itemRef.value);
       itemRef.value.$el.focus();
     };
     const update = (payload: SourceItemInfo) => {
