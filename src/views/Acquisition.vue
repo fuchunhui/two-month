@@ -33,7 +33,7 @@
 import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
 import {SourceList, TableList} from 'components/business';
-import {SourceItemInfo, TableItemInfo, BUSINESS_TYPE} from 'types/business';
+import {SourceItemInfo, BankRecord, BUSINESS_TYPE} from 'types/business';
 import Parser from 'utils/parser';
 
 interface SourceListInfo {
@@ -41,7 +41,7 @@ interface SourceListInfo {
 }
 
 interface TableListInfo {
-  value: TableItemInfo[]
+  value: BankRecord[]
 }
 interface ErrorList {
   value: number[]
@@ -57,6 +57,8 @@ export default defineComponent({
   },
 
   setup() {
+    // TODO test parset
+    Parser.parser('');
     const showRecord = ref(true);
     const localSource = ref('');
     const sourceList: SourceListInfo = ref([]);
@@ -92,7 +94,8 @@ export default defineComponent({
         return;
       }
       Parser.parserArr(sourceList.value);
-      const list: TableItemInfo[] = [];
+      console.log(sourceList.value);
+      const list: BankRecord[] = [];
       sourceList.value.forEach(() => {
         list.push({
           card: '0797',
