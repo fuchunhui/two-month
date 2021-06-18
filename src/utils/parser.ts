@@ -31,6 +31,9 @@ const parserBank = (value: string) => {
 
 const icbc = (value: string) => {
   console.log('ICBC', value);
+  // \d月\d{1,2}日\d{1,2}:\d{1,2} 时间
+  // 考虑是否抽取
+  // 是match? replace? 是否提前test?
   const record: BankRecord = {
     card: '0797',
     name: '工商银行', // OK 
