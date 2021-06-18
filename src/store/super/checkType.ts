@@ -49,7 +49,7 @@ const VALID_TYPE_MAP2: {
 function checkType2(dbType: FieldType, mdmType: FieldType): void {
   if (dbType === mdmType
     || dbType === FieldType.STRING
-    || VALID_TYPE_MAP2[dbType].includes(mdmType)) {
+    || VALID_TYPE_MAP2[dbType]?.includes(mdmType)) {
     console.log('two ok');
     return;
   }
@@ -72,7 +72,7 @@ const VALID_TYPE_MAP3: Valid_Type = {
 };
 
 function checkType3(dbType: FieldType, mdmType: FieldType): void {
-  if (dbType === mdmType || VALID_TYPE_MAP3[dbType].includes(mdmType)) {
+  if (dbType === mdmType || VALID_TYPE_MAP3[dbType]?.includes(mdmType)) {
     console.log('three ok');
     return;
   }
