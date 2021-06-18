@@ -33,7 +33,7 @@
 import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
 import {SourceList, TableList} from 'components/business';
-import {SourceItemInfo, BankRecord, BUSINESS_TYPE} from 'types/business';
+import {SourceItemInfo, BankRecord, BusinessType} from 'types/business';
 import Parser from 'utils/parser';
 
 interface SourceListInfo {
@@ -57,8 +57,8 @@ export default defineComponent({
   },
 
   setup() {
-    // TODO test parset
-    Parser.parser('');
+    Parser.parser(''); // TODO test parset
+
     const showRecord = ref(true);
     const localSource = ref('');
     const sourceList: SourceListInfo = ref([]);
@@ -101,7 +101,7 @@ export default defineComponent({
           card: '0797',
           name: '工商银行',
           date: '2021-06-09 12:18',
-          type: BUSINESS_TYPE.EXPENDITURE,
+          type: BusinessType.EXPENDITURE,
           purpose: '滴滴出行科技有限公司',
           app: '滴滴',
           amount: 13,
