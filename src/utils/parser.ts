@@ -60,7 +60,8 @@ const icbc = (value: string) => {
   const card = getCard(value);
   const date = getDate(value);
   const type = getICBCType(value);
-  console.log('result', card, date, type);
+  const purpose = getPurpose(value);
+  console.log('result', card, date, type, purpose);
 
   const record: BankRecord = {
     card,
@@ -120,10 +121,10 @@ const checkType = (type: string) => {
   return index !== -1 ? type : '';
 };
 
-// const getPurpose = (value: string) => {
-//   const regex =  /\d月\d{1,2}日\d{1,2}:\d{1,2}/g;
-//   return value.match(regex);
-// };
+const getPurpose = (value: string) => {
+  const regex =  /（[A-Za-z0-9（）_\-\u4e00-\u9fa5）]+）/g;
+  return value.match(regex);
+};
 
 export default {
   parser(value: string): BankRecord | ErrorBase {
