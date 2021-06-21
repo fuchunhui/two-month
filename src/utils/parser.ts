@@ -1,10 +1,35 @@
 import {ErrorBase} from './log';
 import {BankRecord, BusinessType} from 'types/business';
 
+const PARSER_ERROR = '未找到对应银行或者数据录入错误，请核对。';
+const CARD_ERROR = '卡号不存在';
+const NAME_ERROR = '未获取银行信息';
+const DATE_ERROR = '日期解析错误';
+const TYPE_ERROR = '交易类型获取失败';
+const PURPOSE_ERROR = '交易用途解析失败';
+const APP_ERROR = 'APP解析失败';
+const AMOUNT_ERROR = '交易金额解析错误';
+const BALANCE_ERROR = '余额解析失败';
+
 enum Bank {
   ICBC = '【工商银行】',
   CMB = '【招商银行】'
 }
+
+interface BankRecordMessage {
+  [key: string]: string
+}
+
+const ICBC_ERROR: BankRecordMessage = {
+  card: CARD_ERROR,
+  name: NAME_ERROR,
+  date: DATE_ERROR,
+  type: TYPE_ERROR,
+  purpose: PURPOSE_ERROR,
+  app: APP_ERROR,
+  amount: AMOUNT_ERROR,
+  balance: BALANCE_ERROR
+};
 
 // 银行 name
 // 卡号 card
@@ -23,7 +48,7 @@ const parserBank = (value: string) => {
     // 异常处理
     // 数据本身错误 or 解析异常
     const error: ErrorBase = {
-      message: '未找到对应银行或者数据录入错误，请核对。'
+      message: PARSER_ERROR
     };
     return error;
   }
@@ -31,19 +56,25 @@ const parserBank = (value: string) => {
 
 const icbc = (value: string) => {
   console.log('ICBC', value);
-  // \d月\d{1,2}日\d{1,2}:\d{1,2} 时间
-  // 考虑是否抽取
-  // 是match? replace? 是否提前test?
+  
+  const card = getCard(value);
+  const date = getDate(value);
+  const type = getICBCType(value);
+  console.log('result', card, date, type);
+
   const record: BankRecord = {
-    card: '0797',
-    name: '工商银行', // OK 
-    date: '2021-06-09 12:18',
-    type: BusinessType.EXPENDITURE,
+    card,
+    name: '工商银行',
+    date,
+    type,
     purpose: '滴滴出行科技有限公司',
     app: '滴滴',
     amount: 13,
     balance: 1392
   };
+
+  // check
+  console.log(ICBC_ERROR);
   return record;
 };
 
@@ -61,6 +92,38 @@ const cmb = (value: string) => {
   };
   return record;
 };
+
+const getCard = (value: string) => {
+  const regex =  /\d{4}/g;
+  const card = value.match(regex);
+  return card ? card[0] : '';
+};
+
+const getDate = (value: string) => {
+  const regex =  /\d月\d{1,2}日\d{1,2}:\d{1,2}/g;
+  const date =  value.match(regex);
+  return date ? date[0] : '';
+};
+
+const getICBCType = (value: string) => {
+  const key =  '快捷支付';
+  const list = value.split(key);
+  let type = '';
+  if (list.length > 1) {
+    type = checkType(list[1].substring(0, 2));
+  }
+  return type;
+};
+
+const checkType = (type: string) => {
+  const index = (Object.values(BusinessType) as string[]).indexOf(type);
+  return index !== -1 ? type : '';
+};
+
+// const getPurpose = (value: string) => {
+//   const regex =  /\d月\d{1,2}日\d{1,2}:\d{1,2}/g;
+//   return value.match(regex);
+// };
 
 export default {
   parser(value: string): BankRecord | ErrorBase {
