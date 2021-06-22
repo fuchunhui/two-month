@@ -16,6 +16,21 @@ enum Bank {
   CMB = '【招商银行】'
 }
 
+enum Finance {
+  Alipay = '支付宝',
+  TenPay = '财付通'
+}
+
+const FinanceMap = {
+  [Finance.Alipay]: '支付宝',
+  [Finance.TenPay]: '微信'
+};
+
+// const BusinessMap = {
+//   [BusinessType.INCOME]: '退款',
+//   [BusinessType.EXPENDITURE]: '消费'
+// };
+
 interface BankRecordMessage {
   [key: string]: string
 }
@@ -60,18 +75,19 @@ const icbc = (value: string) => {
   const card = getCard(value);
   const date = getDate(value);
   const type = getICBCType(value);
-  const purpose = getPurpose(value);
-  console.log('result', card, date, type, purpose);
+  const {purpose, app} = getAppPurpose(value);
+  const {amount, balance} = getMoney(value);
+  console.log('解析结果：', card, date, type, purpose, app, amount, balance);
 
   const record: BankRecord = {
     card,
     name: '工商银行',
     date,
     type,
-    purpose: '滴滴出行科技有限公司',
-    app: '滴滴',
-    amount: 13,
-    balance: 1392
+    purpose,
+    app,
+    amount,
+    balance
   };
 
   // check
@@ -95,19 +111,19 @@ const cmb = (value: string) => {
 };
 
 const getCard = (value: string) => {
-  const regex =  /\d{4}/g;
+  const regex = /\d{4}/g;
   const card = value.match(regex);
   return card ? card[0] : '';
 };
 
 const getDate = (value: string) => {
-  const regex =  /\d月\d{1,2}日\d{1,2}:\d{1,2}/g;
-  const date =  value.match(regex);
+  const regex = /\d月\d{1,2}日\d{1,2}:\d{1,2}/g;
+  const date = value.match(regex);
   return date ? date[0] : '';
 };
 
 const getICBCType = (value: string) => {
-  const key =  '快捷支付';
+  const key = '快捷支付';
   const list = value.split(key);
   let type = '';
   if (list.length > 1) {
@@ -121,14 +137,61 @@ const checkType = (type: string) => {
   return index !== -1 ? type : '';
 };
 
-const getPurpose = (value: string) => {
-  const regex =  /（[A-Za-z0-9（）_\-\u4e00-\u9fa5）]+）/g;
-  return value.match(regex);
+/**
+ * 获取消费记录的用途，APP端
+ * 工行卡的转正记录分析，需要特殊处理
+ */
+const getAppPurpose = (value: string) => {
+  const regex = /（[A-Za-z0-9（）_\-\u4e00-\u9fa5）]+）/g;
+  let purpose = '';
+  let app = '';
+  const result = value.match(regex);
+  if (result) {
+    const consumption = result[0].slice(1, -1); // 去括号
+    const list = consumption.split('-'); // 特殊情况处理，比如转账，TODO
+    app = getAppDetail(list.shift() as string); // as string??? 需要考虑转账。
+    purpose = list.join('-');
+    // console.log('app, purpose', app, purpose);
+  }
+  return {
+    purpose,
+    app
+  };
+};
+
+const getAppDetail = (appWithPrefix: string) => {
+  let app = '';
+  const appPrefix = '消费'; // or 退款
+  const appNoPrefix = appWithPrefix.slice(appPrefix.length);
+  switch (appNoPrefix) {
+    case Finance.Alipay:
+      app = FinanceMap[Finance.Alipay];
+      break;
+    case Finance.TenPay:
+      app = FinanceMap[Finance.TenPay];
+      break;
+    default:
+      app = '';
+      break;
+  }
+  return app;
+};
+
+const getMoney = (value: string) => {
+  const regex = /[1-9]\d*\.?\d*\u5143|0\.\d*[1-9]\d*\u5143/g; 
+  // [1-9]\d*\.\d*\u5143|0\.\d*[1-9]\d*\u5143|0\.\d*\d*[1-9]\u5143
+  const date = value.match(regex);
+  // return date ? date[0] : '';
+  console.log(date);
+  return {
+    amount: 0,
+    balance: 0
+  };
 };
 
 export default {
   parser(value: string): BankRecord | ErrorBase {
-    value = '您尾号0797卡9月14日13:18快捷支付收入（退款支付宝-支付宝-消费）110.51元，余额204.45元。【工商银行】';
+    value = '您尾号0797卡6月20日13:02快捷支付支出（消费支付宝-北京华柜依磐食品销售店）62.50元，余额406.04元。【工商银行】';
     return parserBank(value);
   },
   parserArr(value: string[]): void {
