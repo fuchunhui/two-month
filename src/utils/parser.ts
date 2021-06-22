@@ -76,7 +76,7 @@ const icbc = (value: string) => {
   const date = getDate(value);
   const type = getICBCType(value);
   const {purpose, app} = getAppPurpose(value);
-  const {amount, balance} = getMoney(value);
+  const {amount, balance} = getSuperMoney(value); // 转账的场景，需要特殊处理
   console.log('解析结果：', card, date, type, purpose, app, amount, balance);
 
   const record: BankRecord = {
@@ -91,7 +91,7 @@ const icbc = (value: string) => {
   };
 
   // check
-  console.log(ICBC_ERROR);
+  console.log(record, ICBC_ERROR); // TODO here!!!
   return record;
 };
 
@@ -178,14 +178,35 @@ const getAppDetail = (appWithPrefix: string) => {
 };
 
 const getMoney = (value: string) => {
-  const regex = /[1-9]\d*\.?\d*\u5143|0\.\d*[1-9]\d*\u5143/g; 
-  // [1-9]\d*\.\d*\u5143|0\.\d*[1-9]\d*\u5143|0\.\d*\d*[1-9]\u5143
-  const date = value.match(regex);
-  // return date ? date[0] : '';
+  const pattern = /[1-9]\d*\.?\d*\u5143|0\.\d*[1-9]\d*\u5143/g; // 1100元, 0.34元, 122.23元, 0.04元
+  return value.match(pattern);
+};
+
+const moneyFixed = (value: string) => {
+  const money = value.slice(0, -1); // 去除元，转数字
+  return Number(money);
+};
+
+const getSuperMoney = (value: string) => {
+  const date = getMoney(value);
   console.log(date);
+  let amount = 0;
+  let balance = 0;
+  if (!date) {
+    return {
+      amount,
+      balance
+    };
+  }
+  if (value.search(`）${date[0]}`) !== -1) {
+    amount = moneyFixed(date[0]);
+  }
+  if (value.search(`余额${date[1]}`) !== -1) {
+    balance = moneyFixed(date[1]);
+  }
   return {
-    amount: 0,
-    balance: 0
+    amount,
+    balance
   };
 };
 
