@@ -57,8 +57,6 @@ export default defineComponent({
   },
 
   setup() {
-    Parser.parser(''); // TODO test parset
-
     const showRecord = ref(true);
     const localSource = ref('');
     const sourceList: SourceListInfo = ref([]);
@@ -93,8 +91,19 @@ export default defineComponent({
       if (!parseEnabled.value) {
         return;
       }
-      Parser.parserArr(sourceList.value);
-      console.log(sourceList.value);
+      errorList.value = [];
+      const data = Parser.parserArr(sourceList.value);
+      data.forEach((item, index) => {
+        if (item.message) {
+          errorList.value.push(index);
+        }
+      });
+
+      if (!errorList.value.length) {
+        tableList.value = data as BankRecord[];
+      }
+
+      // console.log(sourceList.value);
       const list: BankRecord[] = [];
       sourceList.value.forEach(() => {
         list.push({
@@ -110,7 +119,7 @@ export default defineComponent({
       });
       // if 解析正确，赋值list
       // else 解析失败，错误提示对应的内容，提示移除
-      tableList.value = list;
+      // tableList.value = list;
     };
     const store = () => {
       if (!storeEnabled.value) {
@@ -129,6 +138,9 @@ export default defineComponent({
       sourceList.value.splice(index, 1);
       if (noError.value) {
         tableList.value.splice(index, 1);
+      } else {
+        const errIndex = errorList.value.findIndex(item => item === index);
+        errorList.value.splice(errIndex, 1); // TODO 这里有bug，以index为key的话，当源记录被删除后，index发生变化，但是errorList的内容是索引值，它是固定不变的，这样就导致，原本没错误的记录，被标记为错误。所以，考虑增加唯一标识，id值来存储？
       }
     };
 
@@ -188,7 +200,7 @@ export default defineComponent({
   }
   &-left,
   &-right {
-    width: 100%;
+    width: 50%;
     height: 100%;
   }
   &-btn {

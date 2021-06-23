@@ -116,6 +116,9 @@ export default defineComponent({
   &-content {
     flex: 1;
     padding-left: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     .month-input {
       text-indent: 0;
     }

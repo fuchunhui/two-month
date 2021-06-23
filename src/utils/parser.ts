@@ -90,8 +90,20 @@ const icbc = (value: string) => {
     balance
   };
 
-  // check
-  console.log(record, ICBC_ERROR); // TODO here!!!
+  const errorList: string[] = [];
+  Object.keys(record).forEach((item: string) => {
+    if (record[item] === '') {
+      errorList.push(ICBC_ERROR[item]);
+    }
+  });
+  if (errorList.length) {
+    console.log(`出现错误: \n${errorList.join('\n')}`);
+    const error: ErrorBase = {
+      message: errorList.join('，')
+    };
+    return error;
+  }
+
   return record;
 };
 
@@ -183,7 +195,7 @@ const getMoney = (value: string) => {
 };
 
 const moneyFixed = (value: string) => {
-  const money = value.slice(0, -1); // 去除元，转数字
+  const money = value.slice(0, -1); // value: 1134元，去除元，转数字
   return Number(money);
 };
 
@@ -212,13 +224,9 @@ const getSuperMoney = (value: string) => {
 
 export default {
   parser(value: string): BankRecord | ErrorBase {
-    value = '您尾号0797卡6月20日13:02快捷支付支出（消费支付宝-北京华柜依磐食品销售店）62.50元，余额406.04元。【工商银行】';
     return parserBank(value);
   },
-  parserArr(value: string[]): void {
-    value.forEach(item => {
-      console.log(item);
-    });
-    console.log('hello parser...', value.length);
+  parserArr(value: string[]): (BankRecord | ErrorBase)[] {
+    return value.map(item => this.parser(item));
   }
 };

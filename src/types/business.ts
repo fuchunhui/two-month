@@ -17,6 +17,7 @@ export interface BankRecord {
   app: string; // 支付宝，京东，滴滴等
   amount: number; // 本次变更金额
   balance: number; // 余额
+  [key: string]: string | number;
 }
 
 export interface BankCard extends BankRecord {
