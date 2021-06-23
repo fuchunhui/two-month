@@ -1,6 +1,5 @@
 import {BankError} from './log';
-import {BankRecord, BusinessType} from 'types/business';
-import uuid from './uuid';
+import {BankRecord, BusinessType, SourceInfo} from 'types/business';
 
 const PARSER_ERROR = '未找到对应银行或者数据录入错误，请核对。';
 const ID_ERROR = '条目的ID不存在';
@@ -49,10 +48,8 @@ const ICBC_ERROR: BankRecordMessage = {
   balance: BALANCE_ERROR
 };
 
-const PREFIX = 'month_';
-
-const parserBank = (value: string) => {
-  const id = uuid(PREFIX);
+const parserBank = (source: SourceInfo) => {
+  const {value, id} = source;
   if (value.includes(Bank.ICBC)) {
     return icbc(value, id);
   } else if (value.includes(Bank.CMB)) {
@@ -70,7 +67,7 @@ const parserBank = (value: string) => {
 
 const icbc = (value: string, id: string) => {
   console.log('ICBC', value);
-  
+
   const card = getCard(value);
   const date = getDate(value);
   const type = getICBCType(value);
@@ -97,7 +94,7 @@ const icbc = (value: string, id: string) => {
     }
   });
   if (errorList.length) {
-    console.log(`出现错误: \n${errorList.join('\n')}`);
+    console.log(`出现错误: ${errorList.join('------>')}`);
     const error: BankError = {
       id,
       message: errorList.join('，')
@@ -203,7 +200,7 @@ const moneyFixed = (value: string) => {
 
 const getSuperMoney = (value: string) => {
   const date = getMoney(value);
-  console.log(date);
+  // console.log(date);
   let amount = 0;
   let balance = 0;
   if (!date) {
@@ -225,10 +222,10 @@ const getSuperMoney = (value: string) => {
 };
 
 export default {
-  parser(value: string): BankRecord | BankError {
-    return parserBank(value);
+  parser(source: SourceInfo): BankRecord | BankError {
+    return parserBank(source);
   },
-  parserArr(value: string[]): (BankRecord | BankError)[] {
+  parserArr(value: SourceInfo[]): (BankRecord | BankError)[] {
     return value.map(item => this.parser(item));
   }
 };

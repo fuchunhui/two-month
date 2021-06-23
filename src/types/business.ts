@@ -1,3 +1,8 @@
+export interface SourceInfo {
+  id: string;
+  value: string;
+}
+
 export interface SourceItemInfo {
   value: string;
   order: number;

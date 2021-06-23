@@ -33,11 +33,12 @@
 import {defineComponent, ref, computed} from 'vue';
 import {MonthButton} from 'components/month';
 import {SourceList, TableList} from 'components/business';
-import {SourceItemInfo, BankRecord, BusinessType} from 'types/business';
+import {SourceItemInfo, BankRecord, SourceInfo} from 'types/business';
 import Parser from 'utils/parser';
+import UUID from 'utils/uuid';
 
-interface SourceListInfo {
-  value: string[]
+interface SourceInfoList {
+  value: SourceInfo[]
 }
 
 interface TableListInfo {
@@ -59,7 +60,7 @@ export default defineComponent({
   setup() {
     const showRecord = ref(true);
     const localSource = ref('');
-    const sourceList: SourceListInfo = ref([]);
+    const sourceList: SourceInfoList = ref([]);
     const tableList: TableListInfo = ref([]);
     const errorList: ErrorList = ref([]);
 
@@ -82,8 +83,13 @@ export default defineComponent({
           return;
         }
         const list = localSource.value.trim().split('\n').filter(item => item !== '');
-        // const listMap = list.map
-        sourceList.value = sourceList.value.concat(list);
+        const idList: SourceInfo[] = list.map(item => {
+          return {
+            id: UUID('month-'),
+            value: item
+          };
+        });
+        sourceList.value = sourceList.value.concat(idList);
         localSource.value = '';
       }
       showRecord.value = !showRecord.value;
@@ -103,24 +109,6 @@ export default defineComponent({
       if (!errorList.value.length) {
         tableList.value = data as BankRecord[];
       }
-
-      const list: BankRecord[] = [];
-      sourceList.value.forEach(() => {
-        list.push({
-          id: '',
-          card: '0797',
-          name: '工商银行',
-          date: '2021-06-09 12:18',
-          type: BusinessType.EXPENDITURE,
-          purpose: '滴滴出行科技有限公司',
-          app: '滴滴',
-          amount: 13,
-          balance: 1392
-        });
-      });
-      // if 解析正确，赋值list
-      // else 解析失败，错误提示对应的内容，提示移除
-      // tableList.value = list;
     };
     const store = () => {
       if (!storeEnabled.value) {
@@ -136,18 +124,17 @@ export default defineComponent({
       errorList.value = [];
     };
     const deleteItem = (index: number) => {
-      sourceList.value.splice(index, 1);
+      const delList = sourceList.value.splice(index, 1);
       if (noError.value) {
         tableList.value.splice(index, 1);
-      } else {
-        const errIndex = errorList.value.findIndex(item => item === index);
-        errorList.value.splice(errIndex, 1); // TODO 这里有bug，以index为key的话，当源记录被删除后，index发生变化，但是errorList的内容是索引值，它是固定不变的，这样就导致，原本没错误的记录，被标记为错误。所以，考虑增加唯一标识，id值来存储？
-        // parser 增加uid, 解析正确就可以生成，当已经存在就更新解析内容，不替换uid，当不存在，再赋值。
+      } else if (errorList.value.includes(delList[0].id)) {
+        const errIndex = errorList.value.findIndex(item => item === delList[0].id);
+        errorList.value.splice(errIndex, 1);
       }
     };
 
     const updateItem = ({value, order}: SourceItemInfo) => {
-      sourceList.value[order] = value;
+      sourceList.value[order].value = value;
     };
 
     return {

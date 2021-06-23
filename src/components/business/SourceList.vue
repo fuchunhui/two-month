@@ -3,7 +3,7 @@
     <source-item
       v-for="(item, index) in sourceList"
       :key="index"
-      :source="item"
+      :source="item.value"
       :order="index"
       :error="errorList.includes(item.id)"
       @del="deleteItem"
