@@ -1,7 +1,9 @@
-import {ErrorBase} from './log';
+import {BankError} from './log';
 import {BankRecord, BusinessType} from 'types/business';
+import uuid from './uuid';
 
 const PARSER_ERROR = '未找到对应银行或者数据录入错误，请核对。';
+const ID_ERROR = '条目的ID不存在';
 const CARD_ERROR = '卡号不存在';
 const NAME_ERROR = '未获取银行信息';
 const DATE_ERROR = '日期解析错误';
@@ -36,6 +38,7 @@ interface BankRecordMessage {
 }
 
 const ICBC_ERROR: BankRecordMessage = {
+  id: ID_ERROR,
   card: CARD_ERROR,
   name: NAME_ERROR,
   date: DATE_ERROR,
@@ -46,30 +49,26 @@ const ICBC_ERROR: BankRecordMessage = {
   balance: BALANCE_ERROR
 };
 
-// 银行 name
-// 卡号 card
-// 日期，当年和跨年 data 2021-06-21 11:18
-// 交易类型 type 收入和支出
-// 用途 purpose 
-// APP app 具体的消费途径
-// 金额 amount 消费或者收入金额
-// 余额 balance
+const PREFIX = 'month_';
+
 const parserBank = (value: string) => {
+  const id = uuid(PREFIX);
   if (value.includes(Bank.ICBC)) {
-    return icbc(value);
+    return icbc(value, id);
   } else if (value.includes(Bank.CMB)) {
-    return cmb(value);
+    return cmb(value, id);
   } else {
     // 异常处理
     // 数据本身错误 or 解析异常
-    const error: ErrorBase = {
+    const error: BankError = {
+      id,
       message: PARSER_ERROR
     };
     return error;
   }
 };
 
-const icbc = (value: string) => {
+const icbc = (value: string, id: string) => {
   console.log('ICBC', value);
   
   const card = getCard(value);
@@ -80,6 +79,7 @@ const icbc = (value: string) => {
   console.log('解析结果：', card, date, type, purpose, app, amount, balance);
 
   const record: BankRecord = {
+    id,
     card,
     name: '工商银行',
     date,
@@ -98,7 +98,8 @@ const icbc = (value: string) => {
   });
   if (errorList.length) {
     console.log(`出现错误: \n${errorList.join('\n')}`);
-    const error: ErrorBase = {
+    const error: BankError = {
+      id,
       message: errorList.join('，')
     };
     return error;
@@ -107,9 +108,10 @@ const icbc = (value: string) => {
   return record;
 };
 
-const cmb = (value: string) => {
+const cmb = (value: string, id: string) => {
   console.log('CMB', value);
   const record: BankRecord = {
+    id,
     card: '0797',
     name: '招商银行',
     date: '2021-06-09 12:18',
@@ -223,10 +225,10 @@ const getSuperMoney = (value: string) => {
 };
 
 export default {
-  parser(value: string): BankRecord | ErrorBase {
+  parser(value: string): BankRecord | BankError {
     return parserBank(value);
   },
-  parserArr(value: string[]): (BankRecord | ErrorBase)[] {
+  parserArr(value: string[]): (BankRecord | BankError)[] {
     return value.map(item => this.parser(item));
   }
 };

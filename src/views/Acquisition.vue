@@ -44,7 +44,7 @@ interface TableListInfo {
   value: BankRecord[]
 }
 interface ErrorList {
-  value: number[]
+  value: string[]
 }
 
 export default defineComponent({
@@ -82,6 +82,7 @@ export default defineComponent({
           return;
         }
         const list = localSource.value.trim().split('\n').filter(item => item !== '');
+        // const listMap = list.map
         sourceList.value = sourceList.value.concat(list);
         localSource.value = '';
       }
@@ -93,9 +94,9 @@ export default defineComponent({
       }
       errorList.value = [];
       const data = Parser.parserArr(sourceList.value);
-      data.forEach((item, index) => {
-        if (item.message) {
-          errorList.value.push(index);
+      data.forEach(({id, message}) => {
+        if (message) {
+          errorList.value.push(id);
         }
       });
 
@@ -103,10 +104,10 @@ export default defineComponent({
         tableList.value = data as BankRecord[];
       }
 
-      // console.log(sourceList.value);
       const list: BankRecord[] = [];
       sourceList.value.forEach(() => {
         list.push({
+          id: '',
           card: '0797',
           name: '工商银行',
           date: '2021-06-09 12:18',
@@ -141,6 +142,7 @@ export default defineComponent({
       } else {
         const errIndex = errorList.value.findIndex(item => item === index);
         errorList.value.splice(errIndex, 1); // TODO 这里有bug，以index为key的话，当源记录被删除后，index发生变化，但是errorList的内容是索引值，它是固定不变的，这样就导致，原本没错误的记录，被标记为错误。所以，考虑增加唯一标识，id值来存储？
+        // parser 增加uid, 解析正确就可以生成，当已经存在就更新解析内容，不替换uid，当不存在，再赋值。
       }
     };
 

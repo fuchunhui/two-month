@@ -5,7 +5,7 @@
       :key="index"
       :source="item"
       :order="index"
-      :error="errorList.includes(index)"
+      :error="errorList.includes(item.id)"
       @del="deleteItem"
       @update="updateItem"
     />

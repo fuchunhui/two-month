@@ -9,13 +9,14 @@ export enum BusinessType {
 }
 
 export interface BankRecord {
+  id: string; // 唯一id，month_xxxx
   card: string; // 卡号
   name: string; // 工商银行，招商等
-  date: string; // Date，不带秒
-  type: string; // 交易类型
-  purpose: string; // 用途记录，需要特别细化。需重点考虑设计
+  date: string; // 日期，当年和跨年 2021-06-21 11:18
+  type: string; // 交易类型 收入和支出
+  purpose: string; // 用途
   app: string; // 支付宝，京东，滴滴等
-  amount: number; // 本次变更金额
+  amount: number; // 消费或者收入金额
   balance: number; // 余额
   [key: string]: string | number;
 }
