@@ -115,6 +115,9 @@ export default defineComponent({
         return;
       }
       console.log('store to database.');
+      // 数据库存储操作
+      // 去重校验，check内容，返回检查结果，如果有给出id内容，添加到errorList
+      // 左侧内容，自动标识出，在清空之前，不允许入库。
     };
     const reset = () => {
       localSource.value = '';
