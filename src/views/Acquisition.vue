@@ -26,12 +26,13 @@
       <month-button label="入库" u="primary" :disabled="!storeEnabled" @click="store"/>
       <month-button label="清空" u="grey" @click="reset"/>
     </div>
+    <month-loading :show="loading"/>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent, ref, computed} from 'vue';
-import {MonthButton} from 'components/month';
+import {MonthButton, MonthLoading} from 'components/month';
 import {SourceList, TableList} from 'components/business';
 import {SourceItemInfo, BankRecord, SourceInfo} from 'types/business';
 import Parser from 'utils/parser';
@@ -53,6 +54,7 @@ export default defineComponent({
 
   components: {
     MonthButton,
+    MonthLoading,
     SourceList,
     TableList
   },
@@ -76,6 +78,7 @@ export default defineComponent({
     const storeEnabled = computed(() => {
       return parseEnabled.value && noError.value;
     });
+    const loading = ref(false);
 
     const record = () => {
       if (showRecord.value) {
@@ -111,10 +114,17 @@ export default defineComponent({
       }
     };
     const store = () => {
+      loading.value = true;
+      setTimeout(() => {
+        loading.value = false;
+      }, 1000);
       if (!storeEnabled.value) {
         return;
       }
       console.log('store to database.');
+      // 初始化数据库
+      // 后续再次点击，需要判断，是否已经初始化数据库。
+      // 默认连接本地数据库，github忽略掉真正使用的数据库。
       // 数据库存储操作
       // 去重校验，check内容，返回检查结果，如果有给出id内容，添加到errorList
       // 左侧内容，自动标识出，在清空之前，不允许入库。
@@ -149,6 +159,7 @@ export default defineComponent({
       sourceList,
       errorList,
       tableList,
+      loading,
       record,
       store,
       parse,
