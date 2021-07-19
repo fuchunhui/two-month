@@ -12,10 +12,16 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new CopyWebpackPlugin({
-        patterns: [{
-          from: 'node_modules/sql.js/dist/sql-wasm.wasm',
-          to: 'wasm'
-        }]
+        patterns: [
+          {
+            from: 'node_modules/sql.js/dist/sql-wasm.wasm',
+            to: 'wasm'
+          },
+          {
+            from: 'src/lib/sql.db',
+            to: 'db'
+          }
+        ]
       })
     ],
     externals: {
@@ -33,7 +39,6 @@ module.exports = {
         'assets': resolve('src/assets'),
         'css': resolve('src/assets/css'),
         'components': resolve('src/components'),
-        'db': resolve('src/components/db'),
         'directive': resolve('src/directive')
       },
       fallback: {

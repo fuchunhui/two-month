@@ -1,6 +1,6 @@
 {
   "name": "two-month",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "last month and this month",
   "main": "main.ts",
   "scripts": {

@@ -36,6 +36,7 @@ import {MonthButton, MonthLoading} from 'components/month';
 import {SourceList, TableList} from 'components/business';
 import {SourceItemInfo, BankRecord, SourceInfo} from 'types/business';
 import Parser from 'utils/parser';
+import Database from 'db/index';
 import UUID from 'utils/uuid';
 
 interface SourceInfoList {
@@ -114,21 +115,24 @@ export default defineComponent({
       }
     };
     const store = () => {
-      loading.value = true;
-      setTimeout(() => {
-        loading.value = false;
-      }, 1000);
       if (!storeEnabled.value) {
         return;
       }
-      console.log('store to database.');
+      // loading.value = true;
+      // setTimeout(() => {
+      //   loading.value = false;
+      // }, 1000);
+      console.log('store to data1base.');
+
+      // Database.initial();
+      console.log(Database.ready());
+
       // 初始化数据库
       // 后续再次点击，需要判断，是否已经初始化数据库。
       // 默认连接本地数据库，github忽略掉真正使用的数据库。
       // 数据库存储操作
       // 去重校验，check内容，返回检查结果，如果有给出id内容，添加到errorList
       // 左侧内容，自动标识出，在清空之前，不允许入库。
-      // 1
     };
     const reset = () => {
       localSource.value = '';
@@ -136,6 +140,7 @@ export default defineComponent({
       sourceList.value = [];
       tableList.value = [];
       errorList.value = [];
+      loading.value = false;
     };
     const deleteItem = (index: number) => {
       const delList = sourceList.value.splice(index, 1);

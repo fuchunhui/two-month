@@ -1,6 +1,8 @@
 import {Database, SqlJsStatic} from 'sql.js';
 const initSqlJs = require('sql.js'); // eslint-disable-line
 
+import axios from 'axios'; // TODO 临时引用，需要整理，统一
+
 class Singleton {
   private static instance: Singleton;
   public db: Database | undefined;
@@ -22,24 +24,38 @@ class Singleton {
   }
 }
 
+const DEFAULT_PATH = './db';
+
 export default {
-  // connect(url: string) {
-  //   console.log('connect: ', url);
-  // },
-  // options(options: object) {
-  //   console.log('set config');
-  // },
-  initDB(): Promise<void> {
-    return initSqlJs({
+  getPath(path = DEFAULT_PATH): string {
+    // TODO 需要解决 个人使用数据库，与网络使用数据库的问题，同时，是否有必要拆分出两个?
+    // 或者 考虑做一个数据的管理页面，基础的配置，使用。
+    return `${path}/sql.db`; 
+  },
+  async initDB(): Promise<void> {
+    const sqlPromise = initSqlJs({
       locateFile: (file: string) => `/wasm/${file}`
     }).then((SqlJs: SqlJsStatic) => {
-      const db = new SqlJs.Database();
-      Singleton.getInstance().db = db;
-    }).catch((err: any) => {
+      return Promise.resolve(SqlJs);
+    }).catch((err: Error) => {
       console.error(err);
     });
+
+    const dbPromise = axios({
+      url: this.getPath(),
+      method: 'get',
+      responseType: 'arraybuffer'
+    }).then(res => Promise.resolve(res.data));
+
+    const [SqlJs, buffer] = await Promise.all([sqlPromise, dbPromise]);
+    const db = new SqlJs.Database(buffer);
+    Singleton.getInstance().db = db;
+    return Promise.resolve(db);
   },
-  test(): void {
+  getDB(): Database {
+    return Singleton.getInstance().db as Database;
+  },
+  testDB(): void {
     const s1 = Singleton.getInstance();
     console.log('test', s1.db);
   },
@@ -110,6 +126,9 @@ export default {
       const row = stmt1.getAsObject();
       console.log('Here is a row: ' + JSON.stringify(row));
     }
+  },
+  ready(): boolean {
+    return Boolean(Singleton.getInstance().db);
   },
   createTable(): void {
     // 建表
