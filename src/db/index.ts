@@ -48,8 +48,16 @@ export default {
     }).then(res => Promise.resolve(res.data));
 
     const [SqlJs, buffer] = await Promise.all([sqlPromise, dbPromise]);
-    const db = new SqlJs.Database(buffer);
+    const db = new SqlJs.Database(new Uint8Array(buffer));
     Singleton.getInstance().db = db;
+
+    setTimeout(() => {
+      // const contents = db.exec("SELECT `name`, `sql` FROM `sqlite_master`");
+      const contents = db.exec("SELECT * FROM employees");
+      console.log({...contents});
+      // this.initial();
+    }, 2000);
+  
     return Promise.resolve(db);
   },
   getDB(): Database {
