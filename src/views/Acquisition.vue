@@ -150,6 +150,9 @@ export default defineComponent({
         const errIndex = errorList.value.findIndex(item => item === delList[0].id);
         errorList.value.splice(errIndex, 1);
       }
+      if (sourceList.value.length === 0) {
+        showRecord.value = true;
+      }
     };
 
     const updateItem = ({value, order}: SourceItemInfo) => {
