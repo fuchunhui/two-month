@@ -25,12 +25,8 @@ import Database from './db/index';
 
 export default defineComponent({
   created() {
-    // Database.initDB().then(() => {
-    //   this.ready = true;
-    // });
-    Database.initDB().then(res => {
+    Database.initDB().then(() => {
       this.ready = true;
-      console.log('APP: ', res);
     });
   },
   setup() {

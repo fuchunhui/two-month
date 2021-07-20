@@ -1,4 +1,4 @@
-import {Database, SqlJsStatic} from 'sql.js';
+import {Database, SqlJsStatic, QueryExecResult} from 'sql.js';
 const initSqlJs = require('sql.js'); // eslint-disable-line
 
 import axios from 'axios'; // TODO 临时引用，需要整理，统一
@@ -32,7 +32,7 @@ export default {
     // 或者 考虑做一个数据的管理页面，基础的配置，使用。
     return `${path}/sql.db`; 
   },
-  async initDB(): Promise<void> {
+  async initDB(): Promise<Database> {
     const sqlPromise = initSqlJs({
       locateFile: (file: string) => `/wasm/${file}`
     }).then((SqlJs: SqlJsStatic) => {
@@ -50,13 +50,7 @@ export default {
     const [SqlJs, buffer] = await Promise.all([sqlPromise, dbPromise]);
     const db = new SqlJs.Database(new Uint8Array(buffer));
     Singleton.getInstance().db = db;
-
-    setTimeout(() => {
-      // const contents = db.exec("SELECT `name`, `sql` FROM `sqlite_master`");
-      const contents = db.exec("SELECT * FROM employees");
-      console.log({...contents});
-      // this.initial();
-    }, 2000);
+    console.log('new db: ', db.db); // TODO test数据
   
     return Promise.resolve(db);
   },
@@ -68,9 +62,17 @@ export default {
     console.log('test', s1.db);
   },
   initial(): void {
-    const db = Singleton.getInstance().db as Database;
-    // NOTE: You can also use new SQL.Database(data) where
-    // data is an Uint8Array representing an SQLite database file
+    const db = this.getDB();
+
+    // TODO 数据库设计
+    // 定义必备的基础建表语句结构
+    // 如 表不存在时候，则创建
+    // CREATE TABLE IF NOT EXISTS employees(uid integer primary key,uname varchar(20),mobile varchar(20))
+
+    // const sqlstr1 = 'CREATE TABLE employees (a int, b char);';
+    // db.run(sqlstr1);
+    const contents = db.exec("SELECT * FROM employees");
+    console.log('employees: ------->', {...contents});
 
     // Execute some sql
     let sqlstr = 'CREATE TABLE hello (a int, b char);';
@@ -80,6 +82,8 @@ export default {
 
     const res = db.exec('SELECT * FROM hello');
     console.log('hello table: ', res);
+
+    return;
     /*
       [
         {columns:['a','b'], values:[[0,'hello'],[1,'world']]}
@@ -138,10 +142,25 @@ export default {
   ready(): boolean {
     return Boolean(Singleton.getInstance().db);
   },
+  queryAllTables(): QueryExecResult[] {
+    const content: QueryExecResult[] = this.getDB().exec('SELECT name, sql FROM sqlite_master');
+    return content;
+  },
   createTable(): void {
     // 建表
     // 点击按钮后，再首次执行建表操作
     // 查询取值
     // 插入数据
+    const contents = this.getDB().exec("SELECT * FROM employees");
+    console.log({...contents});
+  },
+  hasTable(name: string): boolean {
+    const sql = `SELECT count(*) FROM sqlite_master WHERE type='table' AND name='${name}'`;
+    const {values}: QueryExecResult  = this.getDB().exec(sql)[0];
+    return values[0][0] === 1;
+  },
+  queryTable(name: string): QueryExecResult[] { // TODO 暂时定义返回QueryExecResult，实际上需要解析出结果
+    console.log('query table name: ', name);
+    return [];
   }
 };

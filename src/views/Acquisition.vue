@@ -126,6 +126,9 @@ export default defineComponent({
 
       // Database.initial();
       console.log(Database.ready());
+      // console.log(Database.initial());
+      console.log('queryAllTables： ', Database.queryAllTables());
+      console.log('has: ', Database.hasTable('employees'));
 
       // 初始化数据库
       // 后续再次点击，需要判断，是否已经初始化数据库。
