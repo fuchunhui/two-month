@@ -5,15 +5,6 @@
     </router-link> |
     <router-link to="analysis">
       analysis
-    </router-link> |
-    <router-link to="travel">
-      travel
-    </router-link> |
-    <router-link to="/">
-      Super Demo
-    </router-link> |
-    <router-link to="magic">
-      Magic CSS
     </router-link>
   </div>
   <router-view class="month-content"/>
